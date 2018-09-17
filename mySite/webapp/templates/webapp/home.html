@@ -1,0 +1,64 @@
+{% extends "webapp/header.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+
+    <!-- Image Slider -->
+      <div class="c-wrapper">
+        <div id="slides" class="carousel slide" data-ride="carousel">
+          <ul class="carousel-indicators">
+            <li data-target="#slides" data-slide-to="0" class="active"></li>
+            <li data-target="#slides" data-slide-to="1"></li>
+            <li data-target="#slides" data-slide-to="2"></li>
+            <li data-target="#slides" data-slide-to="3"></li>
+          </ul>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{% static 'img/johnPrine.png' %}" class="img-responsive" alt="John Prine">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/loverboy.png' %}" class="img-responsive" alt="Loverboy">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/menopause.png' %}" class="img-responsive" alt="Menopause">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/scottyMcCreedy.png' %}" class="img-responsive" alt="Scotty McCreedy">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- About Us Section -->
+    <div class="container-fluid padding">
+      <div class="row about text-center">
+        <div class="col-12">
+          <h1 class="display-4">About Us</h1>
+        </div>
+        <hr>
+        <div class="col-12">
+          <p class="lead">Mission Statement</p>
+            <p>The Von Braun Center is a multipurpose facility with the primary objective
+                of facilitating and promoting events and activities in addition to generating
+                economic benefit and improving the quality of life for the Huntsville community
+                and surrounding areas.</p>
+          <p class="lead">Organization</p>
+            <p>The Von Braun Center is governed by a seven-member Board of control appointed by
+              the Mayor of Huntsville and the City Council.  The Von Braun Center is an anchor
+              within its community.  Located in downtown Huntsville, the VBC offers a beautiful
+              facility for local, regional, and national events.  The VBC provides multiple venues
+              for the presentation of cultural, educational, entertainment, sporting and social events.
+              The VBC has a staff of proven professionals ready to contribute to the success of your event.</p>
+          <p class="lead">History</p>
+            <p>The VBC was built thanks to the foresight of local leaders and a very real civic demand.
+              The facility built in 1975 was welcomed by the community and the demand for use continued,
+              leading to three additions within a ten year period driven largely by local and civic demand.
+              <a class="web-link" href="https://www.vonbrauncenter.com/vbc-history/">Read more about the History of
+                the Von Braun Center.</a></p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+{% endblock %}
