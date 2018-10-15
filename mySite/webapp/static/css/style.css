@@ -11,18 +11,17 @@ body{
 main{
     flex: 1;
 }
-
 .carousel-inner > .carousel-item > img,
 .carousel-inner > .carousel-item > a > img {
     width:640px;
     height:360px;
     margin:auto;
 }
-
 .padding-head {
   padding-top: 2rem;
   padding-bottom: 6rem;
 }
+
 #playhouse{
     height: 150px;
     margin: 0 auto;
