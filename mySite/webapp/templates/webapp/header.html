@@ -31,10 +31,10 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive1">
                 <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active"><a class="nav-link" href='/'>Home</a></li>
-                  <li class="nav-item"><a class="nav-link" href='/performance/'>Performance</a></li>
-                    <li class="nav-item"><a class="nav-link" href='/contact/'>Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href='/buySeasonTicket/'>Buy Season Tickets</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'performance' %}">Performance</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'buySeasonTickets' %}">Buy Season Tickets</a></li>
                 </ul>
               </div>
             </div>

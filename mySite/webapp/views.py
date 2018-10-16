@@ -12,3 +12,6 @@ def contact(request) :
 
 def buySeasonTicket(request) :
     return render(request, 'webapp/buySeasonTicket.html')
+
+def payment(request) :
+    return render(request, 'webapp/payment.html')

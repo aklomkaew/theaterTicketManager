@@ -38,18 +38,19 @@
 
     <!-- Filter Group -->
     <br>
-    <div class="btn-group" role="group">
-        <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+    <div class="btn-group" style="left: 25%">
+        <div class="btn-group">
+            <button id="btnGroupDrop1" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
               Theater
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <a class="dropdown-item" href="#">Von Braun</a>
-              <a class="dropdown-item" href="#">Another VB</a>
+              <a class="dropdown-item" href="#">Playhouse</a>
+              <a class="dropdown-item" href="#">Concert Hall</a>
             </div>
         </div>
 
-        <div class="container" role="group">
+        <div class="container">
               <div class="row">
                 <div class='col-sm-6'>
                   <div class="form-group">
@@ -64,6 +65,15 @@
               </div>
         </div>
     </div>
+
+    <div class="text-center">
+        <a class="btn btn-secondary btn-sm" href = "{% url 'payment' %}">Payment</a>
+    </div>
+
+        <a class="btn btn-secondary btn-sm" href = "{% url 'payment' %}">Payment</a>
+
+    <br>
+    <br>
 
     <script>
         $(function(){
