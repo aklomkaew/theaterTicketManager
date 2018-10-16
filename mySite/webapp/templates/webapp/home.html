@@ -4,61 +4,333 @@
     {% load staticfiles %}
 
     <!-- Image Slider -->
-      <div class="c-wrapper">
-        <div id="slides" class="carousel slide" data-ride="carousel">
-          <ul class="carousel-indicators">
-            <li data-target="#slides" data-slide-to="0" class="active"></li>
-            <li data-target="#slides" data-slide-to="1"></li>
-            <li data-target="#slides" data-slide-to="2"></li>
-            <li data-target="#slides" data-slide-to="3"></li>
-          </ul>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="{% static 'img/johnPrine.png' %}" class="img-responsive" alt="John Prine">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'img/loverboy.png' %}" class="img-responsive" alt="Loverboy">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'img/menopause.png' %}" class="img-responsive" alt="Menopause">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'img/scottyMcCreedy.png' %}" class="img-responsive" alt="Scotty McCreedy">
-            </div>
-          </div>
+    <div class="c-wrapper">
+      <div id="slides" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+          <li data-target="#slides" data-slide-to="0" class="active"></li>
+          <li data-target="#slides" data-slide-to="1"></li>
+          <li data-target="#slides" data-slide-to="2"></li>
+          <li data-target="#slides" data-slide-to="3"></li>
+          <li data-target="#slides" data-slide-to="4"></li>
+          <li data-target="#slides" data-slide-to="5"></li>
+          <li data-target="#slides" data-slide-to="6"></li>
+          <li data-target="#slides" data-slide-to="7"></li>
+        </ul>
+        <div class="carousel-item active">
+            <img src="{% static 'img/features/feature1.jpg' %}" class="img-responsive" alt="Feature1">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/features/feature2.png' %}" class="img-responsive" alt="Feature2">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/features/feature3.jpg' %}" class="img-responsive" alt="Feature3">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/features/feature4.jpg' %}" class="img-responsive" alt="Feature4">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/features/feature5.jpg' %}" class="img-responsive" alt="Feature5">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/features/feature6.jpg' %}" class="img-responsive" alt="Feature6">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/features/feature7.jpg' %}" class="img-responsive" alt="Feature7">
         </div>
       </div>
+    </div>
 
-    <!-- About Us Section -->
-    <div class="container-fluid padding">
-      <div class="row about text-center">
-        <div class="col-12">
-          <h1 class="display-4">About Us</h1>
-        </div>
-        <hr>
-        <div class="col-12">
-          <p class="lead">Mission Statement</p>
-            <p>The Von Braun Center is a multipurpose facility with the primary objective
+    <!-- Main Layout -->
+    <main class="mt-5">
+      <div class="container">
+        <!-- Section: About Us -->
+        <section id="about-us" class="text-center">
+
+          <!-- Heading -->
+          <h2 class="mb-4 display-4">Von Braun Center</h2>
+
+          <!-- Grid row -->
+          <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-4 mb-4">
+              <i class="fa fa-eye fa-4x"></i>
+              <h4 class="my-4">Mission Statements</h4>
+              <p>The Von Braun Center is a multipurpose facility with the primary objective
                 of facilitating and promoting events and activities in addition to generating
                 economic benefit and improving the quality of life for the Huntsville community
                 and surrounding areas.</p>
-          <p class="lead">Organization</p>
-            <p>The Von Braun Center is governed by a seven-member Board of control appointed by
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 mb-4">
+              <i class="fa fa-handshake fa-4x"></i>
+              <h4 class="my-4">Organization</h4>
+              <p>The Von Braun Center is governed by a seven-member Board of control appointed by
               the Mayor of Huntsville and the City Council.  The Von Braun Center is an anchor
               within its community.  Located in downtown Huntsville, the VBC offers a beautiful
               facility for local, regional, and national events.  The VBC provides multiple venues
               for the presentation of cultural, educational, entertainment, sporting and social events.
               The VBC has a staff of proven professionals ready to contribute to the success of your event.</p>
-          <p class="lead">History</p>
-            <p>The VBC was built thanks to the foresight of local leaders and a very real civic demand.
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 mb-4">
+              <i class="fa fa-university fa-4x"></i>
+              <h4 class="my-4">History</h4>
+              <p>The VBC was built thanks to the foresight of local leaders and a very real civic demand.
               The facility built in 1975 was welcomed by the community and the demand for use continued,
               leading to three additions within a ten year period driven largely by local and civic demand.
               <a class="web-link" href="https://www.vonbrauncenter.com/vbc-history/">Read more about the History of
                 the Von Braun Center.</a></p>
-        </div>
-      </div>
-    </div>
+            </div>
+            <!-- Grid column -->
 
+          </div>
+          <!-- Grid row -->
+
+        </section>
+        <!-- Section: About Us -->
+
+        <hr class="my-2">
+
+        <!-- Section: Playhouse Theater -->
+        <section id="playhouse-theater" class="text-center">
+          <div class="col-12">
+            <h1 class="display-4">Playhouse Theater</h1>
+          </div>
+
+          <div id="slides2" class="carousel slide center" data-ride="carousel" style="width:500px margin: 0 auto">
+            <ul class="carousel-indicators">
+              <li data-target="#slides2" data-slide-to="0" class="active"></li>
+              <li data-target="#slides2" data-slide-to="1"></li>
+              <li data-target="#slides2" data-slide-to="2"></li>
+              <li data-target="#slides2" data-slide-to="3"></li>
+              <li data-target="#slides2" data-slide-to="4"></li>
+              <li data-target="#slides2" data-slide-to="5"></li>
+              <li data-target="#slides2" data-slide-to="6"></li>
+            </ul>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{% static 'img/theaters/playhouse1.jpg' %}" class="img-responsive" alt="Playhouse1">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/playhouse2.jpg' %}" class="img-responsive" alt="Playhouse2">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/playhouse3.jpg' %}" class="img-responsive" alt="Playhouse3">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/playhouse4.jpg' %}" class="img-responsive" alt="Playhouse4">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/playhouse5.jpg' %}" class="img-responsive" alt="Playhouse5">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/playhouse6.jpg' %}" class="img-responsive" alt="Playhouse6">
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <!-- Playhouse Description -->
+          <div class="container-fluid padding">
+            <div class="row text-center">
+              <hr>
+              <div class="col-12">
+                <p>The Playhouse is a highly flexible theatre with a seating capacities up to  330
+                  seats. This fully equipped theatre provides an intimate setting conducive to conferences,
+                  lectures and various performing groups.</p>
+
+                <!-- Grid row -->
+                <div class="row">
+
+                  <!-- Grid column -->
+                  <div class="col-md-6 mb-4">
+                    <i class="fa fa-building fa-4x"></i>
+                    <h4 class="my-4">Commercial Rental</h4>
+                    <p>$750 per day or 12% of gross ticket receipts after taxes, whichever is greater.
+                    Commercial rental applies to any event where an admission is charged, a fee is taken,
+                    a collection is made or any revenue is derived.</p>
+                  </div>
+                  <!-- Grid column -->
+
+                  <!-- Grid column -->
+                  <div class="col-md-6 mb-4">
+                    <i class="fa fa-university fa-4x"></i>
+                    <h4 class="my-4">Non-Commercial Rental</h4>
+                    <p>$425 per day. Non-commercial rental rate applies to qualified religious,
+                    charitable or educational organizations where no admission is charged,
+                    no fee is taken, no collection is made or no revenue is derived. Local
+                    non-profit organizations that charge admission, take fees, collections or
+                    derive revenue may qualify for the non-commercial rental.</p>
+                  </div>
+                  <!-- Grid column -->
+
+                </div>
+                <!-- Grid row -->
+
+                <!-- Grid row -->
+                <div class="row">
+
+                  <!-- Grid column -->
+                  <div class="col-md-6 mb-4">
+                    <i class="fa fa-dollar-sign fa-4x"></i>
+                    <h4 class="my-4">Rental Rates</h4>
+                    <p>Rental Rates include seating up to 330, lighting, heating and/or air conditioning
+                      and water as installed.  With the exception of basic production sound and lighting
+                      equipment, all labor, supplies and equipment are considered additional expenses
+                      and will be charged at rates as outlined in the EQUIPMENT, SERVICES & STAFFING,
+                      AND AUDIOVISUAL sheets.</p>
+                  </div>
+                  <!-- Grid column -->
+
+                  <!-- Grid column -->
+                  <div class="col-md-6 mb-4">
+                    <i class="fa fa-truck fa-4x"></i>
+                    <h4 class="my-4">Move-in/Move-out</h4>
+                    <p>Move-in/Move-out and rehearsal dates are calculated at sixty
+                       percent (60%) of the normal daily rental rates.</p>
+                  </div>
+                  <!-- Grid column -->
+
+                </div>
+                <!-- Grid row -->
+
+                <p><strong>Insurance</strong> can be obtained by the VBC at the applicable rate.</p>
+              <p><a class="web-link" href="https://www.vonbrauncenter.com/the-playhouse/">More
+                  information about VBC Playhouse can be found here.</a></p>
+              </div>
+            </div>
+          </div>
+          <!-- Playhouse Description -->
+
+        </section>
+        <!-- Section: Playhouse Theater -->
+
+        <hr class="my-2">
+
+        <!-- Section: Concert Hall -->
+        <section id="concert-hall" class="text-center">
+
+          <div class="col-12">
+            <h1 class="display-4">Concert Hall Theater</h1>
+          </div>
+
+          <div id="slides3" class="carousel slide center" data-ride="carousel" style="width:600px margin: 0 auto">
+            <ul class="carousel-indicators">
+              <li data-target="#slides3" data-slide-to="0" class="active"></li>
+              <li data-target="#slides3" data-slide-to="1"></li>
+              <li data-target="#slides3" data-slide-to="2"></li>
+              <li data-target="#slides3" data-slide-to="3"></li>
+              <li data-target="#slides3" data-slide-to="4"></li>
+              <li data-target="#slides3" data-slide-to="5"></li>
+              <li data-target="#slides3" data-slide-to="6"></li>
+            </ul>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{% static 'img/theaters/concert1.jpg' %}" class="img-responsive" alt="Concert1">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/concert2.jpg' %}" class="img-responsive" alt="Concert2">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/concert3.jpg' %}" class="img-responsive" alt="Concert3">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/concert4.jpg' %}" class="img-responsive" alt="Concert4">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/concert5.jpg' %}" class="img-responsive" alt="Concert5">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'img/theaters/concert6.jpg' %}" class="img-responsive" alt="Concert6">
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <!-- Concert Hall Description -->
+          <div class="container-fluid padding">
+            <div class="row about text-center">
+              <hr>
+              <div class="col-12">
+                <p>The luxurious Mark C. Smith Concert Hall, seating 1,955 continental style, is a
+                  performing venue for everything from Broadway to ballet and symphonies to concerts.
+                  The theatre also is used as a meeting area for conferences and seminars.</p>
+                <p>The Concert Hall has dressing room accommodations for sixty performers and a double-bay
+                  loading dock accessible at stage level through a 12’ x 18’ service door. The stage has
+                  a 54’ x 48’ performing area, a hydraulic orchestra pit, a 54 line counterweight system,
+                  a full orchestra acoustical shell and complete sound and lighting systems. Two rehearsal
+                  rooms and the Green Room reception area are adjacent to the Concert Hall.</p>
+                  <p><strong>Ballet Room Rental</strong> $225 per day </p>
+
+                  <!-- Grid row -->
+                  <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-6 mb-4">
+                      <i class="fa fa-building fa-4x"></i>
+                      <h4 class="my-4">Commercial Rental</h4>
+                      <p>$2,750 per day or 12% of gross ticket receipts after taxes, whichever is greater.
+                    $3,750 flat rate for events generating revenue beyond the control of the VBC. $3,250
+                    flat rate for events with no traditional revenue generated.</p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-6 mb-4">
+                      <i class="fa fa-truck fa-4x"></i>
+                      <h4 class="my-4">Non-Commercial Rental</h4>
+                      <p>$2,250 per day or 10% of gross ticket receipts after taxes, whichever is greater.
+                    $3,750 flat rate for events generating revenue beyond the control of the VBC.
+                    $3,250 flat rate for events with no traditional revenue generated. Non-Commercial
+                    Rental applies to qualified religious, charitable or educational organizations where
+                    no admission is charged, no fee is taken, no collection is made or no revenue is derived.
+                    Local non-profit organizations that charge admission, take fees, collections or derive
+                    revenue may qualify for the non-commercial rental.</p>
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+
+                  <!-- Grid row -->
+                  <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-6 mb-4">
+                      <i class="fa fa-university fa-4x"></i>
+                      <h4 class="my-4">Rental Rates</h4>
+                      <p>Rental Rates include basic lighting, heating and/or air conditioning
+                    and water as installed. With the exception of basic lighting equipment, all labor,
+                    supplies and equipment are considered additional expenses and will be charged at rates
+                    as outlined in the EQUIPMENT, SERVICES & STAFFING, and AUDIOVISUAL sheets.</p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-6 mb-4">
+                      <i class="fa fa-truck fa-4x"></i>
+                      <h4 class="my-4">Move-in/Move-out</h4>
+                      <p>Move-in/Move-out and rehearsal dates are calculated at sixty
+                        percent (60%) of the normal daily rental rates.</p>
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+
+                <p><strong>Insurance</strong> can be obtained by the VBC at the applicable rate.</p>
+                <p><a class="web-link" href="https://www.vonbrauncenter.com/mark-c-smith-concert-hall/">More
+                  information about VBC Concert Hall can be found here.</a></p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!-- Section: Concert Hall -->
+
+      </div>
+    </main>
     <br>
 
 {% endblock %}

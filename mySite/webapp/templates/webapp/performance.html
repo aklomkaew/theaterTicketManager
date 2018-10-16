@@ -1,5 +1,82 @@
 {% extends "webapp/header.html" %}
 
 {% block content %}
-    <p>You've reached performance page</p>
+    {% load staticfiles %}
+
+    <!-- Datetimepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Image Slider -->
+    <div id="slides" class="carousel slide" data-ride="carousel" style="margin: 0 auto">
+      <ul class="carousel-indicators">
+          <li data-target="#slides" data-slide-to="0" class="active"></li>
+          <li data-target="#slides" data-slide-to="1"></li>
+          <li data-target="#slides" data-slide-to="2"></li>
+          <li data-target="#slides" data-slide-to="3"></li>
+      </ul>
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="{% static 'img/johnPrine.png' %}" class="img-responsive" alt="John Prine">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/loverboy.png' %}" class="img-responsive" alt="Loverboy">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/menopause.png' %}" class="img-responsive" alt="Menopause">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/scottyMcCreedy.png' %}" class="img-responsive" alt="Scotty McCreedy">
+          </div>
+      </div>
+    </div>
+
+    <!-- Filter Group -->
+    <br>
+    <div class="btn-group" role="group">
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Theater
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <a class="dropdown-item" href="#">Von Braun</a>
+              <a class="dropdown-item" href="#">Another VB</a>
+            </div>
+        </div>
+
+        <div class="container" role="group">
+              <div class="row">
+                <div class='col-sm-6'>
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            $(".dropdown-menu").on('click', 'a', function(){
+                $(".btn:first-child").text($(this).text());
+                $(".btn:first-child").val($(this).text());
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+          $('#datetimepicker1').datetimepicker();
+        });
+    </script>
+
 {% endblock %}
