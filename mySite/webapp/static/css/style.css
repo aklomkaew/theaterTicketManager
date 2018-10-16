@@ -13,8 +13,8 @@ main{
 }
 .carousel-inner > .carousel-item > img,
 .carousel-inner > .carousel-item > a > img {
-    width:640px;
-    height:360px;
+    width: auto;
+    height: auto;
     margin:auto;
 }
 .padding-head {
