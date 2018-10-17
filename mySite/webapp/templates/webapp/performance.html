@@ -41,12 +41,15 @@
 
     <div class="btn-group" style="left: 25%">
         <div class="btn-group">
-            <button id="btnGroupDrop1" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-              Theater
-            </button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <a class="dropdown-item" href="#">Playhouse</a>
-              <a class="dropdown-item" href="#">Concert Hall</a>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Theater Selection
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a class="dropdown-item" href="#" data-value="playhouse">Playhouse</a></li>
+                <li><a class="dropdown-item" href="#" data-value="concertHall">Concert Hall</a></li>
+              </ul>
             </div>
         </div>
 
@@ -70,17 +73,13 @@
         <a class="btn btn-secondary btn-sm" href = "{% url 'payment' %}">Payment</a>
     </div>
 
-        <a class="btn btn-secondary btn-sm" href = "{% url 'payment' %}">Payment</a>
-
     <br>
     <br>
 
     <script>
-        $(function(){
-            $(".dropdown-menu").on('click', 'a', function(){
-                $(".btn:first-child").text($(this).text());
-                $(".btn:first-child").val($(this).text());
-            });
+        $(".dropdown-menu li a").click(function(){
+          $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+          $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
         });
     </script>
     <script>
