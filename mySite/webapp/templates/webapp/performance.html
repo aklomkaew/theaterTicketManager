@@ -108,30 +108,6 @@
         border-top-right-radius: 10px;
     }
 
-    .johnPrine {
-        background: url({% static '/img/johnPrine.png' %});
-        background-size: cover;
-        background-position: center;
-    }
-
-    .loverboy {
-        background: url({% static '/img/loverboy.png' %});
-        background-size: cover;
-        background-position: 100% 80%;
-    }
-
-    .menopause {
-        background: url({% static '/img/menopause.png' %});
-        background-size: cover;
-        background-position: 100% 80%;
-    }
-
-    .scottyMcCreedy {
-        background: url({% static '/img/scottyMcCreedy.png' %});
-        background-size: cover;
-        background-position: 100% 80%;
-    }
-
     .movie-card:hover {
         -webkit-transform: scale(1.03);
         transform: scale(1.03);
@@ -204,7 +180,7 @@
 <br>
 
 <div class="container">
-    <h1 class="display-4" style="margin-bottom: -20px">Performances</h1>
+    <h1 class="display-4" style="margin-bottom: -20px; margin-top: -50px">Performances</h1>
 </div>
 <div class="container">
     <!-- Filter Group -->
@@ -246,7 +222,9 @@
 <div class="container" style="margin-top: -5px">
 
     <div class="movie-card">
-        <div class="movie-header johnPrine img-box">
+
+        <div class="movie-header img-box" style="background: url({% static '/img/johnPrine.png' %}); background-size: cover;
+        background-position: 100% 80%;">
             <p>
                 <strong>John Prine</strong><br>
                 <strong>2 hrs. 1 min.</strong><br>
@@ -258,24 +236,23 @@
         </div><!--movie-header-->
         <div class="movie-content">
             <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">John Prine</h3>
-                </a>
+                <h3 class="movie-title">John Prine</h3>
             </div>
             <div class="movie-info">
                 <div class="info-section">
                     <label>Showtimes</label>
-                    <button type="button" class="btn btn-light">05:30PM</button>
-                    <button type="button" class="btn btn-light">07:40PM</button>
-                    <button type="button" class="btn btn-light">10:40PM</button>
-                    <button type="button" class="btn btn-light">11:30PM</button>
+                    <a class="btn btn-light" href="{% url 'payment' %}">05:30PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">07:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">10:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">11:30PM</a>
                 </div><!--date,time-->
             </div>
         </div><!--movie-content-->
     </div><!--movie-card-->
 
     <div class="movie-card">
-        <div class="movie-header loverboy img-box">
+        <div class="movie-header img-box" style="background: url({% static '/img/loverboy.png' %}); background-size: cover;
+        background-position: 100% 80%;">
             <p>
                 <strong>Loverboy</strong><br>
                 <strong>2 hrs. 1 min.</strong><br>
@@ -287,25 +264,23 @@
         </div><!--movie-header-->
         <div class="movie-content">
             <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">Loverboy</h3>
-                </a>
-                <!--div class="imax-logo"></div-->
+                <h3 class="movie-title">Loverboy</h3>
             </div>
             <div class="movie-info">
                 <div class="info-section">
                     <label>Showtimes</label>
-                    <button type="button" class="btn btn-light">05:30PM</button>
-                    <button type="button" class="btn btn-light">07:40PM</button>
-                    <button type="button" class="btn btn-light">10:40PM</button>
-                    <button type="button" class="btn btn-light">11:30PM</button>
+                    <a class="btn btn-light" href="{% url 'payment' %}">05:30PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">07:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">10:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">11:30PM</a>
                 </div><!--date,time-->
             </div>
         </div><!--movie-content-->
     </div><!--movie-card-->
 
     <div class="movie-card">
-        <div class="movie-header menopause img-box">
+        <div class="movie-header img-box" style="background: url({% static '/img/menopause.png' %}); background-size: cover;
+        background-position: 100% 80%;">
             <p>
                 <strong>Menopause</strong><br>
                 <strong>2 hrs. 1 min.</strong><br>
@@ -317,25 +292,23 @@
         </div><!--movie-header-->
         <div class="movie-content">
             <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">Menopause</h3>
-                </a>
-                <!--div class="imax-logo"></div-->
+                <h3 class="movie-title">Menopause</h3>
             </div>
             <div class="movie-info">
                 <div class="info-section">
                     <label>Showtimes</label>
-                    <button type="button" class="btn btn-light">05:30PM</button>
-                    <button type="button" class="btn btn-light">07:40PM</button>
-                    <button type="button" class="btn btn-light">10:40PM</button>
-                    <button type="button" class="btn btn-light">11:30PM</button>
+                    <a class="btn btn-light" href="{% url 'payment' %}">05:30PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">07:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">10:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">11:30PM</a>
                 </div><!--date,time-->
             </div>
         </div><!--movie-content-->
     </div><!--movie-card-->
 
     <div class="movie-card">
-        <div class="movie-header scottyMcCreedy img-box">
+        <div class="movie-header img-box" style="background: url({% static '/img/scottyMcCreedy.png' %}); background-size: cover;
+        background-position: 100% 80%;">
             <p>
                 <strong>Scotty McCreedy</strong><br>
                 <strong>2 hrs. 1 min.</strong><br>
@@ -347,18 +320,15 @@
         </div><!--movie-header-->
         <div class="movie-content">
             <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">Scotty McCreedy</h3>
-                </a>
-                <!--div class="imax-logo"></div-->
+                <h3 class="movie-title">Scotty McCreedy</h3>
             </div>
             <div class="movie-info">
                 <div class="info-section">
                     <label>Showtimes</label>
-                    <button type="button" class="btn btn-light">05:30PM</button>
-                    <button type="button" class="btn btn-light">07:40PM</button>
-                    <button type="button" class="btn btn-light">10:40PM</button>
-                    <button type="button" class="btn btn-light">11:30PM</button>
+                    <a class="btn btn-light" href="{% url 'payment' %}">05:30PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">07:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">10:40PM</a>
+                    <a class="btn btn-light" href="{% url 'payment' %}">11:30PM</a>
                 </div><!--date,time-->
             </div>
         </div><!--movie-content-->
