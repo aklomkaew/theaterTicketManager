@@ -11,6 +11,9 @@ body{
 main{
     flex: 1;
 }
+.btn-toolbar{
+  text-align: center;
+}​
 .carousel-inner > .carousel-item > img,
 .carousel-inner > .carousel-item > a > img {
     width: auto;
@@ -92,3 +95,4 @@ hr.light-100 {
 .fa-instagram:hover {
   color: #d5d5d5;
 }
+
