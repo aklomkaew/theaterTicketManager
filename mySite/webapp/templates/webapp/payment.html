@@ -152,21 +152,18 @@
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
-          <form class="needs-validation" novalidate>
+
+          <form class="needs-validation" id="my-form" method="post" novalidate>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Enter first name.
-                </div>
+                <input type="text" class="form-control" id="firstName" required>
+                <div class="invalid-feedback">Enter first name.</div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Enter last name.
-                </div>
+                <input type="text" class="form-control" id="lastName" required>
+                <div class="invalid-feedback">Enter last name.</div>
               </div>
             </div>
 
@@ -186,17 +183,13 @@
             <div class="mb-3">
               <label for="email">Email <span class="text-muted">(Optional)</span></label>
               <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
+              <div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
             </div>
 
             <div class="mb-3">
               <label for="address">Address</label>
               <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+              <div class="invalid-feedback">Please enter your shipping address.</div>
             </div>
 
             <div class="mb-3">
@@ -209,29 +202,25 @@
                 <label for="country">Country</label>
                 <select class="custom-select d-block w-100" id="country" required>
                   <option value="">Choose...</option>
-                  <option>United States</option>
+                  <option value="United States">United States</option>
                 </select>
-                <div class="invalid-feedback">
-                  Please select a valid country.
-                </div>
+                <div class="invalid-feedback">Please select a valid country.</div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="state">State</label>
                 <select class="custom-select d-block w-100" id="state" required>
                   <option value="">Choose...</option>
-                    <option>Alabama</option>
-                    <option>California</option>
-                    <option>Florida</option>
-                    <option>Georgia</option>
-                    <option>Nashville</option>
+                    <option value="Alabama">Alabama</option>
+                    <option value="California">California</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Nashville">Nashville</option>
                 </select>
-                <div class="invalid-feedback">
-                  Please provide a valid state.
-                </div>
+                <div class="invalid-feedback">Please provide a valid state.</div>
               </div>
               <div class="col-md-3 mb-3">
                 <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required pattern="[0-9]{5}">
+                <input type="text" class="form-control" id="zip" required pattern="[0-9]{5}">
                   <span class="invalid-feedback order-last">Enter the 5-digit postal code</span>
               </div>
             </div>
@@ -325,9 +314,9 @@
                       </div>
                   </div>
                   <div class="col-md-3 mb-3">
-                      <label for="x_card_code" class="control-label mb-1">Security code</label>
+                      <label for="security_card_code" class="control-label mb-1">Security code</label>
                       <div class="input-group">
-                          <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" required autocomplete="off" placeholder="XXX" pattern="[0-9]{3}">
+                          <input id="security_card_code" name="security_card_code" type="tel" class="form-control cc-cvc" required autocomplete="off" placeholder="XXX" pattern="[0-9]{3}">
                           <span class="invalid-feedback order-last">Enter the 3-digit code on back</span>
                           <!--div class="input-group-append">
                               <div class="input-group-text" type="button" >
@@ -341,16 +330,50 @@
                   </div>
               </div>
               <div class="form-group">
-                  <label for="x_zip" class="control-label mb-1">Postal code</label>
-                  <input id="x_zip" name="x_zip" type="text" class="form-control" value="" required data-val="true" data-val-required="Please enter the ZIP/Postal code"
+                  <label for="card_zip" class="control-label mb-1">Postal code</label>
+                  <input id="card_zip" name="card_zip" type="text" class="form-control" value="" required data-val="true" data-val-required="Please enter the ZIP/Postal code"
                          autocomplete="postal-code" pattern="[0-9]{5}">
                   <span class="invalid-feedback order-last">Enter the 5-digit postal code</span>
                   <span class="help-block" data-valmsg-for="x_zip" data-valmsg-replace="true"></span>
               </div>
 
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" value="Send">Continue to checkout</button>
           </form>
+
+            <pre id="output"></pre>
+            <script>
+                (function() {
+                    function toJSONString( form ) {
+                        var obj = {};
+                        var elements = form.querySelectorAll( "input, select" );
+                        for( var i = 0; i < elements.length; ++i ) {
+                            var element = elements[i];
+                            var id = element.id;
+                            var value = element.value;
+
+                            if( id ) {
+                                obj[ id ] = value;
+                            }
+                        }
+
+                        return JSON.stringify( obj );
+                    }
+
+                    document.addEventListener( "DOMContentLoaded", function() {
+                        var form = document.getElementById( "my-form" );
+                        var output = document.getElementById( "output" );
+                        form.addEventListener( "submit", function( e ) {
+                            e.preventDefault();
+                            var json = toJSONString( this );
+                            output.innerHTML = json;
+
+                        }, false);
+
+                    });
+
+                })();
+            </script>
         </div>
       </div>
     </div>
