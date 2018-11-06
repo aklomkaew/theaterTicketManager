@@ -13,3 +13,6 @@ admin.site.register(Seat)
 admin.site.register(Ticket)
 admin.site.register(Customer)
 admin.site.register(PriceGroup)
+
+admin.site.site_header = "Theater Ticket Manager"
+admin.site.site_title = "Theater Ticket Manager"
