@@ -21,6 +21,9 @@ def payment(request) :
 def echo(request) :
     return render(echo, 'webapp/echo.html')
 
+def seatSelection(request):
+    return render(request, 'webapp/seatSelection.html')
+
 # class PaymentView(TemplateView):
 #     template_name = 'webapp/echo.html'
 #
