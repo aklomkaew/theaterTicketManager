@@ -24,12 +24,20 @@ def echo(request) :
 def seatSelection(request):
     context = {}
     # Row A
-    for i in range(1,36):
+    for i in range(1,37):
         key = 'A' + str(i)
-        context[key] = 'seat'
-    context['A17'] = 'seat-sold'
-    context['A16'] = 'seat-sold'
-    context['A15'] = 'seat-sold'
+        context[key] = 'available'
+    # Row B
+    for i in range(1,39):
+        key = 'B' + str(i)
+        context[key] = 'available'
+    # Row C
+    for i in range(1,43):
+        key = 'C' + str(i)
+        context[key] = 'available'
+    context['A16'] = 'sold'
+    context['A17'] = 'sold'
+    context['A18'] = 'sold'
     return render(request, 'webapp/seatSelection.html', context)
 
 def confirmationPage(request, seat_numbers):

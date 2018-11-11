@@ -21,23 +21,21 @@ body {
 }
 
 .seat {
+    background-color: grey;
     display: inline-block;
     height: 14px;
     width: 14px;
-    background-color: grey;
     border-radius: 5px;
     position: relative;
     border: 1px solid darkblue;
 }
 
-.seat-sold {
-    display: inline-block;
-    height: 14px;
-    width: 14px;
+.sold {
     background-color: red;
-    border-radius: 5px;
-    position: relative;
-    border: 1px solid darkblue;
+}
+
+.available {
+    background-color: grey;
 }
 
 .no-seat {
