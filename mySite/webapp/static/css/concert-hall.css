@@ -30,6 +30,16 @@ body {
     border: 1px solid darkblue;
 }
 
+.seat-sold {
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    background-color: red;
+    border-radius: 5px;
+    position: relative;
+    border: 1px solid darkblue;
+}
+
 .no-seat {
     display: inline-block;
     height: 16px;

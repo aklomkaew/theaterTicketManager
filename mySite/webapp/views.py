@@ -22,7 +22,18 @@ def echo(request) :
     return render(echo, 'webapp/echo.html')
 
 def seatSelection(request):
-    return render(request, 'webapp/seatSelection.html')
+    context = {}
+    # Row A
+    for i in range(1,36):
+        key = 'A' + str(i)
+        context[key] = 'seat'
+    context['A17'] = 'seat-sold'
+    context['A16'] = 'seat-sold'
+    context['A15'] = 'seat-sold'
+    return render(request, 'webapp/seatSelection.html', context)
+
+def confirmationPage(request, seat_numbers):
+    return HttpResponse(seat_numbers)
 
 # class PaymentView(TemplateView):
 #     template_name = 'webapp/echo.html'
@@ -68,4 +79,3 @@ def create_post(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
-
