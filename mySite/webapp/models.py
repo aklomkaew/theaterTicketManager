@@ -291,5 +291,3 @@ class Ticket(models.Model):
             return
 
     get_performance.short_description = 'Performance'
-
-        return self.name
