@@ -1,18 +1,20 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import HttpResponse, HttpResponseRedirect
+from . import models
 
 def index(request) :
     return render(request, 'webapp/home.html')
 
 def performance(request) :
-    return render(request, 'webapp/performance.html')
+    my_theater = models.Theater.objects.all
+    context = {
+        'theaters': my_theater
+    }
+    return render(request, 'webapp/performance.html', context)
 
 def contact(request) :
     return render(request, 'webapp/contact.html')
-
-def buySeasonTicket(request) :
-    return render(request, 'webapp/buySeasonTicket.html')
 
 def admin(request) :
     return render(request, 'webapp/admin.html')
@@ -41,3 +43,22 @@ def seatSelection(request):
 
 def confirmationPage(request, seat_numbers):
     return HttpResponse(seat_numbers)
+
+def buySeasonTicket(request):
+    my_seasons = models.Season.objects.all
+    my_theater = models.Theater.objects.all
+    context = {
+        'seasons': my_seasons,
+        'theaters': my_theater
+    }
+
+    return render(request, 'webapp/buySeasonTicket.html', context)
+
+def seasonSeatSelection(request, season, theater, day, time):
+    str = ''
+    str += season + theater + day + time
+    return HttpResponse(str)
+    # context = {
+    #
+    # }
+    # return render(request, 'webapp/seasonSeatSelection.html')

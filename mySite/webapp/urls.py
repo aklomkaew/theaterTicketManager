@@ -9,5 +9,6 @@ urlpatterns = [
     path('admin/', views.admin, name='admin'),
     path('payment/', views.payment, name='payment'),
     path('seatSelection/', views.seatSelection, name='seatSelection'),
+    path('seasonSeatSelection/<str:season>/<str:theater>/<str:day>/<str:time>/', views.seasonSeatSelection, name='seasonSeatSelection'),
     path('confirmationPage/<str:seat_numbers>/', views.confirmationPage, name='confirmationPage')
 ]

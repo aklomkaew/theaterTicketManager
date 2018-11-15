@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  var str = '5';
+  var str = '';
   // $('.seat').on('click', () => {
   //   console.log(str);
   //   // $(event.currentTarget).css("background-color", "yellow");
