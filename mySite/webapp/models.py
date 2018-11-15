@@ -222,6 +222,45 @@ class Customer(models.Model):
     get_tickets.short_description = 'Tickets'
 
 
+class SeasonTicketHolder(models.Model):
+    customer = models.ManyToManyField(Customer)
+    valid = models.BooleanField()
+    seasons = models.ManyToManyField(Season)
+
+    def __str__(self):
+        return str(self.customer.all()[0].firstName) + ' ' + str(self.customer.all()[0].lastName)
+
+    def get_customer_name(self):
+        customer = self.customer.all()
+
+        if len(customer) >= 1:
+            return list(customer)
+        else:
+            return
+
+    get_customer_name.short_description = 'Customer Name'
+
+    def get_customer_address(self):
+        address = self.customer.all()[0].address
+
+        if len(address) >= 1:
+            return str(address)
+        else:
+            return
+
+    get_customer_address.short_description = 'Customer Address'
+
+    def get_seasons(self):
+        seasons = self.seasons.all()
+
+        if len(seasons) >= 1:
+            return list(seasons)
+        else:
+            return
+
+    get_seasons.short_description = 'Seasons'
+
+
 class Ticket(models.Model):
     customer = models.ManyToManyField(Customer)
     seat = models.ManyToManyField(Seat)
@@ -234,7 +273,6 @@ class Ticket(models.Model):
     printed = models.BooleanField(default=False)#Whether or not the ticket has been printed.
 
     def __str__(self):
-        #return self.customer.firstName + ' ' + self.customer.lastName + ', '+ self.show.name + ', ' + self.performance.time
         return '(' + str(self.performance.all()[0].time)+ ', ' + str(self.show.all()[0].name) + ', ' + str(self.season.all()[0].name) + ', '\
                + str(self.customer.all()[0].firstName) + ' ' + str(self.customer.all()[0].lastName) + ')'
 
