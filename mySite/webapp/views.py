@@ -41,6 +41,9 @@ def seatSelection(request):
     context['A18'] = 'sold'
     return render(request, 'webapp/seatSelection.html', context)
 
+def concertHall(request):
+    return render(request, 'webapp/concertHall.html')
+
 def confirmationPage(request, seat_numbers):
     return HttpResponse(seat_numbers)
 

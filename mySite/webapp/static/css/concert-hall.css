@@ -3,12 +3,15 @@ body {
 }
 #seat-map {
     position: absolute;
-    top:50%;
+    /* top: 50%; */
+    top: 42px;
     bottom: 0;
     left: 0;
     right: 0;
 
     margin: auto;
+    min-width: 1400px;
+    /* min-height: 200px; */
 }
 
 .box {
