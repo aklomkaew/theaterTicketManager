@@ -43,10 +43,13 @@ class TicketAdmin(admin.ModelAdmin):
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('firstName', 'middleName', 'lastName', 'address', 'email', 'phone', 'get_tickets')
 
-
 @admin.register(PriceGroup)
 class PriceGroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'get_sections')
+
+@admin.register(SeasonTicketHolder)
+class SeasonTicketHolderAdmin(admin.ModelAdmin):
+    list_display = ('get_customer_name', 'get_customer_address', 'valid', 'get_seasons')
 
 admin.site.site_header = "Theater Ticket Manager"
 admin.site.site_title = "Theater Ticket Manager"
