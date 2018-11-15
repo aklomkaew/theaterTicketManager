@@ -198,16 +198,18 @@
             <!-- Season Selection Drop Down -->
             <select class="selectpicker" id="seasonDropdown">
                 <option value="">Select Season ..</option>
-                <option value="fall2018">Fall 2018</option>
-                <option value="spring2019">Spring 2019</option>
+                {% for season in seasons %}
+                    <option value="{{ season }}">{{ season }}</option>
+                {% endfor %}
             </select>
 
             <!-- Theater Selection Drop Down -->
             <div id="theaterSelection" style="display: none">
                 <select class="selectpicker" id="theaterDropdown">
                     <option value="">Select Theater ..</option>
-                    <option value="playhouse">Playhouse</option>
-                    <option value="concertHall">Concert Hall</option>
+                    {% for theater in theaters %}
+                        <option value="{{ theater }}">{{ theater }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
@@ -246,13 +248,31 @@
 
     <br><br>
 
-        <center id="contBtn" style="display: none">
-            <input class="btn btn-primary btn-lg text-center" type="submit" value="Continue to select seats"/>
-        </center>
+    <center id="contBtn" style="display: none">
+        <input class="btn btn-primary btn-lg text-center" type="submit" value="Continue to select seats"/>
+    </center>
 
     <br><br>
 
     <script>
+        $("#contBtn").on('click', () => {
+            var link_str = '/seasonSeatSelection/';
+            str = '';
+            tmp = '';
+            if(document.getElementById("weekdayTimeDropdown").value == ''){
+                tmp += document.getElementById("weekendTimeDropdown").value;
+            }
+            else{
+                tmp += document.getElementById("weekdayTimeDropdown").value;
+            }
+            str += document.getElementById("seasonDropdown").value + '/'
+                + document.getElementById("theaterDropdown").value + '/'
+                + document.getElementById("dayDropdown").value + '/'
+                +  tmp + '/';
+            link_str += str;
+            window.location = link_str;
+        });
+
         document.addEventListener('DOMContentLoaded',function() {
             document.querySelector('select[id="seasonDropdown"]').onchange=changeSeasonEventHandler;
             document.querySelector('select[id="theaterDropdown"]').onchange=changeTheaterEventHandler;

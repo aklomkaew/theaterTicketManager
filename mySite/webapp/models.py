@@ -113,6 +113,15 @@ class Theater(models.Model):
     location = models.CharField(max_length=100)#Location of the theater
     sections = models.ManyToManyField(Section)
 
+    def get_shows(self):
+        shows = self.shows.all()
+        if len(shows) >= 1:
+            return list(shows)
+        else:
+            return
+
+    get_shows.short_description = 'Shows'
+
     def get_sections(self):
         sections = self.sections.all()
         if len(sections) >= 1:

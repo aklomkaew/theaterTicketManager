@@ -14,6 +14,12 @@
           color="#111"/>
     <script src="code.jquery.com/jquery-1.11.1.min.js"></script>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
     <link rel="stylesheet" href="{% static 'css/bio.css' %}" type="text/css"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css"/>
@@ -186,19 +192,16 @@
     <div class="container">
         <!-- Filter Group -->
         <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group mr-2" role="group">
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Theater Selection
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a class="dropdown-item" href="#" data-value="playhouse">Playhouse</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="concertHall">Concert Hall</a></li>
-                    </ul>
-                </div>
+            <!-- Theater Selection Drop Down -->
+            <div id="theaterSelection">
+                <select class="selectpicker" id="theaterDropdown">
+                    <option value="">Select Theater ..</option>
+                    {% for theater in theaters %}
+                        <option value="{{ theater }}">{{ theater }}</option>
+                    {% endfor %}
+                </select>
             </div>
-
+            <hr>
             <div class="btn-group mr-2" role="group">
                 <input id="datepicker" width="120"/>
                 <script>
@@ -209,138 +212,139 @@
                     });
                 </script>
             </div>
-
-            <div class="btn-group mr-2" role="group">
-                <input id="timepicker" width="75" />
-                <script>
-                    $('#timepicker').timepicker();
-                </script>
-            </div>
         </div>
         <!-- End Filter Group -->
     </div>
 
     <div class="container" style="margin-top: -5px">
 
-        <div class="movie-card">
+        <!--{% for theater in theaters %}-->
+        <!--{% endfor %}-->
 
-            <div class="movie-header img-box" style="background: url({% static '/img/johnPrine.png' %}); background-size: cover;
-            background-position: 100% 80%;">
-                <p>
-                    <strong>John Prine</strong><br>
-                    <strong>2 hrs. 1 min.</strong><br>
-                    <strong>Genre:</strong> <em>Comedy</em><br>
-                    <em class="bio">
-                        "Summary"
-                    </em>
-                </p>
-            </div><!--movie-header-->
-            <div class="movie-content">
-                <div class="movie-content-header">
-                    <h3 class="movie-title">John Prine</h3>
-                </div>
-                <div class="movie-info">
-                    <div class="info-section">
-                        <label>Showtimes</label>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">05:30PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">07:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">10:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">11:30PM</a>
-                    </div><!--date,time-->
-                </div>
-            </div><!--movie-content-->
-        </div><!--movie-card-->
+        <!--<div class="movie-card">-->
+            <!--<div class="movie-header img-box" style="background: url({% static '/img/johnPrine.png' %}); background-size: cover;-->
+            <!--background-position: 100% 80%;">-->
+                <!--<p>-->
+                    <!--<strong>John Prine</strong><br>-->
+                    <!--<strong>2 hrs. 1 min.</strong><br>-->
+                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
+                    <!--<em class="bio">-->
+                        <!--"Summary"-->
+                    <!--</em>-->
+                <!--</p>-->
+            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
+            <!--<div class="movie-content">-->
+                <!--<div class="movie-content-header">-->
+                    <!--<h3 class="movie-title">John Prine</h3>-->
+                <!--</div>-->
+                <!--<div class="movie-info">-->
+                    <!--<div class="info-section">-->
+                        <!--<label>Showtimes</label>-->
+                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
+                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
+        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
 
-        <div class="movie-card">
-            <div class="movie-header img-box" style="background: url({% static '/img/loverboy.png' %}); background-size: cover;
-            background-position: 100% 80%;">
-                <p>
-                    <strong>Loverboy</strong><br>
-                    <strong>2 hrs. 1 min.</strong><br>
-                    <strong>Genre:</strong> <em>Comedy</em><br>
-                    <em class="bio">
-                        "Summary"
-                    </em>
-                </p>
-            </div><!--movie-header-->
-            <div class="movie-content">
-                <div class="movie-content-header">
-                    <h3 class="movie-title">Loverboy</h3>
-                </div>
-                <div class="movie-info">
-                    <div class="info-section">
-                        <label>Showtimes</label>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">05:30PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">07:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">10:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">11:30PM</a>
-                    </div><!--date,time-->
-                </div>
-            </div><!--movie-content-->
-        </div><!--movie-card-->
+        <!--<div class="movie-card">-->
+            <!--<div class="movie-header img-box" style="background: url({% static '/img/loverboy.png' %}); background-size: cover;-->
+            <!--background-position: 100% 80%;">-->
+                <!--<p>-->
+                    <!--<strong>Loverboy</strong><br>-->
+                    <!--<strong>2 hrs. 1 min.</strong><br>-->
+                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
+                    <!--<em class="bio">-->
+                        <!--"Summary"-->
+                    <!--</em>-->
+                <!--</p>-->
+            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
+            <!--<div class="movie-content">-->
+                <!--<div class="movie-content-header">-->
+                    <!--<h3 class="movie-title">Loverboy</h3>-->
+                <!--</div>-->
+                <!--<div class="movie-info">-->
+                    <!--<div class="info-section">-->
+                        <!--<label>Showtimes</label>-->
+                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
+                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
+        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
 
-        <div class="movie-card">
-            <div class="movie-header img-box" style="background: url({% static '/img/menopause.png' %}); background-size: cover;
-            background-position: 100% 80%;">
-                <p>
-                    <strong>Menopause</strong><br>
-                    <strong>2 hrs. 1 min.</strong><br>
-                    <strong>Genre:</strong> <em>Comedy</em><br>
-                    <em class="bio">
-                        "Summary"
-                    </em>
-                </p>
-            </div><!--movie-header-->
-            <div class="movie-content">
-                <div class="movie-content-header">
-                    <h3 class="movie-title">Menopause</h3>
-                </div>
-                <div class="movie-info">
-                    <div class="info-section">
-                        <label>Showtimes</label>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">05:30PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">07:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">10:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">11:30PM</a>
-                    </div><!--date,time-->
-                </div>
-            </div><!--movie-content-->
-        </div><!--movie-card-->
+        <!--<div class="movie-card">-->
+            <!--<div class="movie-header img-box" style="background: url({% static '/img/menopause.png' %}); background-size: cover;-->
+            <!--background-position: 100% 80%;">-->
+                <!--<p>-->
+                    <!--<strong>Menopause</strong><br>-->
+                    <!--<strong>2 hrs. 1 min.</strong><br>-->
+                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
+                    <!--<em class="bio">-->
+                        <!--"Summary"-->
+                    <!--</em>-->
+                <!--</p>-->
+            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
+            <!--<div class="movie-content">-->
+                <!--<div class="movie-content-header">-->
+                    <!--<h3 class="movie-title">Menopause</h3>-->
+                <!--</div>-->
+                <!--<div class="movie-info">-->
+                    <!--<div class="info-section">-->
+                        <!--<label>Showtimes</label>-->
+                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
+                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
+        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
 
-        <div class="movie-card">
-            <div class="movie-header img-box" style="background: url({% static '/img/scottyMcCreedy.png' %}); background-size: cover;
-            background-position: 100% 80%;">
-                <p>
-                    <strong>Scotty McCreedy</strong><br>
-                    <strong>2 hrs. 1 min.</strong><br>
-                    <strong>Genre:</strong> <em>Comedy</em><br>
-                    <em class="bio">
-                        "Summary"
-                    </em>
-                </p>
-            </div><!--movie-header-->
-            <div class="movie-content">
-                <div class="movie-content-header">
-                    <h3 class="movie-title">Scotty McCreedy</h3>
-                </div>
-                <div class="movie-info">
-                    <div class="info-section">
-                        <label>Showtimes</label>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">05:30PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">07:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">10:40PM</a>
-                        <a class="btn btn-light" href="{% url 'seatSelection' %}">11:30PM</a>
-                    </div><!--date,time-->
-                </div>
-            </div><!--movie-content-->
-        </div><!--movie-card-->
+        <!--<div class="movie-card">-->
+            <!--<div class="movie-header img-box" style="background: url({% static '/img/scottyMcCreedy.png' %}); background-size: cover;-->
+            <!--background-position: 100% 80%;">-->
+                <!--<p>-->
+                    <!--<strong>Scotty McCreedy</strong><br>-->
+                    <!--<strong>2 hrs. 1 min.</strong><br>-->
+                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
+                    <!--<em class="bio">-->
+                        <!--"Summary"-->
+                    <!--</em>-->
+                <!--</p>-->
+            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
+            <!--<div class="movie-content">-->
+                <!--<div class="movie-content-header">-->
+                    <!--<h3 class="movie-title">Scotty McCreedy</h3>-->
+                <!--</div>-->
+                <!--<div class="movie-info">-->
+                    <!--<div class="info-section">-->
+                        <!--<label>Showtimes</label>-->
+                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
+                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
+                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
+        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
 
     </div><!--container-->
 </div><!-- Big container -->
 <script>
-    $(".dropdown-menu li a").click(function(){
-        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+    $("#playButton").on('click', () => {
+        var link_str = '/seatSelection/';
+        str = '';
+        <!--str += document.getElementById("seasonDropdown").value + '/'-->
+            <!--+ document.getElementById("theaterDropdown").value + '/'-->
+            <!--+ document.getElementById("dayDropdown").value + '/'-->
+            <!--+  tmp + '/';-->
+        link_str += str;
+        window.location = link_str;
     });
 </script>
 </body>
