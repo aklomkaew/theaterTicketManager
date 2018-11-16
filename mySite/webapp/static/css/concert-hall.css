@@ -24,7 +24,6 @@ body {
 }
 
 .seat {
-    background-color: grey;
     display: inline-block;
     height: 14px;
     width: 14px;
