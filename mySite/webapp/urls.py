@@ -12,5 +12,7 @@ urlpatterns = [
     path('seasonSeatSelection/<str:theater>/<str:season>/<str:day>/<str:time>/', views.seasonSeatSelection, name='seasonSeatSelection'),
     path('seatSelection/concertHall/', views.concertHall, name='concertHall'),
     path('confirmationPage/<str:seat_numbers>/', views.confirmationPage, name='confirmationPage'),
-    path('seatSelection/', views.seatSelect, name='seatSelection')
+    path('seatSelection/', views.seatSelect, name='seatSelection'),
+    path('seasonSeatSelection/', views.seasonSeatSelect, name='seasonSeatSelect'),
+    path('seasonSeatSelection/concertHall/', views.concertHall, name='concertHall'),
 ]

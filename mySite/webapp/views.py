@@ -68,3 +68,6 @@ def seasonSeatSelection(request, theater, season, day, time):
 
 def seatSelect(request):
     return render(request, 'webapp/seatSelection.html')
+
+def seasonSeatSelect(request):
+    return render(request, 'webapp/seasonSeatSelection.html')
