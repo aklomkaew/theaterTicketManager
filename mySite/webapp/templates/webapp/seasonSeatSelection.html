@@ -89,9 +89,93 @@
                 <div class="row">
                     <h4 class="text-muted">Seat Information</h4>
                     <div>
-                        <label class="label" for="quantity">Quantity: </label>
-                        <input type="number" id="quantity" value="2" min="1" max="20" step="1"/>
-                        <!-- Are we doing user type? -->
+                        <div class="col">
+                            <div class="row">
+                                <label class="label" for="matinee">Matinee: </label>
+                                <input type="number" id="matinee" value="2" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Matinee -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("matinee").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label class="label" for="senior">Senior: </label>
+                                <input type="number" id="senior" value="0" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Senior -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("senior").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label class="label" for="military">Military: </label>
+                                <input type="number" id="military" value="2" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Senior -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("military").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label class="label" for="child">Child: </label>
+                                <input type="number" id="child" value="2" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Senior -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("child").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--<div id="userTypeSelection">-->
+                            <!--<select class="selectpicker" id="userTypeDropdown">-->
+                                <!--<option value="">Select User Type ..</option>-->
+                                <!--<option value="senior">Senior</option>-->
+                                <!--<option value="military">Military</option>-->
+                                <!--<option value="matinee">Matinee</option>-->
+                                <!--<option value="child">Child</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
                     </div>
                 </div>
 
