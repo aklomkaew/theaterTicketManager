@@ -161,9 +161,34 @@ def seatSelection(request, theater=None, year=None, month=None, day=None, hour=N
     return render(request, 'webapp/seatSelection.html', context)
 
 def concertHall(request, year=None, month=None,day=None, hour=None, minute=None):
+    """Find all of the sold seats. Use every seat that is sold as a key to a dictionary. """
+
+    # Create the initial set of seats and mark them all available.
     context = populateConcertHallSeats()
-    context['A1'] = 'sold'
-    return render(request, 'webapp/concertHall.html', context)
+
+    # Assume we are using the Concert Hall theater
+    theater = models.Theater.objects.get(name="Concert Hall")
+
+    # build a datetime object to use for comparison
+    date = datetime.date(int(year), int(month), int(day))
+
+    # Iterate through every Performance in that theater
+    for performance in theater.performance_set.all():
+
+        # Check for one that matches the specified date and time
+        # There should only be ONE performance that meets these criteria
+        if performance.time.date() == date and performance.time.hour == hour and performance.time.minute == minute:
+
+            # Get the set of tickets that refer to this performance
+            tickets = performance.ticket_set.all()
+
+            # Iterate through the tickets for this performance
+            for ticket in tickets:
+                # Mark the ticket as sold.
+                context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
+
+        # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
+        return render(request, 'webapp/concertHall.html', context)
 
 def confirmationPage(request, seat_numbers):
     return HttpResponse(seat_numbers)
