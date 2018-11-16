@@ -12,7 +12,7 @@ class SeasonAdmin(admin.ModelAdmin):
 
 @admin.register(Show)
 class ShowAdmin(admin.ModelAdmin):
-    list_display = ('name', 'get_performances', 'get_season')
+    list_display = ('name', 'genre', 'runtime', 'summary', 'img', 'get_performances', 'get_season')
 
 @admin.register(Performance)
 class PerformanceAdmin(admin.ModelAdmin):
@@ -37,7 +37,7 @@ class SeatAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('get_customer_name', 'get_seat', 'get_performance', 'get_show', 'get_season', 'paid', 'datePurchased', 'door', 'printed')
+    list_display = ('get_customer_name', 'get_seat', 'get_section', 'get_row', 'get_performance', 'get_show', 'get_season', 'paid', 'datePurchased', 'door', 'printed')
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):

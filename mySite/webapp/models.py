@@ -165,7 +165,11 @@ class Performance(models.Model):
 
 
 class Show(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
+    img = models.CharField(max_length=100)
+    runtime = models.CharField(max_length=50)
+    genre = models.CharField(max_length=50)
+    summary = models.CharField(max_length=500)
     performances = models.ManyToManyField(Performance)
 
     def get_performances(self):
@@ -273,6 +277,8 @@ class SeasonTicketHolder(models.Model):
 class Ticket(models.Model):
     customer = models.ManyToManyField(Customer)
     seat = models.ManyToManyField(Seat)
+    row = models.ManyToManyField(Row)
+    section = models.ManyToManyField(Section)
     season = models.ManyToManyField(Season)
     show = models.ManyToManyField(Show)#Name of the show that this ticket is valid for
     performance = models.ManyToManyField(Performance)#The individual performance.
@@ -306,6 +312,27 @@ class Ticket(models.Model):
             return
 
     get_seat.short_description = 'Seat'
+
+
+    def get_section(self):
+        sections = self.section.all()
+
+        if len(sections) >= 1:
+            return list(sections)
+        else:
+            return
+
+    get_section.short_description = 'Section'
+
+    def get_row(self):
+        rows = self.row.all()
+
+        if len(rows) >= 1:
+            return list(rows)
+        else:
+            return
+
+    get_row.short_description = 'Row'
 
 
     def get_season(self):
