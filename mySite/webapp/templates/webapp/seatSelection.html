@@ -79,7 +79,8 @@
             <div class="col-md-8 order-md-1">
                 <div id="window" >
                   <!-- <iframe src="concertHall.html" height="300" width="1300"></iframe> -->
-                  <iframe src="{% url 'concertHall' %}" height="300" width="500"></iframe>
+                  <!-- concertHall/<str:year>/,<str:month>/<str:day>/<str:hour>/<str:minute>/ -->
+                  <iframe src="/concertHall/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/" height="300" width="500"></iframe>
                 </div>
             </div>
             <!-- End Column Map -->

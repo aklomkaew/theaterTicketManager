@@ -29,14 +29,22 @@ def getPerformances(request, theater, month, day, year) :
 
 def performance(request) :
     my_theater = ['ConcertHall', 'Playhouse']
-    theater = 'ConcertHall'
+    theater = 'concertHall'
     season = 'Spring'
     day = '11-12-18'
     performances_list = []
     summaryString = "Don't waste your time with this one!"
-    showtimes = ['5:00', '7:00','9:00','11:00']
-    johnPrine = { 'name': 'John Prine', 'img': '/img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'day': day }
-    scotty = { 'name': 'Scotty McCreedy', 'img': '/img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'day': day }
+    showtime_one = {}
+    showtime_two = {}
+    showtime_one['hour'] = '5'
+    showtime_one['minute'] = '30'
+    showtime_one['str'] = '5:30'
+    showtime_two['hour'] = '6'
+    showtime_two['minute'] = '15'
+    showtime_two['str'] = '6:30'
+    showtimes = [showtime_one, showtime_two]
+    johnPrine = { 'name': 'John Prine', 'img': '/img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
+    scotty = { 'name': 'Scotty McCreedy', 'img': '/img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
     performances_list.append(johnPrine)
     performances_list.append(scotty)
     context = {
@@ -138,11 +146,21 @@ def populateConcertHallSeats():
         key = 'Z' + str(i)
         context[key] = 'available'
     return context
+# <str:theater>/<str:year>/<str:day>/<str:hour>/<str:minute>/
+def seatSelection(request, theater=None, year=None, month=None, day=None, hour=None, minute=None):
+    context = {}
+    if theater == 'ConcertHall':
+        context['theater'] = 'concertHall'
+    elif theater == 'Playhouse':
+        context['theater'] = 'playHouse'
+    context['day'] = '16'
+    context['year'] = '18'
+    context['month'] = '11'
+    context['hour'] = '8'
+    context['minute'] = '42'
+    return render(request, 'webapp/seatSelection.html', context)
 
-def seatSelection(request, theater=None, day=None, time=None):
-    return render(request, 'webapp/seatSelection.html')
-
-def concertHall(request, day=None, time=None):
+def concertHall(request, year=None, month=None,day=None, hour=None, minute=None):
     context = populateConcertHallSeats()
     context['A1'] = 'sold'
     return render(request, 'webapp/concertHall.html', context)

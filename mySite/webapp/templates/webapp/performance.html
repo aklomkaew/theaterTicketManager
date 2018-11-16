@@ -201,7 +201,7 @@
                     <div class="info-section">
                         <label>Showtimes</label>
                         {% for showtime in performance.showtimes %}
-                          <a class="btn btn-light" href="{% url 'seatSelection' %}{{ performance.theater }}/{{ performance.day }}/{{ showtime }}">{{ showtime }}</a>
+                          <a class="btn btn-light" href="{% url 'seatSelection' %}{{ performance.theater }}/{{ performance.year }}/{{ performance.month }}/{{ performance.day }}/{{ hour }}/{{ minute }}/">{{ str }}</a>
                         {% endfor %}
                     </div><!--date,time-->
                 </div>

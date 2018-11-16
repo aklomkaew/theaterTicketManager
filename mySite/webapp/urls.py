@@ -11,9 +11,10 @@ urlpatterns = [
     path('admin/', views.admin, name='admin'),
     path('payment/', views.payment, name='payment'),
     path('seatSelection/', views.seatSelection, name='seatSelection'),
-    path('seatSelection/<str:theater>/<str:day>/<str:time>/', views.seatSelection, name='seatSelectionARGS'),
+    path('seatSelection/<str:theater>/<str:year>/<str:month>/<str:day>/<str:hour>/<str:minute>/', views.seatSelection, name='seatSelectionARGS'),
     path('seasonSeatSelection/', views.seasonSeatSelect, name='seasonSeatSelect'),
     path('seasonSeatSelection/<str:season>/<str:theater>/<str:day>/<str:time>/', views.seasonSeatSelection, name='seasonSeatSelection'),
     path('concertHall/', views.concertHall, name='concertHall'),
+    path('concertHall/<str:year>/,<str:month>/<str:day>/<str:hour>/<str:minute>/', views.concertHall, name='concertHallARGS'),
     path('confirmationPage/<str:seat_numbers>/', views.confirmationPage, name='confirmationPage')
 ]
