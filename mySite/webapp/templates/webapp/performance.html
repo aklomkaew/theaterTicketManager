@@ -174,194 +174,108 @@
                     });
                 </script>
             </div>
+            <button id="view-shows-button" class="btn btn-primary" input type="submit">View Shows</button>
         </div>
         <!-- End Filter Group -->
     </div>
-
-    <div class="container" style="margin-top: -5px">
-
+    {% static "" as baseUrl %}
+    <div id="performances-container" class="container" style="margin-top: -5px">
+      {% for performance in performances %}
         <div class="movie-card">
-            <div class="movie-header img-box" style="background: url({% static '/img/johnPrine.png' %}); background-size: cover;
+            <div class="movie-header img-box" style="background: url({{ baseUrl }}{{ performance.img }}); background-size: cover;
             background-position: 100% 80%;">
                 <p>
-                    <strong>John Prine</strong><br>
-                    <strong>2 hrs. 1 min.</strong><br>
-                    <strong>Genre:</strong> <em>Comedy</em><br>
+                    <strong>{{ performance.name }}</strong><br>
+                    <strong>{{ performance.runtime }}</strong><br>
+                    <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
                     <em class="bio">
-                        "Summary"
+                        {{ performance.summary }}
                     </em>
                 </p>
             </div><!--movie-header-->
             <div class="movie-content">
                 <div class="movie-content-header">
-                    <h3 class="movie-title" id="show">John Prine</h3>
+                    <h3 class="movie-title">{{ performance.name }}</h3>
                 </div>
                 <div class="movie-info">
                     <div class="info-section">
                         <label>Showtimes</label>
-                        <ul class="showtime-list">
-                            <li name="showtime" class="btn btn-light" value="show/date/15:30">15:30</li>
-                            <li name="showtime" class="btn btn-light" value="show/date/19:40">19:40</li>
-                        </ul>
-                        <!--<a class="btn btn-light" value="show/date/15:30" id="contBtn">15:30</a>-->
-                        <!--<a class="btn btn-light" name="playButton">19:40</a>-->
-                        <!--<a class="btn btn-light" name="playButton">22:40</a>-->
-                        <!--<a class="btn btn-light" name="playButton">23:30</a>-->
+                        {% for showtime in performance.showtimes %}
+                          <a class="btn btn-light" href="{% url 'seatSelection' %}{{ performance.theater }}/{{ performance.day }}/{{ showtime }}">{{ showtime }}</a>
+                        {% endfor %}
                     </div><!--date,time-->
                 </div>
             </div><!--movie-content-->
         </div><!--movie-card-->
-
-
-        <!--<center id="contBtn">-->
-            <!--<input class="btn btn-primary btn-lg text-center" value="Go to seat selection"/>-->
-        <!--</center>-->
-        <!--{% for theater in theaters %}-->
-        <!--{% endfor %}-->
-
-    </div><!--container-->
-</div><!-- Big container -->
 <script>
-    $("#contBtn").on('click', () => {
-        var link_str = '/seatSelection/';
-        var dropdown = document.getElementById("theaterDropdown");
-        str = '';
-        str += dropdown.options[dropdown.selectedIndex].value + '/'
-            + document.getElementById("timeBtn").value + '/';
-            <!--+ document.getElementById("date").value + '/'-->
-            <!--+ document.getElementById("time").value + '/'-->
-        link_str += str;
-        window.location = link_str;
+//     $("#contBtn").on('click', () => {
+//         var link_str = '/seatSelection/';
+//         var dropdown = document.getElementById("theaterDropdown");
+//         str = '';
+//         str += dropdown.options[dropdown.selectedIndex].value + '/'
+//             + document.getElementById("timeBtn").value + '/';
+//             <!--+ document.getElementById("date").value + '/'-->
+//             <!--+ document.getElementById("time").value + '/'-->
+//         link_str += str;
+//         window.location = link_str;
+//     });
+
+//     document.addEventListener('DOMContentLoaded',function() {
+//         document.querySelector('li[name="showtime"]').onchange=changeEventHandler;
+//     },false);
+
+//     function changeEventHandler(event) {
+//         var theater = document.getElementById("theaterDropdown");
+//         var date = document.getElementById("datepicker");
+//         if(!theater.value || !date.value){
+//             alert("Theater/date was not selected. Please make your selection.");
+//         }
+//         else{
+//             document.getElementById("theaterSelection").style.display='block';
+//         }
+//     }
+        {% endfor %}
+    </div><!--container-->
+    <!-- <button id="button" input type="submit">Submit!</button>
+    <button id="button2" input type="submit">button 2!</button> -->
+</div><!-- Big container -->
+<script src="../../static/js/jquery-1.11.1.min.js"></script>
+<script>
+$(document).ready(() => {
+    // $("#button").on('click', () => {
+    //   console.log('clicked!!');
+    //   $.ajax({
+    //       type: "GET",
+    //       url: {% url 'getPerformances' %},
+    //       success: function(data) {
+    //           $('#performances-container').replaceWith(data);
+    //       }
+    //   });
+    // });
+    $("#view-shows-button").on('click', () => {
+      var date_str = $( "#datepicker" ).val();
+      var theater_str = $("#theaterDropdown").val();
+      var date_arr = date_str.split('/', 3);
+      var month = date_arr[0];
+      var day = date_arr[1];
+      var year = date_arr[2];
+      console.log(month + day + year)
+      var url_str = {% url 'getPerformances' %}
+      url_str += theater_str + "/" + month + "/" + day + "/" + year;
+      console.log(url_str);
+      if(theater_str && date_str) {
+        $.ajax({
+            type: "GET",
+            url: url_str,
+            success: function(data) {
+                console.log(data);
+                $('#performances-container').replaceWith(data);
+            }
+        });
+      }
     });
-
-    document.addEventListener('DOMContentLoaded',function() {
-        document.querySelector('li[name="showtime"]').onchange=changeEventHandler;
-    },false);
-
-    function changeEventHandler(event) {
-        var theater = document.getElementById("theaterDropdown");
-        var date = document.getElementById("datepicker");
-        if(!theater.value || !date.value){
-            alert("Theater/date was not selected. Please make your selection.");
-        }
-        else{
-            document.getElementById("theaterSelection").style.display='block';
-        }
-    }
+});
 </script>
 </body>
 
 {% endblock %}
-
-
-        <!--<div class="movie-card">-->
-            <!--<div class="movie-header img-box" style="background: url({% static '/img/johnPrine.png' %}); background-size: cover;-->
-            <!--background-position: 100% 80%;">-->
-                <!--<p>-->
-                    <!--<strong>John Prine</strong><br>-->
-                    <!--<strong>2 hrs. 1 min.</strong><br>-->
-                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
-                    <!--<em class="bio">-->
-                        <!--"Summary"-->
-                    <!--</em>-->
-                <!--</p>-->
-            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
-            <!--<div class="movie-content">-->
-                <!--<div class="movie-content-header">-->
-                    <!--<h3 class="movie-title">John Prine</h3>-->
-                <!--</div>-->
-                <!--<div class="movie-info">-->
-                    <!--<div class="info-section">-->
-                        <!--<label>Showtimes</label>-->
-                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
-                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
-        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
-
-        <!--<div class="movie-card">-->
-            <!--<div class="movie-header img-box" style="background: url({% static '/img/loverboy.png' %}); background-size: cover;-->
-            <!--background-position: 100% 80%;">-->
-                <!--<p>-->
-                    <!--<strong>Loverboy</strong><br>-->
-                    <!--<strong>2 hrs. 1 min.</strong><br>-->
-                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
-                    <!--<em class="bio">-->
-                        <!--"Summary"-->
-                    <!--</em>-->
-                <!--</p>-->
-            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
-            <!--<div class="movie-content">-->
-                <!--<div class="movie-content-header">-->
-                    <!--<h3 class="movie-title">Loverboy</h3>-->
-                <!--</div>-->
-                <!--<div class="movie-info">-->
-                    <!--<div class="info-section">-->
-                        <!--<label>Showtimes</label>-->
-                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
-                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
-        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
-
-        <!--<div class="movie-card">-->
-            <!--<div class="movie-header img-box" style="background: url({% static '/img/menopause.png' %}); background-size: cover;-->
-            <!--background-position: 100% 80%;">-->
-                <!--<p>-->
-                    <!--<strong>Menopause</strong><br>-->
-                    <!--<strong>2 hrs. 1 min.</strong><br>-->
-                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
-                    <!--<em class="bio">-->
-                        <!--"Summary"-->
-                    <!--</em>-->
-                <!--</p>-->
-            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
-            <!--<div class="movie-content">-->
-                <!--<div class="movie-content-header">-->
-                    <!--<h3 class="movie-title">Menopause</h3>-->
-                <!--</div>-->
-                <!--<div class="movie-info">-->
-                    <!--<div class="info-section">-->
-                        <!--<label>Showtimes</label>-->
-                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
-                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
-        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->
-
-        <!--<div class="movie-card">-->
-            <!--<div class="movie-header img-box" style="background: url({% static '/img/scottyMcCreedy.png' %}); background-size: cover;-->
-            <!--background-position: 100% 80%;">-->
-                <!--<p>-->
-                    <!--<strong>Scotty McCreedy</strong><br>-->
-                    <!--<strong>2 hrs. 1 min.</strong><br>-->
-                    <!--<strong>Genre:</strong> <em>Comedy</em><br>-->
-                    <!--<em class="bio">-->
-                        <!--"Summary"-->
-                    <!--</em>-->
-                <!--</p>-->
-            <!--</div>&lt;!&ndash;movie-header&ndash;&gt;-->
-            <!--<div class="movie-content">-->
-                <!--<div class="movie-content-header">-->
-                    <!--<h3 class="movie-title">Scotty McCreedy</h3>-->
-                <!--</div>-->
-                <!--<div class="movie-info">-->
-                    <!--<div class="info-section">-->
-                        <!--<label>Showtimes</label>-->
-                        <!--<a class="btn btn-light" name="playButton">05:30PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">07:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">10:40PM</a>-->
-                        <!--<a class="btn btn-light" name="playButton">11:30PM</a>-->
-                    <!--</div>&lt;!&ndash;date,time&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>&lt;!&ndash;movie-content&ndash;&gt;-->
-        <!--</div>&lt;!&ndash;movie-card&ndash;&gt;-->

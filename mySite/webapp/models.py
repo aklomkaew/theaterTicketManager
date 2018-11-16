@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import Group
 # from django.contrib.auth.models import User
 #
 # class Post(models.Model):
@@ -165,7 +166,12 @@ class Performance(models.Model):
 
 
 class Show(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
+    img = models.CharField(max_length=100)
+    runtime = models.CharField(max_length=50)
+    genre = models.CharField(max_length=50)
+    summary = models.CharField(max_length=500)
+    group = models.ManyToManyField(Group)
     performances = models.ManyToManyField(Performance)
 
     def get_performances(self):
@@ -186,6 +192,16 @@ class Show(models.Model):
             return
 
     get_season.short_description = 'Season'
+
+    def get_group(self):
+        group = self.group.all()
+
+        if len(group) >= 1:
+            return list(group)
+        else:
+            return
+
+    get_group.short_description = 'Group'
 
     def __str__(self):
         return self.name
@@ -231,9 +247,50 @@ class Customer(models.Model):
     get_tickets.short_description = 'Tickets'
 
 
+class SeasonTicketHolder(models.Model):
+    customer = models.ManyToManyField(Customer)
+    valid = models.BooleanField()
+    seasons = models.ManyToManyField(Season)
+
+    def __str__(self):
+        return str(self.customer.all()[0].firstName) + ' ' + str(self.customer.all()[0].lastName)
+
+    def get_customer_name(self):
+        customer = self.customer.all()
+
+        if len(customer) >= 1:
+            return list(customer)
+        else:
+            return
+
+    get_customer_name.short_description = 'Customer Name'
+
+    def get_customer_address(self):
+        address = self.customer.all()[0].address
+
+        if len(address) >= 1:
+            return str(address)
+        else:
+            return
+
+    get_customer_address.short_description = 'Customer Address'
+
+    def get_seasons(self):
+        seasons = self.seasons.all()
+
+        if len(seasons) >= 1:
+            return list(seasons)
+        else:
+            return
+
+    get_seasons.short_description = 'Seasons'
+
+
 class Ticket(models.Model):
     customer = models.ManyToManyField(Customer)
     seat = models.ManyToManyField(Seat)
+    row = models.ManyToManyField(Row)
+    section = models.ManyToManyField(Section)
     season = models.ManyToManyField(Season)
     show = models.ManyToManyField(Show)#Name of the show that this ticket is valid for
     performance = models.ManyToManyField(Performance)#The individual performance.
@@ -243,7 +300,6 @@ class Ticket(models.Model):
     printed = models.BooleanField(default=False)#Whether or not the ticket has been printed.
 
     def __str__(self):
-        #return self.customer.firstName + ' ' + self.customer.lastName + ', '+ self.show.name + ', ' + self.performance.time
         return '(' + str(self.performance.all()[0].time)+ ', ' + str(self.show.all()[0].name) + ', ' + str(self.season.all()[0].name) + ', '\
                + str(self.customer.all()[0].firstName) + ' ' + str(self.customer.all()[0].lastName) + ')'
 
@@ -268,6 +324,27 @@ class Ticket(models.Model):
             return
 
     get_seat.short_description = 'Seat'
+
+
+    def get_section(self):
+        sections = self.section.all()
+
+        if len(sections) >= 1:
+            return list(sections)
+        else:
+            return
+
+    get_section.short_description = 'Section'
+
+    def get_row(self):
+        rows = self.row.all()
+
+        if len(rows) >= 1:
+            return list(rows)
+        else:
+            return
+
+    get_row.short_description = 'Row'
 
 
     def get_season(self):
