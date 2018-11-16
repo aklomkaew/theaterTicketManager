@@ -22,7 +22,7 @@ def admin(request) :
 def payment(request) :
     return render(request, 'webapp/payment.html')
 
-def seatSelection(request):
+def seatSelection(request, theater, show, date, time):
     context = {}
     # Row A
     for i in range(1,37):
@@ -57,11 +57,14 @@ def buySeasonTicket(request):
 
     return render(request, 'webapp/buySeasonTicket.html', context)
 
-def seasonSeatSelection(request, season, theater, day, time):
+def seasonSeatSelection(request, theater, season, day, time):
     str = ''
-    str += season + theater + day + time
+    str += theater + season + day + time
     return HttpResponse(str)
     # context = {
     #
     # }
     # return render(request, 'webapp/seasonSeatSelection.html')
+
+def seatSelect(request):
+    return render(request, 'webapp/seatSelection.html')
