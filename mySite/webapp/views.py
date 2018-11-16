@@ -10,7 +10,7 @@ def index(request) :
     return render(request, 'webapp/home.html')
 
 def getPerformances(request, theater, month, day, year) :
-    my_theater = ['Concert Hall', 'Playhouse']
+    my_theater = ['ConcertHall', 'Playhouse']
     theater = 'ConcertHall'
     season = 'Spring'
     day = '11-12-18'
@@ -28,7 +28,7 @@ def getPerformances(request, theater, month, day, year) :
     return render(request, 'webapp/performanceCards.html', context)
 
 def performance(request) :
-    my_theater = ['Concert Hall', 'Playhouse']
+    my_theater = ['ConcertHall', 'Playhouse']
     theater = 'ConcertHall'
     season = 'Spring'
     day = '11-12-18'
@@ -142,7 +142,7 @@ def populateConcertHallSeats():
 def seatSelection(request, theater=None, day=None, time=None):
     return render(request, 'webapp/seatSelection.html')
 
-def concertHall(request):
+def concertHall(request, day=None, time=None):
     context = populateConcertHallSeats()
     context['A1'] = 'sold'
     return render(request, 'webapp/concertHall.html', context)

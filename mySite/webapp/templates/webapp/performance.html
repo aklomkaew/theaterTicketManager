@@ -281,6 +281,7 @@ $(document).ready(() => {
             type: "GET",
             url: url_str,
             success: function(data) {
+                console.log(data);
                 $('#performances-container').replaceWith(data);
             }
         });
