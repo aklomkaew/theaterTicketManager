@@ -1,17 +1,239 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "webapp/header.html" %}
+
+{% block content %}
+    {% load staticfiles %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../static/css/seatSelection.css">
+    <link rel="stylesheet" href="{% static 'js/bootstrap-input-spinner.js' %}" type="text/js"/>
+
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: 'Arimo', Arial, sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #010b26;
+        }
+        .spinner {
+          width: 100px;
+        }
+        .spinner input {
+          text-align: right;
+        }
+        .input-group-btn-vertical {
+          position: relative;
+          white-space: nowrap;
+          width: 1%;
+          vertical-align: middle;
+          display: table-cell;
+        }
+        .input-group-btn-vertical > .btn {
+          display: block;
+          float: none;
+          width: 100%;
+          max-width: 100%;
+          padding: 8px;
+          margin-left: -1px;
+          position: relative;
+          border-radius: 0;
+        }
+        .input-group-btn-vertical > .btn:first-child {
+          border-top-right-radius: 4px;
+        }
+        .input-group-btn-vertical > .btn:last-child {
+          margin-top: -2px;
+          border-bottom-right-radius: 4px;
+        }
+        .input-group-btn-vertical i{
+          position: absolute;
+          top: 0;
+          left: 4px;
+        }
+        .label{
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="window" >
-  <!-- <iframe src="concertHall.html" height="300" width="1300"></iframe> -->
-  <iframe src="{% url 'concertHall' %}" height="300" width="1300"></iframe>
+<div class="container">
+    <br>
+    <div class="container">
+        <h1 class="display-4">Seat Selection</h1>
+    </div>
+    <br>
+
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Column Map -->
+            <div class="col-md-8 order-md-1">
+                <div id="window" >
+                  <!-- <iframe src="concertHall.html" height="300" width="1300"></iframe> -->
+                  <iframe src="{% url 'concertHall' %}" height="300" width="1300"></iframe>
+                </div>
+            </div>
+            <!-- End Column Map -->
+
+            <!-- Column Info -->
+            <div class="col-md-4 order-md-2 mb-4">
+                <div class="row">
+                    <h4 class="text-muted">Seat Information</h4>
+                    <div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="label" for="matinee">Matinee: </label>
+                                <input type="number" id="matinee" value="2" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Matinee -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("matinee").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label class="label" for="senior">Senior: </label>
+                                <input type="number" id="senior" value="0" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Senior -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("senior").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label class="label" for="military">Military: </label>
+                                <input type="number" id="military" value="2" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Senior -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("military").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label class="label" for="child">Child: </label>
+                                <input type="number" id="child" value="2" min="1" max="20" step="1"/>
+                                <label class="label" for="senior">  x
+                                    <!-- Price of Senior -->
+                                    <script type="text/javascript">
+                                        document.write("$10.75")
+                                    </script>
+                                     =
+                                </label>
+                                <label class="label" for="senior">
+                                    <script type="text/javascript">
+                                        var val = document.getElementById("child").value;
+                                        val = val * 10.75;
+                                        document.write("$" + val);
+                                    </script>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--<div id="userTypeSelection">-->
+                            <!--<select class="selectpicker" id="userTypeDropdown">-->
+                                <!--<option value="">Select User Type ..</option>-->
+                                <!--<option value="senior">Senior</option>-->
+                                <!--<option value="military">Military</option>-->
+                                <!--<option value="matinee">Matinee</option>-->
+                                <!--<option value="child">Child</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <h4 class="text-muted">Ticket Information</h4>
+                        <div>
+                            <!-- Show Info -->
+                            <label class="label">
+                                <script type="text/javascript">
+                                    document.write("Macbeth")
+                                </script>
+                            </label>
+
+                            <!-- Theater Info -->
+                            <label class="label">
+                                @
+                                <script type="text/javascript">
+                                    document.write("Playhouse Theater")
+                                </script>
+                            </label>
+
+                            <!-- Date Info -->
+                            <label class="label">
+                                <script type="text/javascript">
+                                    document.write("Saturday, November 28, 2018")
+                                </script>
+                            </label>
+
+                            <!-- Time Info -->
+                            <label class="label">
+                                Time:
+                                <script type="text/javascript">
+                                    document.write("19:00")
+                                </script>
+                            </label>
+                        </div>
+                </div>
+
+                <br>
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Continue"/>
+            </div>
+
+            <!-- End Column Info -->
+
+        </div>
+        <!-- End Row -->
+
+
+
+    </div>
 </div>
 
+<script>
+    $("input[type='number']").inputSpinner()
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
-</html>
+{% endblock %}

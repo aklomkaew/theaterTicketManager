@@ -160,11 +160,17 @@ def buySeasonTicket(request):
 
     return render(request, 'webapp/buySeasonTicket.html', context)
 
-def seasonSeatSelection(request, season, theater, day, time):
+def seasonSeatSelection(request, theater, season, day, time):
     str = ''
-    str += season + theater + day + time
+    str += theater + season + day + time
     return HttpResponse(str)
     # context = {
     #
     # }
     # return render(request, 'webapp/seasonSeatSelection.html')
+
+def seatSelect(request):
+    return render(request, 'webapp/seatSelection.html')
+
+def seasonSeatSelect(request):
+    return render(request, 'webapp/seasonSeatSelection.html')
