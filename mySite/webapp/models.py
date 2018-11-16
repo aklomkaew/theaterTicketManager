@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import Group
 # from django.contrib.auth.models import User
 #
 # class Post(models.Model):
@@ -170,6 +171,7 @@ class Show(models.Model):
     runtime = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     summary = models.CharField(max_length=500)
+    group = models.ManyToManyField(Group)
     performances = models.ManyToManyField(Performance)
 
     def get_performances(self):
@@ -190,6 +192,16 @@ class Show(models.Model):
             return
 
     get_season.short_description = 'Season'
+
+    def get_group(self):
+        group = self.group.all()
+
+        if len(group) >= 1:
+            return list(group)
+        else:
+            return
+
+    get_group.short_description = 'Group'
 
     def __str__(self):
         return self.name
