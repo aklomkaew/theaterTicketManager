@@ -1,28 +1,28 @@
 {% for performance in performances %}
-<div class="movie-card">
-    <div class="movie-header img-box" style="background: url(../static/{{ performance.img }}); background-size: cover;
-    background-position: 100% 80%;">
-        <p>
-            <strong>{{ performance.name }}</strong><br>
-            <strong>{{ performance.runtime }}</strong><br>
-            <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
-            <em class="bio">
-                {{ performance.summary }}
-            </em>
-        </p>
-    </div><!--movie-header-->
-    <div class="movie-content">
-        <div class="movie-content-header">
-            <h3 class="movie-title">{{ performance.name }}</h3>
-        </div>
-        <div class="movie-info">
-            <div class="info-section">
-                <label>Showtimes</label>
-                {% for showtime in performance.showtimes %}
-                  <a class="btn btn-light" href="{% url 'seatSelection' %}{{ performance.theater }}/{{ performance.day }}/{{ showtime }}">{{ showtime }}</a>
-                {% endfor %}
-            </div><!--date,time-->
-        </div>
-    </div><!--movie-content-->
-</div><!--movie-card-->
-{% endfor %}
+  <div class="movie-card">
+      <div class="movie-header img-box" style="background: url(../static/{{ performance.img }}); background-size: cover;
+      background-position: 100% 80%;">
+          <p>
+              <strong>{{ performance.name }}</strong><br>
+              <strong>{{ performance.runtime }}</strong><br>
+              <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
+              <em class="bio">
+                  {{ performance.summary }}
+              </em>
+          </p>
+      </div><!--movie-header-->
+      <div class="movie-content">
+          <div class="movie-content-header">
+              <h3 class="movie-title">{{ performance.name }}</h3>
+          </div>
+          <div class="movie-info">
+              <div class="info-section">
+                  <label>Showtimes</label>
+                  {% for showtime in performance.showtimes %}
+                    <a class="btn btn-light" href="/seatSelection/{{ performance.theater }}/{{ performance.year }}/{{ performance.month }}/{{ performance.day }}/{{ showtime.hour }}/{{ showtime.minute }}/">{{ showtime.str }}</a>
+                  {% endfor %}
+              </div><!--date,time-->
+          </div>
+      </div><!--movie-content-->
+  </div><!--movie-card-->
+  {% endfor %}

@@ -224,14 +224,13 @@ class Season(models.Model):
     def __str__(self):
         return self.name
 
-
 class Customer(models.Model):
     firstName = models.CharField(max_length=30)
     middleName = models.CharField(max_length=30)
     lastName = models.CharField(max_length=30)
-    address = models.CharField(max_length=400)
-    email = models.EmailField(max_length=50)
-    phone = models.CharField(max_length=10)
+    address = models.CharField(max_length=400, blank=True)
+    email = models.EmailField(max_length=50, blank=True)
+    phone = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return str(self.firstName) + " " + str(self.middleName) + " " + str(self.lastName)
@@ -298,6 +297,7 @@ class Ticket(models.Model):
     datePurchased = models.DateTimeField("Date Purchased")#When the ticket was purchased.
     door = models.BooleanField()#Whether or not the ticket was purchased at the door
     printed = models.BooleanField(default=False)#Whether or not the ticket has been printed.
+    cash = models.BooleanField(default=False)
 
     def __str__(self):
         return '(' + str(self.performance.all()[0].time)+ ', ' + str(self.show.all()[0].name) + ', ' + str(self.season.all()[0].name) + ', '\
