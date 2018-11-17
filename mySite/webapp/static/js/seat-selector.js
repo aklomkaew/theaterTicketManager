@@ -1,17 +1,11 @@
 $(document).ready(() => {
   var str = '';
-  // $('.seat').on('click', () => {
-  //   console.log(str);
-  //   // $(event.currentTarget).css("background-color", "yellow");
-  //   str += event.target.id;
-  //   console.log(str);
-  //   // str += $(this).attr('id');
-  // });
   $('.seat').on('click', function (e) {
-      console.log(str);
+      window.selectedSeats = 'a';
+      console.log('Seat clicked');
+      console.log(window.selectedSeats);
       $(e.currentTarget).css("background-color", "yellow");
       str += e.target.id;
-      console.log(str);
       str += $(this).attr('id');
 });
 

@@ -201,57 +201,18 @@
                     <div class="info-section">
                         <label>Showtimes</label>
                         {% for showtime in performance.showtimes %}
-                          <a class="btn btn-light" href="{% url 'seatSelection' %}{{ performance.theater }}/{{ performance.year }}/{{ performance.month }}/{{ performance.day }}/{{ hour }}/{{ minute }}/">{{ str }}</a>
+                          <a class="btn btn-light" href="/seatSelection/{{ performance.theater }}/{{ performance.year }}/{{ performance.month }}/{{ performance.day }}/{{ showtime.hour }}/{{ showtime.minute }}/">{{ showtime.str }}</a>
                         {% endfor %}
                     </div><!--date,time-->
                 </div>
             </div><!--movie-content-->
         </div><!--movie-card-->
-<script>
-//     $("#contBtn").on('click', () => {
-//         var link_str = '/seatSelection/';
-//         var dropdown = document.getElementById("theaterDropdown");
-//         str = '';
-//         str += dropdown.options[dropdown.selectedIndex].value + '/'
-//             + document.getElementById("timeBtn").value + '/';
-//             <!--+ document.getElementById("date").value + '/'-->
-//             <!--+ document.getElementById("time").value + '/'-->
-//         link_str += str;
-//         window.location = link_str;
-//     });
-
-//     document.addEventListener('DOMContentLoaded',function() {
-//         document.querySelector('li[name="showtime"]').onchange=changeEventHandler;
-//     },false);
-
-//     function changeEventHandler(event) {
-//         var theater = document.getElementById("theaterDropdown");
-//         var date = document.getElementById("datepicker");
-//         if(!theater.value || !date.value){
-//             alert("Theater/date was not selected. Please make your selection.");
-//         }
-//         else{
-//             document.getElementById("theaterSelection").style.display='block';
-//         }
-//     }
         {% endfor %}
     </div><!--container-->
-    <!-- <button id="button" input type="submit">Submit!</button>
-    <button id="button2" input type="submit">button 2!</button> -->
 </div><!-- Big container -->
-<script src="../../static/js/jquery-1.11.1.min.js"></script>
+<script src="{% static  "js/jquery-1.11.1.min.js"%}"></script>
 <script>
 $(document).ready(() => {
-    // $("#button").on('click', () => {
-    //   console.log('clicked!!');
-    //   $.ajax({
-    //       type: "GET",
-    //       url: {% url 'getPerformances' %},
-    //       success: function(data) {
-    //           $('#performances-container').replaceWith(data);
-    //       }
-    //   });
-    // });
     $("#view-shows-button").on('click', () => {
       var date_str = $( "#datepicker" ).val();
       var theater_str = $("#theaterDropdown").val();

@@ -10,11 +10,8 @@ urlpatterns = [
     path('buySeasonTickets/', views.buySeasonTicket, name='buySeasonTickets'),
     path('admin/', views.admin, name='admin'),
     path('payment/', views.payment, name='payment'),
-    path('seatSelection/', views.seatSelection, name='seatSelection'),
-    path('seatSelection/<str:theater>/<str:year>/<str:month>/<str:day>/<str:hour>/<str:minute>/', views.seatSelection, name='seatSelectionARGS'),
-    path('seasonSeatSelection/', views.seasonSeatSelect, name='seasonSeatSelect'),
-    path('seasonSeatSelection/<str:season>/<str:theater>/<str:day>/<str:time>/', views.seasonSeatSelection, name='seasonSeatSelection'),
-    path('concertHall/', views.concertHall, name='concertHall'),
-    path('concertHall/<str:year>/,<str:month>/<str:day>/<str:hour>/<str:minute>/', views.concertHall, name='concertHallARGS'),
+    path('seatSelection/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/', views.seatSelection, name='seatSelection'),
+    path('seatSelection/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/concertHall/', views.concertHall, name='concertHall'),
+    path('seatSelection/<str:season>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/', views.seasonSeatSelection, name='seasonSeatSelection'),
     path('confirmationPage/<str:seat_numbers>/', views.confirmationPage, name='confirmationPage')
 ]

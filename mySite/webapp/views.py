@@ -11,16 +11,24 @@ def index(request) :
 
 def getPerformances(request, theater, month, day, year) :
     my_theater = ['ConcertHall', 'Playhouse']
-    theater = 'ConcertHall'
+    theater = 'concertHall'
     season = 'Spring'
     day = '11-12-18'
     performances_list = []
     summaryString = "Don't waste your time with this one!"
-    showtimes = ['5:00', '7:00','9:00','11:00']
-    johnPrine = { 'name': 'John Prine', 'img': '/img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'day': day }
-    scotty = { 'name': 'Scotty McCreedy', 'img': '/img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'day': day }
+    showtime_one = {}
+    showtime_two = {}
+    showtime_one['hour'] = 5
+    showtime_one['minute'] = 30
+    showtime_one['str'] = '5:30'
+    showtime_two['hour'] = 6
+    showtime_two['minute'] = 15
+    showtime_two['str'] = '6:30'
+    showtimes = [showtime_one, showtime_two]
+    johnPrine = { 'name': 'John Prine', 'img': 'img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
+    scotty = { 'name': 'Scotty McCreedy', 'img': 'img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
     performances_list.append(johnPrine)
-    # performances_list.append(scotty)
+    #performances_list.append(scotty)
     context = {
         'theaters': my_theater,
         'performances': performances_list
@@ -36,15 +44,15 @@ def performance(request) :
     summaryString = "Don't waste your time with this one!"
     showtime_one = {}
     showtime_two = {}
-    showtime_one['hour'] = '5'
-    showtime_one['minute'] = '30'
+    showtime_one['hour'] = 5
+    showtime_one['minute'] = 30
     showtime_one['str'] = '5:30'
-    showtime_two['hour'] = '6'
-    showtime_two['minute'] = '15'
+    showtime_two['hour'] = 6
+    showtime_two['minute'] = 15
     showtime_two['str'] = '6:30'
     showtimes = [showtime_one, showtime_two]
-    johnPrine = { 'name': 'John Prine', 'img': '/img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
-    scotty = { 'name': 'Scotty McCreedy', 'img': '/img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
+    johnPrine = { 'name': 'John Prine', 'img': 'img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
+    scotty = { 'name': 'Scotty McCreedy', 'img': 'img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
     performances_list.append(johnPrine)
     performances_list.append(scotty)
     context = {
@@ -147,48 +155,20 @@ def populateConcertHallSeats():
         context[key] = 'available'
     return context
 # <str:theater>/<str:year>/<str:day>/<str:hour>/<str:minute>/
-def seatSelection(request, theater=None, year=None, month=None, day=None, hour=None, minute=None):
+
+def seatSelection(request, theater, year=None, month=None, day=None, hour=None, minute=None):
     context = {}
-    if theater == 'ConcertHall':
-        context['theater'] = 'concertHall'
-    elif theater == 'Playhouse':
-        context['theater'] = 'playHouse'
-    context['day'] = '16'
-    context['year'] = '18'
-    context['month'] = '11'
-    context['hour'] = '8'
-    context['minute'] = '42'
+    context['theater'] = theater
+    # return HttpResponse('Hello')
     return render(request, 'webapp/seatSelection.html', context)
 
-def concertHall(request, year=None, month=None,day=None, hour=None, minute=None):
-    """Find all of the sold seats. Use every seat that is sold as a key to a dictionary. """
-
-    # Create the initial set of seats and mark them all available.
+def concertHall(request, theater, year, month, day, hour, minute):
+    # SHAWN, year, month, day, hour, minute are currently ints
+    # str(year) is all you have to do to get them back to strings
     context = populateConcertHallSeats()
-
-    # Assume we are using the Concert Hall theater
-    theater = models.Theater.objects.get(name="Concert Hall")
-
-    # build a datetime object to use for comparison
-    date = datetime.date(int(year), int(month), int(day))
-
-    # Iterate through every Performance in that theater
-    for performance in theater.performance_set.all():
-
-        # Check for one that matches the specified date and time
-        # There should only be ONE performance that meets these criteria
-        if performance.time.date() == date and performance.time.hour == hour and performance.time.minute == minute:
-
-            # Get the set of tickets that refer to this performance
-            tickets = performance.ticket_set.all()
-
-            # Iterate through the tickets for this performance
-            for ticket in tickets:
-                # Mark the ticket as sold.
-                context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
-
-        # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
-        return render(request, 'webapp/concertHall.html', context)
+    context['A1'] = 'sold'
+    # insert queries and update context
+    return render(request, 'webapp/concertHall.html', context)
 
 def confirmationPage(request, seat_numbers):
     return HttpResponse(seat_numbers)
