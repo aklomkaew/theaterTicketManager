@@ -15,5 +15,6 @@ urlpatterns = [
     path('seasonSeatSelection/', views.seasonSeatSelect, name='seasonSeatSelect'),
     path('seasonSeatSelection/<str:season>/<str:theater>/<str:day>/<str:time>/', views.seasonSeatSelection, name='seasonSeatSelection'),
     path('concertHall/', views.concertHall, name='concertHall'),
-    path('confirmationPage/<str:seat_numbers>/', views.confirmationPage, name='confirmationPage')
+    path('confirmationPage/<str:seat_numbers>/', views.confirmationPage, name='confirmationPage'),
+    path('confirmation/', views.confirmation, name='confirmation'),
 ]
