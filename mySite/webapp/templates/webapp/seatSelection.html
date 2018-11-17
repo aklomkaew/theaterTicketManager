@@ -201,8 +201,18 @@
                             <!-- Date Info -->
                             <label class="label">
                                 <script type="text/javascript">
-                                    document.write("Saturday, November 28, 2018")
+                                    var d = new Date(2018, 11 - 1, 17);
+                                    var weekday = new Array(7);
+                                    weekday[0] = "Sunday";
+                                    weekday[1] = "Monday";
+                                    weekday[2] = "Tuesday";
+                                    weekday[3] = "Wednesday";
+                                    weekday[4] = "Thursday";
+                                    weekday[5] = "Friday";
+                                    weekday[6] = "Saturday";
+                                    document.write(weekday[d.getDay()]);
                                 </script>
+                                , November 17
                             </label>
 
                             <!-- Time Info -->
