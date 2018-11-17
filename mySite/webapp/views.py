@@ -3,13 +3,17 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse, HttpResponseRedirect
 # from django import Template
 from . import models
+import datetime
+
 
 
 
 def index(request) :
     return render(request, 'webapp/home.html')
 
-def getPerformances(request, theater, month, day, year) :
+def getPerformances(request, theater, month, day, year):
+
+
     my_theater = ['ConcertHall', 'Playhouse']
     theater = 'concertHall'
     season = 'Spring'
@@ -36,29 +40,44 @@ def getPerformances(request, theater, month, day, year) :
     return render(request, 'webapp/performanceCards.html', context)
 
 def performance(request) :
-    my_theater = ['ConcertHall', 'Playhouse']
+    #Build a list of the Theaters from the database
+    theaters = []
+
+    for each in models.Theater.objects.all():
+        theaters.append(str(each))
+
+
     theater = 'concertHall'
-    season = 'Spring'
-    day = '11-12-18'
+
     performances_list = []
-    summaryString = "Don't waste your time with this one!"
-    showtime_one = {}
-    showtime_two = {}
-    showtime_one['hour'] = 5
-    showtime_one['minute'] = 30
-    showtime_one['str'] = '5:30'
-    showtime_two['hour'] = 6
-    showtime_two['minute'] = 15
-    showtime_two['str'] = '6:30'
-    showtimes = [showtime_one, showtime_two]
-    johnPrine = { 'name': 'John Prine', 'img': 'img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
-    scotty = { 'name': 'Scotty McCreedy', 'img': 'img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
-    performances_list.append(johnPrine)
-    performances_list.append(scotty)
-    context = {
-        'theaters': my_theater,
-        'performances': performances_list
-    }
+
+    #Iterate through each Show and build data for it
+    for show in models.Show.objects.all():
+
+        #Build a list of showtimes
+        showtimes = []
+
+        #Used for getting the name of the theater for this show
+        theater= ""
+
+        #Build a list of showtimes, each containing a dict with hour, minute, and string representation of that.
+        for performance in show.performances.all():
+
+            #Assume that all performances are in the same theater, so only check once
+            if theater == "":
+                theater = str(performance.theater)
+
+            showtime  = {}
+            showtime['hour'] = int(performance.time.hour)
+            showtime['minute'] = int(performance.time.minute)
+            showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+            showtimes.append(showtime)
+
+        show = { 'name': str(show.name), 'img': (show.img), 'runtime': str(show.runtime), 'genre': str(show.genre), 'summary': str(show.summary), 'showtimes':showtimes, 'theater': theater, 'season': show.get_season(), 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
+        performances_list.append(show)
+
+    context = {'theaters': theaters, 'performances': performances_list}
+
     return render(request, 'webapp/performance.html', context)
 
 def contact(request) :
@@ -180,10 +199,36 @@ def seatSelection(request, theater, year=None, month=None, day=None, hour=None, 
 def concertHall(request, theater, year, month, day, hour, minute):
     # SHAWN, year, month, day, hour, minute are currently ints
     # str(year) is all you have to do to get them back to strings
+
+
+    """Find all of the sold seats. Use every seat that is sold as a key to a dictionary. """
+
+    # Create the initial set of seats and mark them all available.
     context = populateConcertHallSeats()
-    context['A1'] = 'sold'
-    # insert queries and update context
-    return render(request, 'webapp/concertHall.html', context)
+
+    # Assume we are using the Concert Hall theater
+    theater = models.Theater.objects.get(name="Concert Hall")
+
+    # build a datetime object to use for comparison
+    date = datetime.date(year, month, day)
+
+    # Iterate through every Performance in that theater
+    for performance in theater.performance_set.all():
+
+        # Check for one that matches the specified date and time
+        # There should only be ONE performance that meets these criteria
+        if performance.time.date() == date and performance.time.hour == hour and performance.time.minute == minute:
+
+            # Get the set of tickets that refer to this performance
+            tickets = performance.ticket_set.all()
+
+            # Iterate through the tickets for this performance
+            for ticket in tickets:
+                # Mark the ticket as sold.
+                context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
+
+        # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
+        return render(request, 'webapp/concertHall.html', context)
 
 def confirmationPage(request, theater, year, month, day, hour, minute, seats, paid):
     context = {}
