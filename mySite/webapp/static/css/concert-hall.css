@@ -69,6 +69,72 @@ body {
     transform: rotate(23deg);
     bottom: 64px;
 }
+.handicap-eleven1G {
+    transform-origin: bottom right;
+    transform: rotate(23deg);
+    bottom: 80px;
+    left: 200px;
+}
+.handicap-five1G {
+    transform-origin: bottom right;
+    transform: rotate(23deg);
+    bottom: 130px;
+    left: 80px;
+}
+.handicap-eight1G {
+    transform-origin: bottom right;
+    transform: rotate(23deg);
+    bottom: 105px;
+    left: 140px;
+}
+.handicap-twenty-six3G {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    bottom: 10px;
+    left: 565px;
+}
+.handicap-thirty-one3G {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    bottom: 10px;
+    left: 640px;
+}
+.handicap-thirty-four3G {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    bottom: 10px;
+    left: 700px;
+}
+.handicap-thirty-seven3G {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    bottom: 10px;
+    left: 760px;
+}
+.handicap-thirty-three3G {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    bottom: 10px;
+    left: 675px;
+}
+.handicap-fifty-four5G {
+    transform-origin: bottom right;
+    transform: rotate(-23deg);
+    bottom: 80px;
+    left: 1140px;
+}
+.handicap-fifty-six5G {
+    transform-origin: bottom right;
+    transform: rotate(-23deg);
+    bottom: 110px;
+    left: 1205px;
+}
+.handicap-sixty5G {
+    transform-origin: bottom right;
+    transform: rotate(-23deg);
+    bottom: 135px;
+    left: 1260px;
+}
 .handicap-fifty-three {
     transform-origin: bottom left;
     transform: rotate(-23deg);

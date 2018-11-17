@@ -67,8 +67,19 @@ def contact(request) :
 def admin(request) :
     return render(request, 'webapp/admin.html')
 
-def payment(request) :
-    return render(request, 'webapp/payment.html')
+def payment(request, theater, year, month, day, hour, minute, seats) :
+    seats_list = seats.split(',')
+    sorted_seats_list = seats_list.sort()
+    context = {}
+    context['theater'] = theater
+    context['year'] = year
+    context['month'] = month
+    context['day'] = day
+    context['hour'] = hour
+    context['minute'] = minute
+    context['seats'] = sorted_seats_list
+    context['seat_str'] = seats
+    return render(request, 'webapp/payment.html', context)
 
 def populateConcertHallSeats():
     context = {}
@@ -159,7 +170,11 @@ def populateConcertHallSeats():
 def seatSelection(request, theater, year=None, month=None, day=None, hour=None, minute=None):
     context = {}
     context['theater'] = theater
-    # return HttpResponse('Hello')
+    context['year'] = year
+    context['month'] = month
+    context['day'] = day
+    context['hour'] = hour
+    context['minute'] = minute
     return render(request, 'webapp/seatSelection.html', context)
 
 def concertHall(request, theater, year, month, day, hour, minute):
@@ -170,8 +185,18 @@ def concertHall(request, theater, year, month, day, hour, minute):
     # insert queries and update context
     return render(request, 'webapp/concertHall.html', context)
 
-def confirmationPage(request, seat_numbers):
-    return HttpResponse(seat_numbers)
+def confirmationPage(request, theater, year, month, day, hour, minute, seats, paid):
+    context = {}
+    context['theater'] = theater
+    context['year'] = year
+    context['month'] = month
+    context['day'] = day
+    context['hour'] = hour
+    context['minute'] = minute
+    context['seats'] = seats
+    context['paid'] = paid
+    test_str = theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + paid
+    return HttpResponse(test_str)
 
 def buySeasonTicket(request):
     my_seasons = models.Season.objects.all

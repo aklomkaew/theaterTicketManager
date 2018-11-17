@@ -241,10 +241,11 @@
 
               <hr class="mb-4">
               <div id="results"></div>
-              <input class="btn btn-primary btn-lg btn-block" type="submit" value="Continue to checkout"/>
+              <!-- <input id="checkout-button" class="btn btn-primary btn-lg btn-block" type="submit" value="Continue to checkout"/> -->
 
               <ul id="talk"></ul>
           </form>
+          <input id="confirm-button" class="btn btn-primary btn-lg btn-block" type="submit" value="Confirm"/>
         </div>
       </div>
     </div>
@@ -345,5 +346,14 @@
         },
     </script>
     <script src="{% static 'js/readForm.js' %}"></script>
+    <script>
+      $(document).ready(() => {
+        $("#confirm-button").on('click', () => {
+          var link_str = "/confirmationPage/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/{{ seat_str }}/true/";
+          console.log(link_str);
+          window.location = link_str;
+        });
+      });
+    </script>
 </body>
 {% endblock %}
