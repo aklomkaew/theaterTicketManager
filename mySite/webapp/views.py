@@ -329,7 +329,7 @@ def concertHall(request, theater, year, month, day, hour, minute):
         # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
         return render(request, 'webapp/concertHall.html', context)
 
-def confirmationPage(request, theater, year, month, day, hour, minute, seats, paid):
+def confirmationPage(request, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
     context = {}
     context['theater'] = theater
     context['year'] = year

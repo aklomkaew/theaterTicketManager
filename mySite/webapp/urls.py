@@ -13,5 +13,5 @@ urlpatterns = [
     path('seatSelection/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/', views.seatSelection, name='seatSelection'),
     path('seatSelection/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/concertHall/', views.concertHall, name='concertHall'),
     path('seatSelection/<str:season>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/', views.seasonSeatSelection, name='seasonSeatSelection'),
-    path('confirmationPage/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/', views.confirmationPage, name='confirmationPage')
+    path('confirmationPage/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.confirmationPage, name='confirmationPage')
 ]

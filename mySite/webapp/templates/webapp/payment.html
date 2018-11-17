@@ -349,7 +349,8 @@
     <script>
       $(document).ready(() => {
         $("#confirm-button").on('click', () => {
-          var link_str = "/confirmationPage/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/{{ seat_str }}/true/";
+          // # confirmationPage(request, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
+          var link_str = "/confirmationPage/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/{{ seat_str }}/true/AndyJTowers/door/printed/card/";
           console.log(link_str);
           window.location = link_str;
         });
