@@ -11,35 +11,96 @@ import datetime
 def index(request) :
     return render(request, 'webapp/home.html')
 
+"""Called when the user clicks 'View Shows' on the Performances page.
+    Gets the set of shows and performances subject to the filters provided by the user.
+    Returns them in a format that can be used to generate cards."""
 def getPerformances(request, theater, month, day, year):
 
+    #Build a list of dictionaries containing details of each show
+    showDetails = []
 
-    my_theater = ['ConcertHall', 'Playhouse']
-    theater = 'concertHall'
-    season = 'Spring'
-    day = '11-12-18'
-    performances_list = []
-    summaryString = "Don't waste your time with this one!"
-    showtime_one = {}
-    showtime_two = {}
-    showtime_one['hour'] = 5
-    showtime_one['minute'] = 30
-    showtime_one['str'] = '5:30'
-    showtime_two['hour'] = 6
-    showtime_two['minute'] = 15
-    showtime_two['str'] = '6:30'
-    showtimes = [showtime_one, showtime_two]
-    johnPrine = { 'name': 'John Prine', 'img': 'img/johnPrine.png', 'runtime': '4hrs. 1 min.', 'genre': 'Tragedy', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
-    scotty = { 'name': 'Scotty McCreedy', 'img': 'img/scottyMcCreedy.png', 'runtime': '3hrs. 1 min.', 'genre': 'Drama', 'summary': summaryString, 'showtimes':showtimes, 'theater': theater, 'season': season, 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
-    performances_list.append(johnPrine)
-    #performances_list.append(scotty)
+    # Create a datetime.date object for the day of the year
+    date = datetime.date(int(year), int(month), int(day))
+
+    # Get the set of shows
+    shows = models.Show.objects.all()
+
+    # Filter for shows that have performances that are on the specified day
+    for show in shows:
+
+        # A sentinal value for keeping track of whether this show is relevant to our filters at all
+        relevant = False
+
+        theaterName = "Concert Hall"
+        # Build a list of showtimes
+        showtimes = []
+
+        # Iterate through the performances in this show
+        for performance in show.performances.all():
+
+            # Check if the current performance is on the right day of the year
+            #Also, check that it is in the selected theater
+            if performance.time.date() == date and str(performance.theater.all()[0]) == theater:
+
+                relevant = True
+
+                # Get the name of the theater for this performance
+                # Assume that all performances are in the same theater
+                theaterName = str(performance.theater.all()[0].name)
+
+                # Use hardcoded values to interpret which part of the website to call
+                if theaterName == "Concert Hall":
+                    theaterName = 'concertHall'
+                elif theaterName == "Playhouse Theater":
+                    theaterName = 'playhouse'
+
+                showtime = {}
+                showtime['hour'] = int(performance.time.hour)
+                showtime['minute'] = int(performance.time.minute)
+                showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                showtimes.append(showtime)
+
+        # We now have list of the relevant performances
+
+        # Ensure that we only reply with details of this show if it is relevant
+        if relevant == True:
+
+            # showtimes is only the showtimes that are on this day
+
+            # Build a response dictionary to send back
+            dict = {'name': str(show.name),
+                    'img': str(show.img),
+                    'runtime': str(show.runtime),
+                    'genre': str(show.genre),
+                    'summary': str(show.summary),
+                    'season': str(show.get_season()),
+                    'showtimes': showtimes,
+                    'theater': theaterName,
+                    'month': str(month),
+                    'day': str(day),
+                    'year': str(year),
+                    }
+
+            # Add this response dictionary to the list of responses
+            showDetails.append(dict)
+
+    # Build the context
     context = {
-        'theaters': my_theater,
-        'performances': performances_list
+        'theaters': list(theater),
+        'performances': showDetails
     }
+
     return render(request, 'webapp/performanceCards.html', context)
 
+"""Called when the the Performances page is visited."""
 def performance(request) :
+    # Input values for the default set of cards
+    # Default is to display showings for Concert Hall today
+    theater = "Concert Hall"
+    year = datetime.datetime.today().year
+    month = datetime.datetime.today().month
+    day = datetime.datetime.today().day
+
     #Build a list of the Theaters from the database
     theaters = []
 
@@ -47,36 +108,74 @@ def performance(request) :
         theaters.append(str(each))
 
 
-    theater = 'concertHall'
+    # Build a list of dictionaries containing details of each show
+    showDetails = []
 
-    performances_list = []
+    # Create a datetime.date object for the day of the year
+    date = datetime.date(int(year), int(month), int(day))
 
-    #Iterate through each Show and build data for it
-    for show in models.Show.objects.all():
+    # Get the set of shows
+    shows = models.Show.objects.all()
 
-        #Build a list of showtimes
+    # Filter for shows that have performances that are on the specified day
+    for show in shows:
+
+        # A sentinal value for keeping track of whether this show is relevant to our filters at all
+        relevant = False
+
+        theaterName = "Concert Hall"
+        # Build a list of showtimes
         showtimes = []
 
-        #Used for getting the name of the theater for this show
-        theater= ""
-
-        #Build a list of showtimes, each containing a dict with hour, minute, and string representation of that.
+        # Iterate through the performances in this show
         for performance in show.performances.all():
 
-            #Assume that all performances are in the same theater, so only check once
-            if theater == "":
-                theater = str(performance.theater)
+            # Check if the current performance is on the right day of the year
+            # Also, check that it is in the selected theater
+            if performance.time.date() == date and str(performance.theater.all()[0]) == theater:
 
-            showtime  = {}
-            showtime['hour'] = int(performance.time.hour)
-            showtime['minute'] = int(performance.time.minute)
-            showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
-            showtimes.append(showtime)
+                relevant = True
 
-        show = { 'name': str(show.name), 'img': (show.img), 'runtime': str(show.runtime), 'genre': str(show.genre), 'summary': str(show.summary), 'showtimes':showtimes, 'theater': theater, 'season': show.get_season(), 'month':'11','day': '16', 'year': '2018', 'showtimes': showtimes}
-        performances_list.append(show)
+                # Get the name of the theater for this performance
+                # Assume that all performances are in the same theater
+                theaterName = str(performance.theater.all()[0].name)
 
-    context = {'theaters': theaters, 'performances': performances_list}
+                # Use hardcoded values to interpret which part of the website to call
+                if theaterName == "Concert Hall":
+                    theaterName = 'concertHall'
+                elif theaterName == "Playhouse Theater":
+                    theaterName = 'playhouse'
+
+                showtime = {}
+                showtime['hour'] = int(performance.time.hour)
+                showtime['minute'] = int(performance.time.minute)
+                showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                showtimes.append(showtime)
+
+        # We now have list of the relevant performances
+
+        # Ensure that we only reply with details of this show if it is relevant
+        if relevant == True:
+            # showtimes is only the showtimes that are on this day
+
+            # Build a response dictionary to send back
+            dict = {'name': str(show.name),
+                    'img': str(show.img),
+                    'runtime': str(show.runtime),
+                    'genre': str(show.genre),
+                    'summary': str(show.summary),
+                    'season': str(show.get_season()),
+                    'showtimes': showtimes,
+                    'theater': theaterName,
+                    'month': str(month),
+                    'day': str(day),
+                    'year': str(year),
+                    }
+
+            # Add this response dictionary to the list of responses
+            showDetails.append(dict)
+
+    context = {'theaters': theaters, 'performances': showDetails}
 
     return render(request, 'webapp/performance.html', context)
 

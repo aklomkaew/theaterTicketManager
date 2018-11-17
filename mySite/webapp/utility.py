@@ -1,6 +1,69 @@
 from . import models
 import datetime
 
+#TODO: Clean up
+def getPerformancesByLocationAndDate(season, theater, year, month, day):
+    showDetails = []
+
+    # Create a datetime.date object for the day of the year
+    date = datetime.date(year, month, day)
+
+    # Get the set of shows
+    shows = models.Show.objects.all()
+
+    # Filter for shows that have performances that are on the specified day
+    for show in shows:
+
+        # build a list of performances that are for this show and on this day
+        performances = []
+
+        # A sentinal value for keeping track of whether this show has a showtime on the selected day
+        relevant = False
+
+        # Iterate through the performances in this show
+        for performance in show.performances.all():
+
+            # Check if the current performance is on the right day of the year
+            if performance.time.date() == date:
+                relevant = True
+
+                # If it is, then add it to the list
+                performances.append(performance)
+
+        # We now have list of the relevant performances
+
+        # Ensure that we only reply with details of this show if it is relevant
+        if relevant == True:
+
+            # Build a string with all of their showtimes.
+            showtimes = ""
+
+            for performance in performances:
+                showtimes += str(performance.time)
+
+            # showtimes is only the showtimes that are on this day
+
+            # Build a response dictionary to send back
+            dict = {'name': str(show.name),
+                    'img': str(show.img),
+                    'runtime': str(show.runtime),
+                    'genre': str(show.genre),
+                    'summary': str(show.summary),
+                    'season': season,
+                    'showtimes': showtimes,
+                    'theater': theater,
+                    'day': month + "/" + day + "/" + year
+                    }
+
+            # Add this response dictionary to the list of responses
+            showDetails.append(dict)
+
+    # Build the context
+    context = {
+        'theaters': list(models.Theater.objects.all()),
+        'performances': showDetails
+    }
+
 
 """Returns a list of performances in a specific season"""
 def getPerformancesInSeason(season):
