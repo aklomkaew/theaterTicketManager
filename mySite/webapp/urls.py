@@ -17,7 +17,7 @@ urlpatterns = [
     path('seasonSeatSelection/<str:blank>/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/', views.seasonSeatSelection, name='seasonSeatSelection'),
     path('seasonSeatSelection/<str:blank>/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/concertHall/', views.seasonConcertHall, name='seasonConcertHall'),
     path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
-    path('confirmationPage/<str:performance>/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.confirmationPage, name='confirmationPage')
+    path('confirmationPage/<str:performance>/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.confirmationPage, name='confirmationPage'),
     path('confirmation/', views.confirmation, name='confirmation'),
     path('help/', views.help, name='help'),
 ]
