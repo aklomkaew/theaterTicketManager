@@ -366,3 +366,9 @@ def seatSelect(request):
 
 def seasonSeatSelect(request):
     return render(request, 'webapp/seasonSeatSelection.html')
+
+def confirmation(request):
+    return render(request, 'webapp/confirmation.html')
+
+def help(request):
+    return render(request, 'webapp/help.html')
