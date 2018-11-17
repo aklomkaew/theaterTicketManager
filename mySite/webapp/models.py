@@ -226,7 +226,7 @@ class Season(models.Model):
 
 class Customer(models.Model):
     firstName = models.CharField(max_length=30)
-    middleName = models.CharField(max_length=30)
+    middleName = models.CharField(max_length=30,blank=True)
     lastName = models.CharField(max_length=30)
     address = models.CharField(max_length=400, blank=True)
     email = models.EmailField(max_length=50, blank=True)
