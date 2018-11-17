@@ -185,11 +185,25 @@ def contact(request) :
 def admin(request) :
     return render(request, 'webapp/admin.html')
 
-def payment(request, theater, year, month, day, hour, minute, seats) :
+def seasonPayment(request, theater, season, day, hour, minute, seats) :
     seats_list = seats.split(',')
     sorted_seats_list = seats_list.sort()
     context = {}
     context['theater'] = theater
+    context['season'] = season
+    context['day'] = day
+    context['hour'] = hour
+    context['minute'] = minute
+    context['seats'] = sorted_seats_list
+    context['seat_str'] = seats
+    return render(request, 'webapp/seasonPayment.html', context)
+
+def payment(request, performance, theater, year, month, day, hour, minute, seats) :
+    seats_list = seats.split(',')
+    sorted_seats_list = seats_list.sort()
+    context = {}
+    context['theater'] = theater
+    context['performance'] = theater
     context['year'] = year
     context['month'] = month
     context['day'] = day
@@ -285,8 +299,9 @@ def populateConcertHallSeats():
     return context
 # <str:theater>/<str:year>/<str:day>/<str:hour>/<str:minute>/
 
-def seatSelection(request, theater, year=None, month=None, day=None, hour=None, minute=None):
+def seatSelection(request, performance, theater, year=None, month=None, day=None, hour=None, minute=None):
     context = {}
+    context['performance'] = performance
     context['theater'] = theater
     context['year'] = year
     context['month'] = month
@@ -295,7 +310,12 @@ def seatSelection(request, theater, year=None, month=None, day=None, hour=None, 
     context['minute'] = minute
     return render(request, 'webapp/seatSelection.html', context)
 
-def concertHall(request, theater, year, month, day, hour, minute):
+def seasonConcertHall(request, blank, theater, season, day, hour, minute):
+    # Create the initial set of seats and mark them all available.
+    context = populateConcertHallSeats()
+    return render(request, 'webapp/concertHall.html', context)
+
+def concertHall(request, performance, theater, year, month, day, hour, minute):
     # SHAWN, year, month, day, hour, minute are currently ints
     # str(year) is all you have to do to get them back to strings
 
@@ -329,7 +349,26 @@ def concertHall(request, theater, year, month, day, hour, minute):
         # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
         return render(request, 'webapp/concertHall.html', context)
 
-def confirmationPage(request, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
+# path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
+def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, phoneNumber, email, door_reservation, printed, payment_method):
+    context = {}
+    context['theater'] = theater
+    context['season'] = season
+    context['day'] = day
+    context['hour'] = hour
+    context['minute'] = minute
+    context['seats'] = seats
+    context['paid'] = paid
+    context['name'] = name
+    context['phoneNumber'] = phoneNumber
+    context['email'] = email
+    context['door_reservation'] = door_reservation
+    context['printed'] = printed
+    context['payment_method'] = payment_method
+    test_str = theater + "---" + season + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + paid+ "---" + name + "---" + phoneNumber + "---" + email + "---" + door_reservation + "---" + printed  + "---" + payment_method
+    return HttpResponse(test_str)
+
+def confirmationPage(request, performance, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
     context = {}
     context['theater'] = theater
     context['year'] = year
@@ -339,7 +378,12 @@ def confirmationPage(request, theater, year, month, day, hour, minute, seats, pa
     context['minute'] = minute
     context['seats'] = seats
     context['paid'] = paid
-    test_str = theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + paid
+    context['name'] = name
+    context['phoneNumber'] = phoneNumber
+    context['door_reservation'] = door_reservation
+    context['printed'] = printed
+    context['payment_method'] = payment_method
+    test_str = theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + paid+ "---" + name + "---" + phoneNumber + "---" + door_reservation + "---" + printed  + "---" + payment_method
     return HttpResponse(test_str)
 
 def buySeasonTicket(request):
@@ -352,14 +396,15 @@ def buySeasonTicket(request):
 
     return render(request, 'webapp/buySeasonTicket.html', context)
 
-def seasonSeatSelection(request, theater, season, day, time):
-    str = ''
-    str += theater + season + day + time
-    return HttpResponse(str)
-    # context = {
-    #
-    # }
-    # return render(request, 'webapp/seasonSeatSelection.html')
+def seasonSeatSelection(request, blank, theater, season, day, hour, minute):
+    my_str =  theater + "--" + season + "--" +  day + "--" + str(hour) + "--" + str(minute)
+    context = {}
+    context['theater'] = theater
+    context['season'] = season
+    context['day'] = day
+    context['hour'] = hour
+    context['minute'] = minute
+    return render(request, 'webapp/seasonSeatSelection.html', context)
 
 def seatSelect(request):
     return render(request, 'webapp/seatSelection.html')

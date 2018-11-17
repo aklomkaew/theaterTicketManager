@@ -248,7 +248,7 @@
 <script>
   $(document).ready(() => {
     $("#outer-button").on('click', () => {
-      var link_str = "/payment/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/";
+      var link_str = "/payment/{{ performance }}/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/";
       var seats_str = "";
       for (index = 0; index < selectedSeats.length; index++) {
           seats_str += selectedSeats[index] + ",";
