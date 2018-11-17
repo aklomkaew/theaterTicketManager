@@ -213,6 +213,12 @@
 <script src="{% static  "js/jquery-1.11.1.min.js"%}"></script>
 <script>
 $(document).ready(() => {
+    var month = today.getUTCMonth() + 1; //months from 1-12
+    var day = today.getUTCDate();
+    var year = today.getUTCFullYear();
+    var todaysDate = month + "/" + day + "/" + year;
+    datepicker.val(todaysDate);
+    $("#theaterDropdown").val("Concert Hall");
     $("#view-shows-button").on('click', () => {
       var date_str = $( "#datepicker" ).val();
       var theater_str = $("#theaterDropdown").val();
@@ -230,7 +236,8 @@ $(document).ready(() => {
             url: url_str,
             success: function(data) {
                 console.log(data);
-                $('#performances-container').replaceWith(data);
+                $('#performances-container').html(data);
+                // $('#performances-container').replaceWith(data);
             }
         });
       }
