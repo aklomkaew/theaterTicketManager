@@ -351,7 +351,7 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
             return render(request, 'webapp/concertHall.html', context)
 
 # path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
-def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, phoneNumber, email, door_reservation, printed, payment_method):
+def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, address, phoneNumber, email, door_reservation, printed, payment_method):
     context = {}
     context['theater'] = theater
     context['season'] = season
@@ -361,12 +361,13 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     context['seats'] = seats
     context['paid'] = paid
     context['name'] = name
+    context['address'] = address
     context['phoneNumber'] = phoneNumber
     context['email'] = email
     context['door_reservation'] = door_reservation
     context['printed'] = printed
     context['payment_method'] = payment_method
-    test_str = theater + "---" + season + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + paid+ "---" + name + "---" + phoneNumber + "---" + email + "---" + door_reservation + "---" + printed  + "---" + payment_method
+    test_str = theater + "---" + season + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + str(paid) + "---" + name + "---" + address + "---" + phoneNumber + "---" + email + "---" + str(door_reservation) + "---" + str(printed)  + "---" + str(payment_method)
     return HttpResponse(test_str)
 
 def confirmationPage(request, show, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):

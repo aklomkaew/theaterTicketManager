@@ -408,7 +408,23 @@
           link_str += cash + "/";
           // /paid/name/door/printed/cash/";
           console.log(link_str);
-          window.location = link_str;
+          if (firstName && lastName)
+          {
+            window.location = link_str;
+          }
+          else
+          {
+            var alert_str = "";
+            if (!firstName)
+            {
+              alert_str += "Please enter a First Name\n";
+            }
+            if (!lastName)
+            {
+              alert_str += "Please enter a Last Name\n";
+            }
+            alert(alert_str);
+          }
         });
       });
     </script>
