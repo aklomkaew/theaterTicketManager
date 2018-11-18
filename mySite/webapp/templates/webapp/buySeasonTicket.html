@@ -259,17 +259,38 @@
             var link_str = '/seasonSeatSelection/';
             str = '';
             tmp = '';
+            var hour = "";
+            var minute ="";
+            var time_arr = [];
             if(document.getElementById("weekdayTimeDropdown").value == ''){
-                tmp += document.getElementById("weekendTimeDropdown").value;
+                time_arr = document.getElementById("weekendTimeDropdown").value.split(":");
+                // tmp += document.getElementById("weekendTimeDropdown").value;
             }
             else{
-                tmp += document.getElementById("weekdayTimeDropdown").value;
+                time_arr = document.getElementById("weekdayTimeDropdown").value.split(":");
+                // tmp += document.getElementById("weekdayTimeDropdown").value;
             }
-            str += document.getElementById("theaterDropdown").value + '/'
-                + document.getElementById("seasonDropdown").value + '/'
+            hour = time_arr[0];
+            minute = time_arr[1];
+            var theater_value = document.getElementById("theaterDropdown").value;
+            if (theater_value == "Concert Hall") {
+              theater_str = "concertHall";
+            }
+            else if (theater_value == "Playhouse Theater") {
+              theater_str = "playHouse";
+            }
+            var season_arr = document.getElementById("seasonDropdown").value.split(" ");
+            var season_str = "";
+            for (index = 0; index < season_arr.length; index++) {
+                season_str += season_arr[index];
+            }
+            str += 'b/'
+            str += theater_str + '/'
+                + season_str + '/'
                 + document.getElementById("dayDropdown").value + '/'
-                +  tmp + '/';
+                +  hour + '/' + minute + '/';
             link_str += str;
+            console.log(link_str);
             window.location = link_str;
         });
 
@@ -350,9 +371,3 @@
 </body>
 
 {% endblock %}
-
-
-
-
-
-

@@ -19,7 +19,7 @@
               <div class="info-section">
                   <label>Showtimes</label>
                   {% for showtime in performance.showtimes %}
-                    <a class="btn btn-light" href="/seatSelection/{{ performance.theater }}/{{ performance.year }}/{{ performance.month }}/{{ performance.day }}/{{ showtime.hour }}/{{ showtime.minute }}/">{{ showtime.str }}</a>
+                    <a class="btn btn-light" href="/seatSelection/{{ performance.name }}/{{ performance.theater }}/{{ performance.year }}/{{ performance.month }}/{{ performance.day }}/{{ showtime.hour }}/{{ showtime.minute }}/">{{ showtime.str }}</a>
                   {% endfor %}
               </div><!--date,time-->
           </div>
