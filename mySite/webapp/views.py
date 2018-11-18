@@ -380,11 +380,10 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
     context['seats'] = seats
     context['paid'] = paid
     context['name'] = name
-    context['phoneNumber'] = phoneNumber
     context['door_reservation'] = door_reservation
     context['printed'] = printed
     context['payment_method'] = payment_method
-    test_str = show + theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + paid+ "---" + name + "---" + phoneNumber + "---" + door_reservation + "---" + printed  + "---" + payment_method
+    test_str = show + theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + str(paid) + "---" + name + "---" +  "---" + door_reservation + "---" + printed  + "---" + payment_method
     return HttpResponse(test_str)
 
 def buySeasonTicket(request):
