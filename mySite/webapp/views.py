@@ -202,8 +202,8 @@ def payment(request, show, theater, year, month, day, hour, minute, seats) :
     seats_list = seats.split(',')
     sorted_seats_list = seats_list.sort()
     context = {}
-    context['theater'] = theater
     context['show'] = show
+    context['theater'] = theater
     context['year'] = year
     context['month'] = month
     context['day'] = day
