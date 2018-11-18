@@ -1,6 +1,9 @@
 from . import models
 import datetime
 
+#TODO: Create a function that gets the Section (in a specified Theater) that contains a specified row and seat
+
+
 #TODO: Clean up
 def getPerformancesByLocationAndDate(season, theater, year, month, day):
     showDetails = []
@@ -98,6 +101,26 @@ def getPerformancesOnDate(year, month, day):
             performances_on_date.append(performance)
 
     return performances_on_date
+
+"""Returns a list of performances that are on a particular date and at a particular time"""
+def getPerformanceOnDateAndTime(year, month, day, hour, minute):
+    # build a datetime object to use for comparison
+    date_for_comparison = datetime.date(int(year), int(month), int(day))
+
+    # create a list to hold results
+    performances_on_date = []
+
+    # Get the set of all Performances in the database
+    performances = models.Performance.objects.all()
+
+    # Iterate through every performance
+    for performance in performances:
+        # Compare the current performance's date to our criteria
+        if performance.time.date() == date_for_comparison and performance.time.hour == hour and performance.time.minute == minute:
+            # If their dates match, add it to the list of results
+            return performance
+
+
 
 
 """Returns a list of performances that are on a particular day of the week."""

@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse, HttpResponseRedirect
 # from django import Template
 from . import models
+from . import utility
 import datetime
 
 
@@ -346,8 +347,8 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
                 # Mark the ticket as sold.
                 context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
 
-        # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
-        return render(request, 'webapp/concertHall.html', context)
+            # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
+            return render(request, 'webapp/concertHall.html', context)
 
 # path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
 def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, phoneNumber, email, door_reservation, printed, payment_method):
@@ -369,6 +370,97 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     return HttpResponse(test_str)
 
 def confirmationPage(request, show, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
+#def confirmationPage(request, theater, show, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
+    # Check if the Customer exists
+    nameParts = name.split()
+
+    firstname = ""
+    middlename = ""
+    lastname = ""
+
+    if theater == 'concertHall':
+        theaterName = "Concert Hall"
+    elif theater == 'playhouse':
+        theaterName = 'Playhouse Theater'
+
+    theaterObject = models.Theater.objects.filter(name=theaterName)
+
+    # Create the variable in this scope for referencing later
+    customer = models.Customer(firstName="temp", lastName="temp")
+
+    # TODO: Add error handling for corrupted name
+    # Check if a middle name was provided
+    if len(nameParts) > 2:
+        firstname = nameParts[0]
+        middlename = nameParts[1]
+        lastname = nameParts[2]
+
+        # Use filter. If len = 1, then the user exists. If not, then create it.
+
+        customers = models.Customer.objects.filter(firstName=firstname, middleName=middlename, lastName=lastname)
+
+        # A record already exists for this customer.
+        if len(customers) == 1:
+            customer = customers[0]
+        elif len(customers) == 0:
+            customer = models.Customer(firstName=firstname, middleName=middlename, lastName=lastname)
+            customer.save()
+
+    else:
+        firstname = nameParts[0]
+        lastname = nameParts[1]
+
+        customers = models.Customer.objects.filter(firstName=firstname, lastName=lastname)
+
+        # A record already exists for this customer.
+        if len(customers) == 1:
+            customer = customers[0]
+        elif len(customers) == 0:
+            customer = models.Customer(firstName=firstname, lastName=lastname)
+            customer.save()
+
+    # We have the customer, now get the rest of the information we need for creating a ticket.
+    # Format of seats is a string like: "A1,B3,A2"
+
+    # Get a set of seats
+    seatObjects = []
+    rows = []
+    sections = []
+
+    individualSeatParts = seats.split(',')
+    for i, part in enumerate(individualSeatParts):
+        rows.append(models.Row.objects.get(name=part[0]))
+        seatObjects.append(models.Seat.objects.get(number=int(part[1])))
+
+        # Filter through the sections containing this row to find the one that is in the specified theater
+        # Find the section that this row is in that is itself in the theater
+        for section in rows[i].section_set.all():
+
+            matchingTheaters = section.theater_set.filter(name=theaterName)
+
+            if len(matchingTheaters) == 1:
+                sections.append(section)
+                break
+
+    # Get the show
+    performance = utility.getPerformanceOnDateAndTime(year, month, day, hour, minute)
+
+    # For each seat, create a new ticket.
+    for i, seat in enumerate(seatObjects):
+        # First, do the logic for saving the single ticket
+        # TODO: booleans are not in proper format
+        ticket = models.Ticket.objects.create(paid=bool(paid), datePurchased=datetime.datetime.now(),
+                                              door=bool(door_reservation), printed=bool(printed),
+                                              cash=bool(payment_method))
+        ticket.customer.add(customer)
+        ticket.seat.add(seat)
+        ticket.row.add(rows[i])
+        ticket.section.add(sections[i])
+        ticket.season.add(models.Show.objects.get(name=show).season_set.all()[0])
+        ticket.show.add(models.Show.objects.get(name=show))
+        ticket.performance.add(performance)
+        ticket.save()
+
     context = {}
     context['show'] = show
     context['theater'] = theater
@@ -383,7 +475,9 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
     context['door_reservation'] = door_reservation
     context['printed'] = printed
     context['payment_method'] = payment_method
-    test_str = show + theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + str(paid) + "---" + name + "---" +  "---" + door_reservation + "---" + printed  + "---" + payment_method
+    test_str = show + theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(
+        hour) + "---" + str(minute) + "---" + seats + "---" + str(
+        paid) + "---" + name + "---" + "---" + door_reservation + "---" + printed + "---" + payment_method
     return HttpResponse(test_str)
 
 def buySeasonTicket(request):
