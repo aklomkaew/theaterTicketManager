@@ -127,6 +127,15 @@
               </div>
               <span class="text-muted">$10.95</span>
             </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Scotty McCreedy</h6>
+                  <small class="text-muted">Oct 30, 2018 - 05:30PM</small>
+                  <span><small class="text-muted">Concert Hall</small></span>
+                  <small class="text-muted">Quantity: 2</small>
+              </div>
+              <span class="text-muted">$10.95</span>
+            </li>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
                 <h6 class="my-0">Promo code</h6>
@@ -183,7 +192,7 @@
                   <!-- <div class="mb-3">
                       <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
                       <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                  </div>  -->
+                  </div> -->
 
                   <!-- <div class="row">
                       <div class="col-md-5 mb-3">
@@ -210,14 +219,14 @@
                           <label for="zip">Zip</label>
                           <input type="text" class="form-control" id="zip" required pattern="[0-9]{5}">
                           <span class="invalid-feedback order-last">Enter the 5-digit postal code</span>
-                      </div>
-                  </div> -->
-                  <!-- <hr class="mb-4"> -->
-                  <!-- <div class="custom-control custom-checkbox">
+                      </div> -->
+                  <!-- </div> -->
+                  <!-- <hr class="mb-4">
+                  <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="same-address">
                       <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-                  </div> -->
-                  <!-- <div class="custom-control custom-checkbox">
+                  </div>
+                  <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="save-info">
                       <label class="custom-control-label" for="save-info">Save this information for next time</label>
                   </div> -->
@@ -230,26 +239,27 @@
                         <input type="radio" class="custom-control-input" id="unpaid" name="paymentMethod" checked>
                         <label class="custom-control-label" for="unpaid">Unpaid</label>
                     </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="radio" class="custom-control-input" id="card" name="paymentMethod">
-                        <label class="custom-control-label" for="card">Credit/Debit Card</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-3">
-                        <input type="radio" class="custom-control-input" id="cash" name="paymentMethod">
-                        <label class="custom-control-label" for="cash">Cash</label>
-                        <div class="invalid-feedback">Please select at least one payment method.</div>
-                    </div>
-                  </div>
-
-                  <h4 class="mb-3">Payment Details</h4>
-                  <div class="d-block my-3">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="paidAtDoor">
-                        <label class="custom-control-label" for="paidAtDoor">Purchased At Door</label>
-                    </div>
                       <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="printed">
+                          <input type="radio" class="custom-control-input" id="card" name="paymentMethod" checked>
+                          <label class="custom-control-label" for="card">Credit/Debit Card</label>
+                      </div>
+                      <div class="custom-control custom-checkbox mb-3">
+                          <input type="radio" class="custom-control-input" id="cash" name="paymentMethod">
+                          <label class="custom-control-label" for="cash">Cash</label>
+                          <div class="invalid-feedback">Please select at least one payment method.</div>
+                      </div>
+                  </div>
+                  <h4 class="mb-3">Payment Info</h4>
+
+                  <div class="d-block my-3">
+                      <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="paidAtDoor" name="paymentMethod" checked>
+                          <label class="custom-control-label" for="paidAtDoor">At-Door Purchase</label>
+                      </div>
+                      <div class="custom-control custom-checkbox mb-3">
+                          <input type="checkbox" class="custom-control-input" id="printed" name="paymentMethod">
                           <label class="custom-control-label" for="printed">Printed</label>
+                          <div class="invalid-feedback">Please select at least one payment method.</div>
                       </div>
                   </div>
 
@@ -367,7 +377,7 @@
         $("#confirm-button").on('click', () => {
           var firstName = $("#firstName").val();
           var lastName = $("#lastName").val();
-          var name = firstName + " " lastName;
+          var name = firstName + " "  + lastName;
           var cash = "0";
           var paid = "0";
           var printed = "0";
