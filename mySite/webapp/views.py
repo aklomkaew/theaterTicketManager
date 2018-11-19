@@ -244,8 +244,27 @@ def seatSelection(request, show, theater, year=None, month=None, day=None, hour=
     return render(request, 'webapp/seatSelection.html', context)
 
 def seasonConcertHall(request, blank, theater, season, day, hour, minute):
+    #Operates generally the same way as concertHall, but seats are marked as sold if a ticket exists for that seat in ANY performance (within criteria) in the season
+
     # Create the initial set of seats and mark them all available.
     context = populateConcertHallSeats()
+
+    #Get the list of performances that are on the specified weekday in this season
+    performances = utility.getPerformancesOnWeekdayInSeason(day, season)
+
+    # Assume we are using the Concert Hall theater
+    theater = models.Theater.objects.get(name="Concert Hall")
+
+    for performance in performances:
+        # Get the set of tickets that refer to this performance
+        tickets = performance.ticket_set.all()
+
+        # Iterate through the tickets for this performance
+        for ticket in tickets:
+            # Mark the ticket as sold.
+            context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
+
+
     return render(request, 'webapp/concertHall.html', context)
 
 def concertHall(request, show, theater, year, month, day, hour, minute):
