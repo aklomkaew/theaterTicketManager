@@ -18,6 +18,7 @@ from django.contrib.auth.models import Group
 
 class Seat(models.Model):
     number = models.IntegerField()#Number of the seat
+    handicapped = models.BooleanField(default=False)
 
     def get_row(self):
         rows = self.row_set.all()
