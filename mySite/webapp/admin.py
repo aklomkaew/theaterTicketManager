@@ -32,7 +32,7 @@ class RowAdmin(admin.ModelAdmin):
 
 @admin.register(Seat)
 class SeatAdmin(admin.ModelAdmin):
-    list_display = ('number', 'get_row')
+    list_display = ('number', 'handicapped', 'get_row')
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
