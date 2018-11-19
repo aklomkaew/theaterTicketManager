@@ -279,11 +279,11 @@
             else if (theater_value == "Playhouse Theater") {
               theater_str = "playHouse";
             }
-            var season_arr = document.getElementById("seasonDropdown").value.split(" ");
-            var season_str = "";
-            for (index = 0; index < season_arr.length; index++) {
-                season_str += season_arr[index];
-            }
+            // var season_arr = document.getElementById("seasonDropdown").value.split(" ");
+            var season_str = document.getElementById("seasonDropdown").value;
+            // for (index = 0; index < season_arr.length; index++) {
+            //     season_str += season_arr[index];
+            // }
             str += 'b/'
             str += theater_str + '/'
                 + season_str + '/'
