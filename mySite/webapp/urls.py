@@ -1,4 +1,5 @@
 from django.urls import path
+from django.urls import include
 from . import views
 
 urlpatterns = [
@@ -20,4 +21,5 @@ urlpatterns = [
     path('confirmationPage/<str:show>/<str:theater>/<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>/<str:seats>/<int:paid>/<str:name>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.confirmationPage, name='confirmationPage'),
     path('confirmation/', views.confirmation, name='confirmation'),
     path('help/', views.help, name='help'),
+    path('authFail/', views.authFail, name='authFail')
 ]
