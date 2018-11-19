@@ -308,6 +308,7 @@
       for (index = 0; index < selectedSeats.length; index++) {
           seats_str += selectedSeats[index] + ",";
       }
+      seats_str = seats_str.slice(0, -1);
       link_str += seats_str + "/";
       console.log(link_str);
       window.location = link_str;

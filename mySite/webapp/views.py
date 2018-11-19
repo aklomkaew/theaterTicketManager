@@ -214,100 +214,32 @@ def payment(request, show, theater, year, month, day, hour, minute, seats) :
     context['seat_str'] = seats
     return render(request, 'webapp/payment.html', context)
 
-def populateConcertHallSeats():
-    context = {}
-    # Row A
-    for i in range(1,37):
-        key = 'A' + str(i)
-        context[key] = 'available'
-    # Row B
-    for i in range(1,39):
-        key = 'B' + str(i)
-        context[key] = 'available'
-    # Row C
-    for i in range(1,43):
-        key = 'C' + str(i)
-        context[key] = 'available'
-    for i in range(1,43):
-        key = 'D' + str(i)
-        context[key] = 'available'
-    for i in range(1,45):
-        key = 'E' + str(i)
-        context[key] = 'available'
-    for i in range(1,39):
-        key = 'F' + str(i)
-        context[key] = 'available'
-    for i in range(1,29):
-        key = 'G' + str(i)
-        context[key] = 'available'
-    for i in range(1,29):
-        key = 'H' + str(i)
-        context[key] = 'available'
-    for i in range(1,49):
-        key = 'I' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'J' + str(i)
-        context[key] = 'available'
-    for i in range(1,53):
-        key = 'K' + str(i)
-        context[key] = 'available'
-    for i in range(1,53):
-        key = 'L' + str(i)
-        context[key] = 'available'
-    for i in range(1,55):
-        key = 'M' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'N' + str(i)
-        context[key] = 'available'
-    for i in range(1,55):
-        key = 'O' + str(i)
-        context[key] = 'available'
-    for i in range(1,47):
-        key = 'P' + str(i)
-        context[key] = 'available'
-    for i in range(1,47):
-        key = 'Q' + str(i)
-        context[key] = 'available'
-    for i in range(1,52):
-        key = 'R' + str(i)
-        context[key] = 'available'
-    for i in range(1,48):
-        key = 'S' + str(i)
-        context[key] = 'available'
-    for i in range(1,61):
-        key = 'T' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'U' + str(i)
-        context[key] = 'available'
-    for i in range(1,63):
-        key = 'V' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'W' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'X' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'Y' + str(i)
-        context[key] = 'available'
-    for i in range(1,59):
-        key = 'Z' + str(i)
-        context[key] = 'available'
-    return context
 # <str:theater>/<str:year>/<str:day>/<str:hour>/<str:minute>/
 
 def seatSelection(request, show, theater, year=None, month=None, day=None, hour=None, minute=None):
     context = {}
     context['show'] = show
     context['theater'] = theater
+    if theater == "concertHall":
+        theater_str = "Concert Hall"
+    if theater == "playhouse":
+        theater_str = "Playhouse"
+    context['theater_str'] = theater_str
     context['year'] = year
     context['month'] = month
     context['day'] = day
-    context['hour'] = hour
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "AM"
+    context['hour'] = hour_str
+    context['am_pm_string'] = am_pm_string
+    minute_str = minute
+    if minute < 10:
+        minute_str = '0' + str(minute)
+    context['minute_str'] = minute_str
     context['minute'] = minute
     return render(request, 'webapp/seatSelection.html', context)
 
@@ -648,3 +580,500 @@ def confirmation(request):
 
 def help(request):
     return render(request, 'webapp/help.html')
+
+def populatePlayhouseSeats():
+    context = {}
+    # Row R1A
+    for i in range(1,2):
+        key = 'R1A' + str(i)
+        context[key] = 'available'
+    # Row R2A
+    for i in range(1,5):
+        key = 'R2A' + str(i)
+        context[key] = 'available'
+    # Row R3A
+    for i in range(1,5):
+        key = 'R3A' + str(i)
+        context[key] = 'available'
+    # Row R4A
+    for i in range(1,2):
+        key = 'R4A' + str(i)
+        context[key] = 'available'
+    # Row L0A
+    for i in range(1,4):
+        key = 'L0A' + str(i)
+        context[key] = 'available'
+    # Row L1A
+    for i in range(1,6):
+        key = 'L1A' + str(i)
+        context[key] = 'available'
+    # Row L2A
+    for i in range(1,10):
+        key = 'L2A' + str(i)
+        context[key] = 'available'
+    # Row L3A
+    for i in range(1,10):
+        key = 'L3A' + str(i)
+        context[key] = 'available'
+    # Row L4A
+    for i in range(1,7):
+        key = 'L4A' + str(i)
+        context[key] = 'available'
+    # Row L5A
+    for i in range(1,5):
+        key = 'L5A' + str(i)
+        context[key] = 'available'
+    # Row R1B
+    for i in range(1,3):
+        key = 'R1B' + str(i)
+        context[key] = 'available'
+    # Row R2B
+    for i in range(1,8):
+        key = 'R2B' + str(i)
+        context[key] = 'available'
+    # Row R3B
+    for i in range(1,8):
+        key = 'R3B' + str(i)
+        context[key] = 'available'
+    # Row R4B
+    for i in range(1,3):
+        key = 'R4B' + str(i)
+        context[key] = 'available'
+    # Row R1C
+    for i in range(1,4):
+        key = 'R1C' + str(i)
+        context[key] = 'available'
+    # Row R2C
+    for i in range(1,9):
+        key = 'R2C' + str(i)
+        context[key] = 'available'
+    # Row R3C
+    for i in range(1,9):
+        key = 'R3C' + str(i)
+        context[key] = 'available'
+    # Row R4C
+    for i in range(1,4):
+        key = 'R4C' + str(i)
+        context[key] = 'available'
+    # Row R1D
+    for i in range(1,4):
+        key = 'R1D' + str(i)
+        context[key] = 'available'
+    # Row R2D
+    for i in range(1,12):
+        key = 'R2D' + str(i)
+        context[key] = 'available'
+    # Row R3D
+    for i in range(1,12):
+        key = 'R3D' + str(i)
+        context[key] = 'available'
+    # Row R4D
+    for i in range(1,4):
+        key = 'R4D' + str(i)
+        context[key] = 'available'
+    # Row R1E
+    for i in range(1,5):
+        key = 'R1E' + str(i)
+        context[key] = 'available'
+    # Row R2E
+    for i in range(1,14):
+        key = 'R2E' + str(i)
+        context[key] = 'available'
+    # Row R3E
+    for i in range(1,14):
+        key = 'R3E' + str(i)
+        context[key] = 'available'
+    # Row R4E
+    for i in range(1,5):
+        key = 'R4E' + str(i)
+        context[key] = 'available'
+    # Row R1F
+    for i in range(1,6):
+        key = 'R1F' + str(i)
+        context[key] = 'available'
+    # Row R2F
+    for i in range(1,17):
+        key = 'R2F' + str(i)
+        context[key] = 'available'
+    # Row R3F
+    for i in range(1,17):
+        key = 'R3F' + str(i)
+        context[key] = 'available'
+    # Row R4F
+    for i in range(1,6):
+        key = 'R4F' + str(i)
+        context[key] = 'available'
+    # Row R1G
+    for i in range(1,6):
+        key = 'R1G' + str(i)
+        context[key] = 'available'
+    # Row R2G
+    for i in range(1,18):
+        key = 'R2G' + str(i)
+        context[key] = 'available'
+    # Row R3G
+    for i in range(1,18):
+        key = 'R3G' + str(i)
+        context[key] = 'available'
+    # Row R4G
+    for i in range(1,6):
+        key = 'R4G' + str(i)
+        context[key] = 'available'
+    # Row L1B
+    for i in range(1,5):
+        key = 'L1B' + str(i)
+        context[key] = 'available'
+    # Row L2B
+    for i in range(1,12):
+        key = 'L2B' + str(i)
+        context[key] = 'available'
+    # Row L3B
+    for i in range(1,12):
+        key = 'L3B' + str(i)
+        context[key] = 'available'
+    # Row L4B
+    for i in range(1,6):
+        key = 'L4B' + str(i)
+        context[key] = 'available'
+    # Row L1C
+    for i in range(1,4):
+        key = 'L1C' + str(i)
+        context[key] = 'available'
+    # Row L2C
+    for i in range(1,14):
+        key = 'L2C' + str(i)
+        context[key] = 'available'
+    # Row L3B
+    for i in range(1,14):
+        key = 'L3C' + str(i)
+        context[key] = 'available'
+    # Row L4C
+    for i in range(1,6):
+        key = 'L4C' + str(i)
+        context[key] = 'available'
+    return context
+
+def populateConcertHallSeats():
+    context = {}
+    # Row A
+    for i in range(1,37):
+        key = 'A' + str(i)
+        context[key] = 'available'
+    # Row B
+    for i in range(1,39):
+        key = 'B' + str(i)
+        context[key] = 'available'
+    # Row C
+    for i in range(1,43):
+        key = 'C' + str(i)
+        context[key] = 'available'
+    for i in range(1,43):
+        key = 'D' + str(i)
+        context[key] = 'available'
+    for i in range(1,45):
+        key = 'E' + str(i)
+        context[key] = 'available'
+    for i in range(1,39):
+        key = 'F' + str(i)
+        context[key] = 'available'
+    for i in range(1,29):
+        key = 'G' + str(i)
+        context[key] = 'available'
+    for i in range(1,29):
+        key = 'H' + str(i)
+        context[key] = 'available'
+    for i in range(1,49):
+        key = 'I' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'J' + str(i)
+        context[key] = 'available'
+    for i in range(1,53):
+        key = 'K' + str(i)
+        context[key] = 'available'
+    for i in range(1,53):
+        key = 'L' + str(i)
+        context[key] = 'available'
+    for i in range(1,55):
+        key = 'M' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'N' + str(i)
+        context[key] = 'available'
+    for i in range(1,55):
+        key = 'O' + str(i)
+        context[key] = 'available'
+    for i in range(1,47):
+        key = 'P' + str(i)
+        context[key] = 'available'
+    for i in range(1,47):
+        key = 'Q' + str(i)
+        context[key] = 'available'
+    for i in range(1,52):
+        key = 'R' + str(i)
+        context[key] = 'available'
+    for i in range(1,48):
+        key = 'S' + str(i)
+        context[key] = 'available'
+    for i in range(1,61):
+        key = 'T' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'U' + str(i)
+        context[key] = 'available'
+    for i in range(1,63):
+        key = 'V' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'W' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'X' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'Y' + str(i)
+        context[key] = 'available'
+    for i in range(1,59):
+        key = 'Z' + str(i)
+        context[key] = 'available'
+    # Row S1A
+    for i in range(1,9):
+        key = 'S1A' + str(i)
+        context[key] = 'available'
+    # Row S2A
+    for i in range(1,14):
+        key = 'S2A' + str(i)
+        context[key] = 'available'
+    # Row S3A
+    for i in range(1,15):
+        key = 'S3A' + str(i)
+        context[key] = 'available'
+    # Row S4A
+    for i in range(1,14):
+        key = 'S4A' + str(i)
+        context[key] = 'available'
+    # Row S5A
+    for i in range(1,9):
+        key = 'S5A' + str(i)
+        context[key] = 'available'
+    # Row S1B
+    for i in range(1,9):
+        key = 'S1B' + str(i)
+        context[key] = 'available'
+    # Row S2B
+    for i in range(1,14):
+        key = 'S2B' + str(i)
+        context[key] = 'available'
+    # Row S3B
+    for i in range(1,15):
+        key = 'S3B' + str(i)
+        context[key] = 'available'
+    # Row S4B
+    for i in range(1,14):
+        key = 'S4B' + str(i)
+        context[key] = 'available'
+    # Row S5B
+    for i in range(1,9):
+        key = 'S5B' + str(i)
+        context[key] = 'available'
+    # Row S1C
+    for i in range(1,9):
+        key = 'S1C' + str(i)
+        context[key] = 'available'
+    # Row S2C
+    for i in range(1,14):
+        key = 'S2C' + str(i)
+        context[key] = 'available'
+    # Row S3C
+    for i in range(1,15):
+        key = 'S3C' + str(i)
+        context[key] = 'available'
+    # Row S4C
+    for i in range(1,14):
+        key = 'S4C' + str(i)
+        context[key] = 'available'
+    # Row S5C
+    for i in range(1,9):
+        key = 'S5C' + str(i)
+        context[key] = 'available'
+    # Row S1D
+    for i in range(1,9):
+        key = 'S1D' + str(i)
+        context[key] = 'available'
+    # Row S2D
+    for i in range(1,14):
+        key = 'S2D' + str(i)
+        context[key] = 'available'
+    # Row S3D
+    for i in range(1,15):
+        key = 'S3D' + str(i)
+        context[key] = 'available'
+    # Row S4D
+    for i in range(1,14):
+        key = 'S4D' + str(i)
+        context[key] = 'available'
+    # Row S5D
+    for i in range(1,9):
+        key = 'S5D' + str(i)
+        context[key] = 'available'
+    # Row S1E
+    for i in range(1,9):
+        key = 'S1E' + str(i)
+        context[key] = 'available'
+    # Row S2E
+    for i in range(1,14):
+        key = 'S2E' + str(i)
+        context[key] = 'available'
+    # Row S3E
+    for i in range(1,15):
+        key = 'S3E' + str(i)
+        context[key] = 'available'
+    # Row S4E
+    for i in range(1,14):
+        key = 'S4E' + str(i)
+        context[key] = 'available'
+    # Row S5E
+    for i in range(1,9):
+        key = 'S5E' + str(i)
+        context[key] = 'available'
+    # Row S1F
+    for i in range(1,9):
+        key = 'S1F' + str(i)
+        context[key] = 'available'
+    # Row S2F
+    for i in range(1,13):
+        key = 'S2F' + str(i)
+        context[key] = 'available'
+    # Row S3F
+    for i in range(1,15):
+        key = 'S3F' + str(i)
+        context[key] = 'available'
+    # Row S4F
+    for i in range(1,13):
+        key = 'S4F' + str(i)
+        context[key] = 'available'
+    # Row S5F
+    for i in range(1,9):
+        key = 'S5F' + str(i)
+        context[key] = 'available'
+    # Row S1G
+    for i in range(1,9):
+        key = 'S1G' + str(i)
+        context[key] = 'available'
+    # Row S2G
+    for i in range(1,13):
+        key = 'S2G' + str(i)
+        context[key] = 'available'
+    # Row S3G
+    for i in range(1,15):
+        key = 'S3G' + str(i)
+        context[key] = 'available'
+    # Row S4G
+    for i in range(1,13):
+        key = 'S4G' + str(i)
+        context[key] = 'available'
+    # Row S5G
+    for i in range(1,9):
+        key = 'S5G' + str(i)
+        context[key] = 'available'
+    # Row S1H
+    for i in range(1,9):
+        key = 'S1H' + str(i)
+        context[key] = 'available'
+    # Row S2H
+    for i in range(1,13):
+        key = 'S2H' + str(i)
+        context[key] = 'available'
+    # Row S3H
+    for i in range(1,15):
+        key = 'S3H' + str(i)
+        context[key] = 'available'
+    # Row S4H
+    for i in range(1,10):
+        key = 'S4H' + str(i)
+        context[key] = 'available'
+    # Row S5H
+    for i in range(1,9):
+        key = 'S5H' + str(i)
+        context[key] = 'available'
+    # Row S1I
+    for i in range(1,9):
+        key = 'S1I' + str(i)
+        context[key] = 'available'
+    # Row S2I
+    for i in range(1,13):
+        key = 'S2I' + str(i)
+        context[key] = 'available'
+    # Row S3I
+    for i in range(1,15):
+        key = 'S3I' + str(i)
+        context[key] = 'available'
+    # Row S4I
+    for i in range(1,10):
+        key = 'S4I' + str(i)
+        context[key] = 'available'
+    # Row S5I
+    for i in range(1,9):
+        key = 'S5I' + str(i)
+        context[key] = 'available'
+    # Row S1J
+    for i in range(1,8):
+        key = 'S1J' + str(i)
+        context[key] = 'available'
+    # Row S2J
+    for i in range(1,13):
+        key = 'S2J' + str(i)
+        context[key] = 'available'
+    # Row S3J
+    for i in range(1,15):
+        key = 'S3J' + str(i)
+        context[key] = 'available'
+    # Row S4J
+    for i in range(1,10):
+        key = 'S4J' + str(i)
+        context[key] = 'available'
+    # Row S5J
+    for i in range(1,8):
+        key = 'S5J' + str(i)
+        context[key] = 'available'
+    # Row S1K
+    for i in range(1,8):
+        key = 'S1K' + str(i)
+        context[key] = 'available'
+    # Row S2K
+    for i in range(1,13):
+        key = 'S2K' + str(i)
+        context[key] = 'available'
+    # Row S3K
+    for i in range(1,15):
+        key = 'S3K' + str(i)
+        context[key] = 'available'
+    # Row S4K
+    for i in range(1,10):
+        key = 'S4K' + str(i)
+        context[key] = 'available'
+    # Row S5K
+    for i in range(1,8):
+        key = 'S5K' + str(i)
+        context[key] = 'available'
+    # Row S1L
+    for i in range(1,8):
+        key = 'S1L' + str(i)
+        context[key] = 'available'
+    # Row S2L
+    for i in range(1,13):
+        key = 'S2L' + str(i)
+        context[key] = 'available'
+    # Row S3L
+    for i in range(1,21):
+        key = 'S3L' + str(i)
+        context[key] = 'available'
+    # Row S4L
+    for i in range(1,10):
+        key = 'S4L' + str(i)
+        context[key] = 'available'
+    # Row S5L
+    for i in range(1,8):
+        key = 'S5L' + str(i)
+        context[key] = 'available'
+    return context
