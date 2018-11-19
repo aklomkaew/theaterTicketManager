@@ -80,7 +80,11 @@ def getPerformancesInSeason(season):
         # iterate through all performances in a specific show
         for performance in show.performances.all():
 
-            performances.append(performance)
+            if performance not in performances:
+
+                performances.append(performance)
+
+    return performances
 
 """Returns a list of performances that are on a particular date"""
 def getPerformancesOnDate(year, month, day):
@@ -153,6 +157,37 @@ def getPerformancesOnWeekday(day):
 
     return performances_on_wednesday
 
+"""Returns a list of performances that are on a particular day of the week."""
+def getPerformancesOnWeekdayInSeason(day, season):
+    # Build a dictionary of reference values.
+    # These correspond to the values returned by Python's datetime.weekday() method
+    weekdays = {'monday': 0,
+                'teusday': 1,
+                'wednesday': 2,
+                'thursday': 3,
+                'friday': 4,
+                'saturday': 5,
+                'sunday': 6}
+
+    # Get the appropriate integer for the day we want, using the lowercase represetnation of the value
+    weekday = weekdays[day.lower()]
+
+    # Build a list to keep our results in
+    performances_on_weekday = []
+
+    # Get the set of all performances in the database
+    performances = getPerformancesInSeason(season)
+
+    # Iterate through each performance
+    for performance in performances:
+
+        # Check if its weekday matches our criteria
+        if performance.time.weekday() == weekday:
+
+            # If it does, add it to the list of results
+            performances_on_weekday.append(performance)
+
+    return performances_on_weekday
 
 
 """Check and see if a ticket exists for a particular theater, date, time, and seat."""

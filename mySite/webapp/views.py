@@ -350,8 +350,138 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
             # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
             return render(request, 'webapp/concertHall.html', context)
 
+
 # path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
 def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, address, phoneNumber, email, door_reservation, printed, payment_method):
+
+    # Check if the Customer exists
+    nameParts = name.split()
+
+    firstname = ""
+    middlename = ""
+    lastname = ""
+
+    if theater == 'concertHall':
+        theaterName = "Concert Hall"
+    elif theater == 'playhouse':
+        theaterName = 'Playhouse Theater'
+
+    theaterObject = models.Theater.objects.filter(name=theaterName)
+
+    # Create the variable in this scope for referencing later
+    customer = models.Customer(firstName="temp", lastName="temp")
+
+    # TODO: Add error handling for corrupted name
+    # Check if a middle name was provided
+    if len(nameParts) > 2:
+        firstname = nameParts[0]
+        middlename = nameParts[1]
+        lastname = nameParts[2]
+
+        # Use filter. If len = 1, then the user exists. If not, then create it.
+
+        customers = models.Customer.objects.filter(firstName=firstname, middleName=middlename, lastName=lastname)
+
+        # A record already exists for this customer.
+        if len(customers) == 1:
+            customer = customers[0]
+        elif len(customers) == 0:
+            customer = models.Customer(firstName=firstname, middleName=middlename, lastName=lastname, email=email,
+                                       phone=phoneNumber, address=address)
+            customer.save()
+
+    else:
+        firstname = nameParts[0]
+        lastname = nameParts[1]
+
+        customers = models.Customer.objects.filter(firstName=firstname, lastName=lastname)
+
+        # A record already exists for this customer.
+        if len(customers) == 1:
+            customer = customers[0]
+        elif len(customers) == 0:
+            customer = models.Customer(firstName=firstname, lastName=lastname, email=email, phone=phoneNumber, address=address)
+            customer.save()
+
+    # We have the customer, now get the rest of the information we need for creating a ticket.
+    # Get a set of seats
+    seatObjects = []
+    rows = []
+    sections = []
+
+    individualSeatParts = seats.split(',')
+    for i, part in enumerate(individualSeatParts):
+        rows.append(models.Row.objects.get(name=part[0]))
+        seatObjects.append(models.Seat.objects.get(number=int(part[1])))
+
+        # Filter through the sections containing this row to find the one that is in the specified theater
+        # Find the section that this row is in that is itself in the theater
+        for section in rows[i].section_set.all():
+
+            matchingTheaters = section.theater_set.filter(name=theaterName)
+
+            if len(matchingTheaters) == 1:
+                sections.append(section)
+                break
+
+    performances = utility.getPerformancesOnWeekdayInSeason(day, season)
+
+    print(performances)
+
+    # TODO: Test this logic with a modified Season Ticket selection and payment page.
+    #Iterate through each performance in the set of valid performances in the Season
+    for performance in performances:
+
+        #Create a ticket for eacb seat in this performace
+        for i, seat in enumerate(seatObjects):
+
+            ticket = models.Ticket.objects.create(datePurchased=datetime.datetime.now(), door=bool(door_reservation))
+            ticket.paid = bool(paid)
+
+            if bool(paid) == True:
+                ticket.cash = bool(payment_method)
+
+            ticket.printed = bool(printed)
+            ticket.customer.add(customer)
+            ticket.seat.add(seat)
+            ticket.row.add(rows[i])
+            ticket.section.add(sections[i])
+
+            #Find the Show for this performance.
+            #It should be the one that references the performance and is in the appropriate season and theater
+            show = ""
+            for each in performance.show_set.all():
+
+                if len(each.season_set.filter(name=season)) >= 1 and len(performance.theater.filter(name=theaterName)) >= 1:
+
+                    show = each
+                    break
+
+            ticket.season.add(models.Season.objects.get(name=season))
+            ticket.show.add(show)
+            ticket.performance.add(performance)
+            ticket.save()
+
+    #Create a SeasonTicketHolder record for this customer or update an existing one
+    #Check if there is already a SeasonTicketHolder for this customer
+    if len(customer.seasonticketholder_set.all()) < 1:
+
+        holder = models.SeasonTicketHolder.objects.create(valid=True)
+        holder.customer.add(customer)
+        holder.seasons.add(models.Season.objects.get(name=season))
+        holder.save()
+    else:
+        holder = customer.seasonticketholder_set.get(customer=customer)
+        holder.valid = True
+
+        #Check if this Season does not already exists in the record
+        if len(holder.seasons.filter(name=season)) < 1:
+
+            #If that is true, then add the specifid season
+            holder.seasons.add(models.Season.objects.get(name=season))
+
+        holder.save()
+
     context = {}
     context['theater'] = theater
     context['season'] = season
@@ -361,18 +491,20 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     context['seats'] = seats
     context['paid'] = paid
     context['name'] = name
-    context['address'] = address
     context['phoneNumber'] = phoneNumber
+    context['address'] = address
     context['email'] = email
     context['door_reservation'] = door_reservation
     context['printed'] = printed
     context['payment_method'] = payment_method
-    test_str = theater + "---" + season + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + str(paid) + "---" + name + "---" + address + "---" + phoneNumber + "---" + email + "---" + str(door_reservation) + "---" + str(printed)  + "---" + str(payment_method)
+    test_str = theater + "---" + season + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + str(paid) + "---" + name + "---" + phoneNumber + "---" + email + "---" + str(
+        door_reservation) + "---" + str(printed) + "---" + str(payment_method)  + "---" + address
+
     return HttpResponse(test_str)
 
+
 def confirmationPage(request, show, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
-#def confirmationPage(request, theater, show, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
-    # Check if the Customer exists
+# Check if the Customer exists
     nameParts = name.split()
 
     firstname = ""
@@ -449,10 +581,14 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
     # For each seat, create a new ticket.
     for i, seat in enumerate(seatObjects):
         # First, do the logic for saving the single ticket
-        # TODO: booleans are not in proper format
-        ticket = models.Ticket.objects.create(paid=bool(paid), datePurchased=datetime.datetime.now(),
-                                              door=bool(door_reservation), printed=bool(printed),
-                                              cash=bool(payment_method))
+
+
+        ticket = models.Ticket.objects.create(paid=bool(paid))
+        if bool(paid) == True:
+            ticket.cash = bool(payment_method)
+        ticket.datePurchased = datetime.datetime.now()
+        ticket.door = bool(door_reservation)
+        ticket.printed = bool(printed)
         ticket.customer.add(customer)
         ticket.seat.add(seat)
         ticket.row.add(rows[i])
