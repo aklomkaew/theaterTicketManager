@@ -36,7 +36,7 @@ class SeatAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('get_customer_name', 'get_seat', 'get_section', 'get_row', 'get_performance', 'get_show', 'get_season', 'cash', 'paid', 'datePurchased', 'door', 'printed')
+    list_display = ('get_customer_name', 'get_seat', 'get_section', 'get_row', 'get_performance', 'get_show', 'get_season', 'price', 'cash', 'paid', 'datePurchased', 'door', 'printed')
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
