@@ -625,8 +625,15 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
 
     individualSeatParts = seats.split(',')
     for i, part in enumerate(individualSeatParts):
-        rows.append(models.Row.objects.get(name=part[0]))
-        seatObjects.append(models.Seat.objects.get(number=int(part[1])))
+        print("ROW: " + part[:1])
+        print("SEAT: " + part[1:])
+        if len(part) > 2:
+            rows.append(models.Row.objects.get(name=part[:3]))
+            seatObjects.append(models.Seat.objects.get(number=int(part[3:])))
+        else:
+
+            rows.append(models.Row.objects.get(name=part[0]))
+            seatObjects.append(models.Seat.objects.get(number=int(part[1])))
 
         # Filter through the sections containing this row to find the one that is in the specified theater
         # Find the section that this row is in that is itself in the theater
@@ -801,8 +808,16 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
 
     individualSeatParts = seats.split(',')
     for i, part in enumerate(individualSeatParts):
-        rows.append(models.Row.objects.get(name=part[0]))
-        seatObjects.append(models.Seat.objects.get(number=int(part[1])))
+
+        print("ROW: " + part[:1])
+        print("SEAT: " + part[1:])
+        if len(part) > 2:
+            rows.append(models.Row.objects.get(name=part[:3]))
+            seatObjects.append(models.Seat.objects.get(number=int(part[3:])))
+        else:
+
+            rows.append(models.Row.objects.get(name=part[0]))
+            seatObjects.append(models.Seat.objects.get(number=int(part[1])))
 
         # Filter through the sections containing this row to find the one that is in the specified theater
         # Find the section that this row is in that is itself in the theater
