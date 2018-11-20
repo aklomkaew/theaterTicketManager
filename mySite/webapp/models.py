@@ -162,7 +162,7 @@ class Performance(models.Model):
 
     def __str__(self):
 
-        return str(self.time)[:16] #Only get first 16 characters to cut off minutes and past
+        return str(self.time)[:16] + "; " + str(self.get_theater())#Only get first 16 characters to cut off minutes and past
 
 
 

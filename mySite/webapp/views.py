@@ -771,7 +771,7 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
                 break
 
     # Get the show
-    performance = utility.getPerformanceOnDateAndTime(year, month, day, hour, minute)
+    performance = utility.getPerformanceOnDateAndTime(year, month, day, hour, minute, theaterName)
 
     # For each seat, create a new ticket.
     for i, seat in enumerate(seatObjects):
