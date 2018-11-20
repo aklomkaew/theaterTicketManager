@@ -482,6 +482,9 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
             return render(request, 'webapp/concertHall.html', context)
 
 def playhouse(request, show, theater, year, month, day, hour, minute):
+    context = populatePlayhouseSeats()
+    context['F1'] = 'sold'
+    return render(request, 'webapp/playhouse.html', context)
     # SHAWN, year, month, day, hour, minute are currently ints
     # str(year) is all you have to do to get them back to strings
 
