@@ -965,6 +965,9 @@ def help(request):
 
 def populatePlayhouseSeats():
     context = {}
+    # Handicap Seats
+    context['HC1'] = 'available'
+    context['HC2'] = 'available'
     # Row R1A
     for i in range(1,3):
         key = 'R1A' + str(i)
