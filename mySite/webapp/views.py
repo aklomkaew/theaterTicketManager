@@ -604,35 +604,37 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     #Iterate through each performance in the set of valid performances in the Season
     for performance in performances:
 
-        #Create a ticket for eacb seat in this performace
-        for i, seat in enumerate(seatObjects):
+        if performance.theater.all()[0].name == theaterName:
 
-            ticket = models.Ticket.objects.create(datePurchased=datetime.datetime.now(), door=bool(door_reservation))
-            ticket.paid = bool(paid)
+            #Create a ticket for eacb seat in this performace
+            for i, seat in enumerate(seatObjects):
 
-            if bool(paid) == True:
-                ticket.cash = bool(payment_method)
+                ticket = models.Ticket.objects.create(datePurchased=datetime.datetime.now(), door=bool(door_reservation))
+                ticket.paid = bool(paid)
 
-            ticket.printed = bool(printed)
-            ticket.customer.add(customer)
-            ticket.seat.add(seat)
-            ticket.row.add(rows[i])
-            ticket.section.add(sections[i])
+                if bool(paid) == True:
+                    ticket.cash = bool(payment_method)
 
-            #Find the Show for this performance.
-            #It should be the one that references the performance and is in the appropriate season and theater
-            show = ""
-            for each in performance.show_set.all():
+                ticket.printed = bool(printed)
+                ticket.customer.add(customer)
+                ticket.seat.add(seat)
+                ticket.row.add(rows[i])
+                ticket.section.add(sections[i])
 
-                if len(each.season_set.filter(name=season)) >= 1 and len(performance.theater.filter(name=theaterName)) >= 1:
+                #Find the Show for this performance.
+                #It should be the one that references the performance and is in the appropriate season and theater
+                show = ""
+                for each in performance.show_set.all():
 
-                    show = each
-                    break
+                    if len(each.season_set.filter(name=season)) >= 1 and len(performance.theater.filter(name=theaterName)) >= 1:
 
-            ticket.season.add(models.Season.objects.get(name=season))
-            ticket.show.add(show)
-            ticket.performance.add(performance)
-            ticket.save()
+                        show = each
+                        break
+
+                ticket.season.add(models.Season.objects.get(name=season))
+                ticket.show.add(show)
+                ticket.performance.add(performance)
+                ticket.save()
 
     #Create a SeasonTicketHolder record for this customer or update an existing one
     #Check if there is already a SeasonTicketHolder for this customer
@@ -771,7 +773,7 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
                 break
 
     # Get the show
-    performance = utility.getPerformanceOnDateAndTime(year, month, day, hour, minute)
+    performance = utility.getPerformanceOnDateAndTime(year, month, day, hour, minute, theaterName)
 
     # For each seat, create a new ticket.
     for i, seat in enumerate(seatObjects):

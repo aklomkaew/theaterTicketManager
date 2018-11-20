@@ -107,7 +107,7 @@ def getPerformancesOnDate(year, month, day):
     return performances_on_date
 
 """Returns a list of performances that are on a particular date and at a particular time"""
-def getPerformanceOnDateAndTime(year, month, day, hour, minute):
+def getPerformanceOnDateAndTime(year, month, day, hour, minute, theater):
     # build a datetime object to use for comparison
     date_for_comparison = datetime.date(int(year), int(month), int(day))
 
@@ -119,8 +119,10 @@ def getPerformanceOnDateAndTime(year, month, day, hour, minute):
 
     # Iterate through every performance
     for performance in performances:
+
+
         # Compare the current performance's date to our criteria
-        if performance.time.date() == date_for_comparison and performance.time.hour == hour and performance.time.minute == minute:
+        if performance.time.date() == date_for_comparison and performance.time.hour == hour and performance.time.minute == minute and performance.theater.all()[0].name == theater:
             # If their dates match, add it to the list of results
             return performance
 
