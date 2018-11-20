@@ -15,14 +15,21 @@ $(document).ready(() => {
     var rowIndex = getSeatIndex(seat_id);
     var row_str = seat_id.substring(0,rowIndex);
     var seat_no_str = seat_id.substring(rowIndex);
-    var seatListItem = '<li class="list-group-item d-flex justify-content-between lh-condensed"><div><h6 class="my-0">';
+    console.log(parent.nextTicket);
+    var seatListItem = '<li id="ticket-' + parent.nextTicket + '" ';
+    seatListItem += 'class="list-group-item d-flex justify-content-between lh-condensed"><div><h6 class="my-0">';
     seatListItem += 'Row ' + row_str + ' Seat ' + seat_no_str;
     seatListItem += '</h6><small class="text-muted">';
-    seatListItem += parent.showName + ' ' + parent.monthName + "/" + parent.day + "/" + parent.year + " - " + parent.hour + ":" + parent.minute;
+    seatListItem += parent.showName + ' ' + parent.monthName + "/" + parent.day + "/" + parent.year + " - " + parent.hour + ":" + parent.minute + " " + parent.am_pm_string;
     seatListItem += '</small><span><small class="text-muted">';
     seatListItem += ' ' + parent.theaterName + ' ';
-    seatListItem += '</small></span></div><span class="text-muted">$10.95</span></li>';
+    seatListItem += '</small></span></div><span class="text-muted"></span></li>';
     return seatListItem;
+  }
+  function getNextSelectedSpace(num) {
+    var selectedSpace = '<li id="select' + num + '"';
+    selectedSpace +=' class="list-group-item d-flex justify-content-between bg-light"><div class="text-success"><h6 class="my-0">Select Seat</h6></div></li>';
+    return selectedSpace;
   }
   var nextSelectedSpaceToReplace = 1;
   $('.seat').on('click', function (e) {
@@ -44,6 +51,8 @@ $(document).ready(() => {
         window.parent.$(idOfNextSelectToReplace).replaceWith(list_item);
         // window.parent.$('#seat-list li:last-child').remove();
         nextSelectedSpaceToReplace += 1;
+        parent.nextTicket += 1;
+        console.log(parent.nextTicket);
       }
       else if (parent.selectedSeats.includes(this_id)) {
         console.log('else entered');
@@ -54,6 +63,15 @@ $(document).ready(() => {
         }
         $(this).addClass('available');
         parent.numSelected -= 1;
+        // remove nextTicket from list
+        var list_removeID = parent.nextTicket - 1;
+        console.log('this: ' + list_removeID);
+        // window.parent.$("#ticket-" + list_removeID).remove();
+        // decement nextTicket
+        parent.nextTicket -= 1;
+        var list_item = getNextSelectedSpace(parent.nextSelectedSpaceToCreate);
+        window.parent.$("#ticket-" + list_removeID).replaceWith(list_item);
+        parent.nextSelectedSpaceToCreate += 1;
       }
       // var num = window.parent.$("#seat-spinner").val();
       // console.log(window.parent.$("#seat-spinner").val());

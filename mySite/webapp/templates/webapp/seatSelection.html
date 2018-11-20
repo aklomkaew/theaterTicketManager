@@ -14,10 +14,12 @@
       var theaterName = "{{ theater_str }}";
       var monthName = "{{ month }}";
       var day = "{{ day }}";
-      var hour = "{{ hour }}";
+      var hour = "{{ hour_str }}";
       var year = "{{ year }}";
       var am_pm_string = "{{ am_pm_string }}";
       var minute = "{{ minute_str }}";
+      var nextTicket = 1;
+      var nextSelectedSpaceToCreate = 3;
     </script>
 
     <style>
@@ -79,7 +81,6 @@
     <br>
     <div class="container">
         <h1 class="display-4">Seat Selection</h1>
-        <button id="outer-button" input type="submit">Test</button>
     </div>
     <br>
 
@@ -172,25 +173,32 @@
       selectedSpace +=' class="list-group-item d-flex justify-content-between bg-light"><div class="text-success"><h6 class="my-0">Select Seat</h6></div></li>';
       return selectedSpace;
     }
-    var nextSelectedSpaceToCreate = 3;
     $("#checkout-button").on('click', () => {
-      var link_str = "/payment/{{ show }}/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/";
-      var seats_str = "";
-      for (index = 0; index < selectedSeats.length; index++) {
-          seats_str += selectedSeats[index] + ",";
+        if($("#seat-spinner").val() == numSelected) {
+        var link_str = "/payment/{{ show }}/{{ theater }}/{{ year }}/{{ month }}/{{ day }}/{{ hour }}/{{ minute }}/";
+        var seats_str = "";
+        for (index = 0; index < selectedSeats.length; index++) {
+            seats_str += selectedSeats[index] + ",";
+        }
+        seats_str = seats_str.slice(0, -1);
+        link_str += seats_str + "/";
+        console.log(link_str);
+      	var iFrameDOM = $("#seatmap-frame").contents();
+      	// iFrameDOM.find("#S2A6").css("background-color", "#fff");
+        window.location = link_str;
+    }
+    else {
+      var needed = $("#seat-spinner").val() - numSelected;
+      var ending = "";
+      if(needed == 1) {
+         ending = "seat";
       }
-      seats_str = seats_str.slice(0, -1);
-      link_str += seats_str + "/";
-      console.log(link_str);
-    	var iFrameDOM = $("#seatmap-frame").contents();
-    	// iFrameDOM.find("#S2A6").css("background-color", "#fff");
-      window.location = link_str;
-      // console.log("showName: " + showName);
-      // console.log("theaterName: " + theaterName);
-      // console.log("monthName: " + monthName);
-      // console.log("day: " + day);
-      // console.log("hour: " + hour);
-      // console.log("minute: " + minute);
+      else {
+        ending = "seats";
+      }
+      var output_str = "Please select " + needed + " more " + ending;
+      alert(output_str);
+    }
     });
 
     $('#spinner button').on('click', function(){
@@ -223,6 +231,12 @@
             }
             iFrameDOM.find("#" + lastSeatSelected).addClass('available');
             numSelected -= 1;
+            // remove nextTicket from list
+            var list_removeID = nextTicket - 1;
+            // console.log('this: ' + list_removeID);
+            $("#ticket-" + list_removeID).remove();
+            // decement nextTicket
+            nextTicket -= 1;
         }
         else
         {
