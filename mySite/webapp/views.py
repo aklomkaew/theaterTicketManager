@@ -78,8 +78,20 @@ def getPerformances(request, theater, month, day, year):
 
                     showtime = {}
                     showtime['hour'] = int(performance.time.hour)
+                    hour = int(performance.time.hour)
+                    if hour <= 12:
+                        hour_str = str(hour)
+                        am_pm_string = "AM"
+                    else:
+                        hour_str = str(hour - 12)
+                        am_pm_string = "PM"
                     showtime['minute'] = int(performance.time.minute)
-                    showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                    minute_str = str(performance.time.minute)
+                    if int(performance.time.minute) < 10:
+                        minute_str = '0' + minute_str
+                    # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                    showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+                    # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
                     showtimes.append(showtime)
 
             # We now have list of the relevant performances
@@ -176,8 +188,19 @@ def performance(request):
 
                 showtime = {}
                 showtime['hour'] = int(performance.time.hour)
+                hour = int(performance.time.hour)
+                if hour <= 12:
+                    hour_str = str(hour)
+                    am_pm_string = "AM"
+                else:
+                    hour_str = str(hour - 12)
+                    am_pm_string = "PM"
                 showtime['minute'] = int(performance.time.minute)
-                showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                minute_str = performance.time.minute
+                if int(performance.time.minute) < 10:
+                    minute_str = '0' + minute_str
+                # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
                 showtimes.append(showtime)
 
         # We now have list of the relevant performances
@@ -275,8 +298,9 @@ def seatSelection(request, show, theater, year=None, month=None, day=None, hour=
         am_pm_string = "AM"
     else:
         hour_str = str(hour - 12)
-        am_pm_string = "AM"
-    context['hour'] = hour_str
+        am_pm_string = "PM"
+    context['hour_str'] = hour_str
+    context['hour'] = hour
     context['am_pm_string'] = am_pm_string
     minute_str = minute
     if minute < 10:
