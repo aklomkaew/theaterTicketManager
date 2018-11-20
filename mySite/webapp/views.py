@@ -523,19 +523,15 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
             # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
             return render(request, 'webapp/concertHall.html', context)
 
+@login_required
 def playhouse(request, show, theater, year, month, day, hour, minute):
-    context = populatePlayhouseSeats()
-    context['F1'] = 'sold'
-    return render(request, 'webapp/playhouse.html', context)
-    # SHAWN, year, month, day, hour, minute are currently ints
-    # str(year) is all you have to do to get them back to strings
 
-    """Find all of the sold seats. Use every seat that is sold as a key to a dictionary. """
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
 
-    # Create the initial set of seats and mark them all available.
     context = populatePlayhouseSeats()
 
-    # Assume we are using the Concert Hall theater
+    # Assume we are using the Playhouse theater
     theater = models.Theater.objects.get(name="Playhouse Theater")
 
     # build a datetime object to use for comparison
@@ -556,9 +552,8 @@ def playhouse(request, show, theater, year, month, day, hour, minute):
                 # Mark the ticket as sold.
                 context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
 
-            # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
-            return render(request, 'webapp/playhouse.html', context)
 
+    return render(request, 'webapp/playhouse.html', context)
 
 
 @login_required
