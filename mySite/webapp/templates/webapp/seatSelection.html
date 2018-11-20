@@ -224,12 +224,19 @@
             console.log(lastSeatSelected);
             var iFrameDOM = $("#seatmap-frame").contents();
             console.log(iFrameDOM.find(lastSeatSelected));
-            iFrameDOM.find("#" + lastSeatSelected).css("background-color", "grey");
+            if (iFrameDOM.find("#" + lastSeatSelected).hasClass("handicap-seat")) {
+              iFrameDOM.find("#" + lastSeatSelected).attr('src',"/static/img/handicap_logo.png");
+              iFrameDOM.find("#" + lastSeatSelected).addClass('handicap-available');
+            }
+            else {
+                iFrameDOM.find("#" + lastSeatSelected).css("background-color", "grey");
+                iFrameDOM.find("#" + lastSeatSelected).addClass('available');
+            }
             var index = selectedSeats.indexOf(lastSeatSelected);
             if (index > -1) {
               selectedSeats.splice(index, 1);
             }
-            iFrameDOM.find("#" + lastSeatSelected).addClass('available');
+            // iFrameDOM.find("#" + lastSeatSelected).addClass('available');
             numSelected -= 1;
             // remove nextTicket from list
             var list_removeID = nextTicket - 1;

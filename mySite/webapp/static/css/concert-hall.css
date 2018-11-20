@@ -10,7 +10,7 @@ body {
     right: 0;
 
     margin: auto;
-    min-width: 1400px;
+    min-width: 1500px;
     /* min-height: 200px; */
 }
 
@@ -40,6 +40,14 @@ body {
     background-color: grey;
 }
 
+.available:hover {
+  border: 2px solid black;
+}
+
+.handicap-available:hover {
+  border: 2px solid black;
+}
+
 .no-seat {
     display: inline-block;
     height: 16px;
@@ -54,6 +62,14 @@ body {
     border-radius: 5px;
     border: 1px solid grey;
 }
+.handicap-sold {
+  opacity: 0.2;
+}
+.handicap-available {
+
+}
+
+
 .handicap-seven {
     transform-origin: bottom right;
     transform: rotate(28deg);
@@ -152,6 +168,7 @@ body {
 }
 
 .aisle {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     display: inline-block;
     height: 16px;
     width: 3px;

@@ -10,7 +10,7 @@ body {
     right: 0;
 
     margin: auto;
-    min-width: 1400px;
+    min-width: 1700px;
     /* min-height: 200px; */
 }
 
@@ -40,6 +40,13 @@ body {
     background-color: grey;
 }
 
+.handicap-sold {
+  opacity: 0.2;
+}
+.handicap-available {
+
+}
+
 .no-seat {
     display: inline-block;
     height: 16px;
@@ -67,6 +74,7 @@ body {
     right: 750px;
 }
 
+
 .aisle {
     display: inline-block;
     height: 16px;
@@ -74,6 +82,7 @@ body {
     margin: 3px;
 }
 .middleLetter {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     display: inline-block;
     height: 30px;
     width: 14px;

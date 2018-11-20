@@ -98,7 +98,7 @@
                         <!-- Show Info -->
                         <label class="label">
                             <script type="text/javascript">
-                                document.write("Macbeth")
+                                document.write("{{ show }}")
                             </script>
                         </label>
 
@@ -106,17 +106,25 @@
                         <label class="label">
                             @
                             <script type="text/javascript">
-                                document.write("Playhouse Theater")
+                                document.write("{{ theater }}")
                             </script>
                         </label>
                     </div>
-
+                    {% for seat in seat_dict_list %}
                     <div class="row" style="display: block; block; width: 100%;" align="center">
                         <!-- Seat Info -->
                         <label class="label">
-                            Seat:
                             <script type="text/javascript">
-                                document.write("Section 2, Seat A5")
+                                document.write("Row {{ seat.row }}, Seat {{ seat.number }} ${{ seat.price }}")
+                            </script>
+                        </label>
+                    </div>
+                    {% endfor %}
+                    <div class="row" style="display: block; block; width: 100%;" align="center">
+                        <!-- Date Info -->
+                        <label class="label">
+                            <script type="text/javascript">
+                                document.write("Total Purchase: ${{ total }}")
                             </script>
                         </label>
                     </div>
@@ -125,7 +133,7 @@
                         <!-- Date Info -->
                         <label class="label">
                             <script type="text/javascript">
-                                document.write("Saturday, November 28, 2018")
+                                document.write(" {{ month }}/{{ day }}/{{ year }}")
                             </script>
                         </label>
                     </div>
@@ -135,7 +143,7 @@
                         <label class="label">
                             Time:
                             <script type="text/javascript">
-                                document.write("19:00")
+                                document.write("{{ time_str }}")
                             </script>
                         </label>
                     </div>
