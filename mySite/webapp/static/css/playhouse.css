@@ -30,6 +30,7 @@ body {
     border-radius: 5px;
     position: relative;
     border: 1px solid darkblue;
+    pointer-events:all;
 }
 
 .sold {
@@ -52,6 +53,15 @@ body {
     height: 16px;
     width: 16px;
     border-radius: 5px;
+    pointer-events:none;
+}
+
+.available:hover {
+  border: 2px solid black;
+}
+
+.handicap-available:hover {
+  border: 2px solid black;
 }
 
 .handicap-seat {
@@ -96,6 +106,7 @@ body {
 .row {
     width: auto;
     transform:rotate(0deg);
+    pointer-events:none;
 }
 
 .thirty-two {
