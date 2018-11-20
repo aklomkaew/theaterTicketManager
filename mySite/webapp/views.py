@@ -89,9 +89,7 @@ def getPerformances(request, theater, month, day, year):
                     minute_str = str(performance.time.minute)
                     if int(performance.time.minute) < 10:
                         minute_str = '0' + minute_str
-                    # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
                     showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
-                    # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
                     showtimes.append(showtime)
 
             # We now have list of the relevant performances
@@ -247,12 +245,63 @@ def seasonPayment(request, theater, season, day, hour, minute, seats) :
     context = {}
     context['theater'] = theater
     context['season'] = season
+    if theater == "concertHall":
+        theater_str = "Concert Hall"
+    if theater == "playhouse":
+        theater_str == "Playhouse Theater"
+    context['theater_str'] = theater_str
     context['day'] = day
+    context['day_str'] = day.capitalize()
     context['hour'] = hour
     context['minute'] = minute
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "PM"
+    minute_str = str(minute)
+    if int(minute) < 10:
+        minute_str = '0' + minute_str
+    context['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+    context['num_seats'] = len(seats_list)
     context['seats'] = sorted_seats_list
     context['seat_str'] = seats
+    seat_dict_list = []
+    for seat in seats_list:
+        seats_dict = {}
+        row, number = getRowNumber(seat)
+        seats_dict['number'] = number
+        seats_dict['row'] = row
+        # price_groups = getPriceGroups(seat)
+        seats_dict['price_groups'] = [{'name':'Regular','price': 2000.00}, {'name':'Lockheed Martin','price': 1750.00}]
+        seat_dict_list.append(seats_dict)
+    context['seat_dict_list'] = seat_dict_list
     return render(request, 'webapp/seasonPayment.html', context)
+
+def getRowNumber(seat):
+    end_index = len(seat) - 1
+    while end_index >= 0:
+        if not seat[end_index].isdigit():
+            break
+        end_index -= 1
+    row = seat[:end_index + 1]
+    number = seat[end_index + 1:]
+    return row, number
+
+def getRowNumberSeatsPrices(seat_price_string):
+    split_string = seat_price_string.split('-')
+    for item in split_string:
+        print(item)
+    end_index = len(split_string[0]) - 1
+    while end_index >= 0:
+        if not split_string[0][end_index].isdigit():
+            break
+        end_index -= 1
+    row = split_string[0][:end_index + 1]
+    number = split_string[0][end_index + 1:]
+    price = split_string[1]
+    return row, number, price
 
 @login_required
 def payment(request, show, theater, year, month, day, hour, minute, seats) :
@@ -265,13 +314,39 @@ def payment(request, show, theater, year, month, day, hour, minute, seats) :
     context = {}
     context['show'] = show
     context['theater'] = theater
+    if theater == "concertHall":
+        theater_str = "Concert Hall"
+    if theater == "playhouse":
+        theater_str == "Playhouse Theater"
+    context['theater_str'] = theater_str
     context['year'] = year
     context['month'] = month
     context['day'] = day
     context['hour'] = hour
     context['minute'] = minute
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "PM"
+    minute_str = str(minute)
+    if int(minute) < 10:
+        minute_str = '0' + minute_str
+    context['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+    context['num_seats'] = len(seats_list)
     context['seats'] = sorted_seats_list
     context['seat_str'] = seats
+    seat_dict_list = []
+    for seat in seats_list:
+        seats_dict = {}
+        row, number = getRowNumber(seat)
+        seats_dict['number'] = number
+        seats_dict['row'] = row
+        # price_groups = getPriceGroups(seat)
+        seats_dict['price_groups'] = [{'name':'Regular','price': 10.95}, {'name':'Lockheed Martin','price': 5.00}]
+        seat_dict_list.append(seats_dict)
+    context['seat_dict_list'] = seat_dict_list
     return render(request, 'webapp/payment.html', context)
 
 # <str:theater>/<str:year>/<str:day>/<str:hour>/<str:minute>/
@@ -308,6 +383,35 @@ def seatSelection(request, show, theater, year=None, month=None, day=None, hour=
     context['minute_str'] = minute_str
     context['minute'] = minute
     return render(request, 'webapp/seatSelection.html', context)
+
+@login_required
+def seasonPlayhouse(request, blank, theater, season, day, hour, minute):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
+    #Operates generally the same way as concertHall, but seats are marked as sold if a ticket exists for that seat in ANY performance (within criteria) in the season
+
+    # Create the initial set of seats and mark them all available.
+    context = populatePlayhouseSeats()
+
+    #Get the list of performances that are on the specified weekday in this season
+    performances = utility.getPerformancesOnWeekdayInSeason(day, season)
+
+    # Assume we are using the Concert Hall theater
+    theater = models.Theater.objects.get(name="Playhouse Theater")
+
+    for performance in performances:
+        # Get the set of tickets that refer to this performance
+        tickets = performance.ticket_set.all()
+
+        # Iterate through the tickets for this performance
+        for ticket in tickets:
+            # Mark the ticket as sold.
+            context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
+
+
+    return render(request, 'webapp/playhouse.html', context)
 
 @login_required
 def seasonConcertHall(request, blank, theater, season, day, hour, minute):
@@ -373,11 +477,13 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
             for ticket in tickets:
                 # Mark the ticket as sold.
                 context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
-
             # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
             return render(request, 'webapp/concertHall.html', context)
 
 def playhouse(request, show, theater, year, month, day, hour, minute):
+    context = populatePlayhouseSeats()
+    context['F1'] = 'sold'
+    return render(request, 'webapp/playhouse.html', context)
     # SHAWN, year, month, day, hour, minute are currently ints
     # str(year) is all you have to do to get them back to strings
 
@@ -414,7 +520,7 @@ def playhouse(request, show, theater, year, month, day, hour, minute):
 
 @login_required
 # path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
-def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, address, phoneNumber, email, door_reservation, printed, payment_method):
+def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, address, phoneNumber, email, door_reservation, printed, payment_method, total, seats_prices):
 
     if not auth_checks.can_create_tickets(request.user):
         return redirect('/authFail')
@@ -548,27 +654,45 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
         holder.save()
 
     context = {}
-    context['theater'] = theater
+    context['theater'] = theaterName
     context['season'] = season
     context['day'] = day
+    context['day_str'] = day.capitalize()
     context['hour'] = hour
     context['minute'] = minute
+    context['total'] = total
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "PM"
+    minute_str = str(minute)
+    if int(minute) < 10:
+        minute_str = '0' + minute_str
+    context['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
     context['seats'] = seats
+    seats_list = seats.split(',')
+    seat_price_list = seats_prices.split(',')
+    seat_dict_list = []
+    for seat in seat_price_list:
+        seats_dict = {}
+        row, number, price = getRowNumberSeatsPrices(seat)
+        seats_dict['number'] = number
+        seats_dict['row'] = row
+        seats_dict['price'] = price
+        seat_dict_list.append(seats_dict)
+    context['seat_dict_list'] = seat_dict_list
     context['paid'] = paid
     context['name'] = name
-    context['phoneNumber'] = phoneNumber
-    context['address'] = address
-    context['email'] = email
     context['door_reservation'] = door_reservation
     context['printed'] = printed
     context['payment_method'] = payment_method
-    test_str = theater + "---" + season + "---" + str(day) + "---" + str(hour) + "---" + str(minute) + "---" + seats + "---" + str(paid) + "---" + name + "---" + phoneNumber + "---" + email + "---" + str(
-        door_reservation) + "---" + str(printed) + "---" + str(payment_method)  + "---" + address
-
-    return HttpResponse(test_str)
+    context['total'] = total
+    return render(request, 'webapp/seasonConfirmation.html', context)
 
 @login_required
-def confirmationPage(request, show, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
+def confirmationPage(request, show, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method, total, seats_prices):
 
 
     if not auth_checks.can_create_tickets(request.user):
@@ -668,22 +792,42 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
 
     context = {}
     context['show'] = show
-    context['theater'] = theater
+    context['theater'] = theaterName
     context['year'] = year
     context['month'] = month
     context['day'] = day
     context['hour'] = hour
     context['minute'] = minute
+    context['total'] = total
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "PM"
+    minute_str = str(minute)
+    if int(minute) < 10:
+        minute_str = '0' + minute_str
+    context['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
     context['seats'] = seats
+    seats_list = seats.split(',')
+    seat_price_list = seats_prices.split(',')
+    seat_dict_list = []
+    for seat in seat_price_list:
+        seats_dict = {}
+        row, number, price = getRowNumberSeatsPrices(seat)
+        seats_dict['number'] = number
+        seats_dict['row'] = row
+        seats_dict['price'] = price
+        seat_dict_list.append(seats_dict)
+    context['seat_dict_list'] = seat_dict_list
     context['paid'] = paid
     context['name'] = name
     context['door_reservation'] = door_reservation
     context['printed'] = printed
     context['payment_method'] = payment_method
-    test_str = show + theater + "---" + str(year) + "---" + str(month) + "---" + str(day) + "---" + str(
-        hour) + "---" + str(minute) + "---" + seats + "---" + str(
-        paid) + "---" + name + "---" + "---" + door_reservation + "---" + printed + "---" + payment_method
-    return HttpResponse(test_str)
+    context['total'] = total
+    return render(request, 'webapp/confirmation.html', context)
 
 @login_required
 def buySeasonTicket(request):
@@ -706,13 +850,24 @@ def seasonSeatSelection(request, blank, theater, season, day, hour, minute):
     if not auth_checks.can_create_tickets(request.user):
         return redirect('/authFail')
 
-    my_str =  theater + "--" + season + "--" +  day + "--" + str(hour) + "--" + str(minute)
     context = {}
     context['theater'] = theater
     context['season'] = season
     context['day'] = day
     context['hour'] = hour
     context['minute'] = minute
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "PM"
+    minute_str = str(minute)
+    if int(minute) < 10:
+        minute_str = '0' + minute_str
+    context['hour_str'] = hour_str
+    context['minute_str'] = minute_str
+    context['am_pm_string'] = am_pm_string
     return render(request, 'webapp/seasonSeatSelection.html', context)
 
 def seatSelect(request):
@@ -734,171 +889,171 @@ def help(request):
 def populatePlayhouseSeats():
     context = {}
     # Row R1A
-    for i in range(1,2):
+    for i in range(1,3):
         key = 'R1A' + str(i)
         context[key] = 'available'
     # Row R2A
-    for i in range(1,5):
+    for i in range(1,6):
         key = 'R2A' + str(i)
         context[key] = 'available'
     # Row R3A
-    for i in range(1,5):
+    for i in range(1,6):
         key = 'R3A' + str(i)
         context[key] = 'available'
     # Row R4A
-    for i in range(1,2):
+    for i in range(1,3):
         key = 'R4A' + str(i)
         context[key] = 'available'
     # Row L0A
-    for i in range(1,4):
+    for i in range(1,5):
         key = 'L0A' + str(i)
         context[key] = 'available'
     # Row L1A
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'L1A' + str(i)
         context[key] = 'available'
     # Row L2A
-    for i in range(1,10):
+    for i in range(1,11):
         key = 'L2A' + str(i)
         context[key] = 'available'
     # Row L3A
-    for i in range(1,10):
+    for i in range(1,11):
         key = 'L3A' + str(i)
         context[key] = 'available'
     # Row L4A
-    for i in range(1,7):
+    for i in range(1,8):
         key = 'L4A' + str(i)
         context[key] = 'available'
     # Row L5A
-    for i in range(1,5):
+    for i in range(1,6):
         key = 'L5A' + str(i)
         context[key] = 'available'
     # Row R1B
-    for i in range(1,3):
+    for i in range(1,4):
         key = 'R1B' + str(i)
         context[key] = 'available'
     # Row R2B
-    for i in range(1,8):
+    for i in range(1,9):
         key = 'R2B' + str(i)
         context[key] = 'available'
     # Row R3B
-    for i in range(1,8):
+    for i in range(1,9):
         key = 'R3B' + str(i)
         context[key] = 'available'
     # Row R4B
-    for i in range(1,3):
+    for i in range(1,4):
         key = 'R4B' + str(i)
         context[key] = 'available'
     # Row R1C
-    for i in range(1,4):
+    for i in range(1,5):
         key = 'R1C' + str(i)
         context[key] = 'available'
     # Row R2C
-    for i in range(1,9):
+    for i in range(1,10):
         key = 'R2C' + str(i)
         context[key] = 'available'
     # Row R3C
-    for i in range(1,9):
+    for i in range(1,10):
         key = 'R3C' + str(i)
         context[key] = 'available'
     # Row R4C
-    for i in range(1,4):
+    for i in range(1,5):
         key = 'R4C' + str(i)
         context[key] = 'available'
     # Row R1D
-    for i in range(1,4):
+    for i in range(1,5):
         key = 'R1D' + str(i)
         context[key] = 'available'
     # Row R2D
-    for i in range(1,12):
+    for i in range(1,13):
         key = 'R2D' + str(i)
         context[key] = 'available'
     # Row R3D
-    for i in range(1,12):
+    for i in range(1,13):
         key = 'R3D' + str(i)
         context[key] = 'available'
     # Row R4D
-    for i in range(1,4):
+    for i in range(1,5):
         key = 'R4D' + str(i)
         context[key] = 'available'
     # Row R1E
-    for i in range(1,5):
+    for i in range(1,6):
         key = 'R1E' + str(i)
         context[key] = 'available'
     # Row R2E
-    for i in range(1,14):
+    for i in range(1,15):
         key = 'R2E' + str(i)
         context[key] = 'available'
     # Row R3E
-    for i in range(1,14):
+    for i in range(1,15):
         key = 'R3E' + str(i)
         context[key] = 'available'
     # Row R4E
-    for i in range(1,5):
+    for i in range(1,6):
         key = 'R4E' + str(i)
         context[key] = 'available'
     # Row R1F
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'R1F' + str(i)
         context[key] = 'available'
     # Row R2F
-    for i in range(1,17):
+    for i in range(1,18):
         key = 'R2F' + str(i)
         context[key] = 'available'
     # Row R3F
-    for i in range(1,17):
+    for i in range(1,18):
         key = 'R3F' + str(i)
         context[key] = 'available'
     # Row R4F
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'R4F' + str(i)
         context[key] = 'available'
     # Row R1G
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'R1G' + str(i)
         context[key] = 'available'
     # Row R2G
-    for i in range(1,18):
+    for i in range(1,19):
         key = 'R2G' + str(i)
         context[key] = 'available'
     # Row R3G
-    for i in range(1,18):
+    for i in range(1,19):
         key = 'R3G' + str(i)
         context[key] = 'available'
     # Row R4G
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'R4G' + str(i)
         context[key] = 'available'
     # Row L1B
-    for i in range(1,5):
+    for i in range(1,6):
         key = 'L1B' + str(i)
         context[key] = 'available'
     # Row L2B
-    for i in range(1,12):
+    for i in range(1,13):
         key = 'L2B' + str(i)
         context[key] = 'available'
     # Row L3B
-    for i in range(1,12):
+    for i in range(1,13):
         key = 'L3B' + str(i)
         context[key] = 'available'
     # Row L4B
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'L4B' + str(i)
         context[key] = 'available'
     # Row L1C
-    for i in range(1,4):
+    for i in range(1,5):
         key = 'L1C' + str(i)
         context[key] = 'available'
     # Row L2C
-    for i in range(1,14):
+    for i in range(1,15):
         key = 'L2C' + str(i)
         context[key] = 'available'
     # Row L3B
-    for i in range(1,14):
+    for i in range(1,15):
         key = 'L3C' + str(i)
         context[key] = 'available'
     # Row L4C
-    for i in range(1,6):
+    for i in range(1,7):
         key = 'L4C' + str(i)
         context[key] = 'available'
     return context
