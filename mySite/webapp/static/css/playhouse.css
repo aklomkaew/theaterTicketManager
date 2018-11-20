@@ -1,0 +1,830 @@
+body {
+    background-color: lightgrey;
+}
+#seat-map {
+    position: relative;
+    /* top: 50%; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+    min-width: 1400px;
+    /* min-height: 200px; */
+}
+
+.box {
+    position: absolute;
+    width: 500px;
+    height: 100px;
+    border: solid 5px #000;
+    /*border-color: transparent transparent #000 transparent;*/
+    border-radius: 0 0 240px 50%/60px;
+}
+
+.seat {
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    border-radius: 5px;
+    position: relative;
+    border: 1px solid darkblue;
+}
+
+.sold {
+    background-color: red;
+}
+
+.available {
+    background-color: grey;
+}
+
+.no-seat {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border-radius: 5px;
+}
+
+.handicap-seat {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+.handicap-thirty-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 190px;
+    right: 860px;
+}
+.handicap-forty {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 190px;
+    right: 750px;
+}
+
+.aisle {
+    display: inline-block;
+    height: 16px;
+    width: 3px;
+    margin: 3px;
+}
+.middleLetter {
+    display: inline-block;
+    height: 30px;
+    width: 14px;
+    border-radius: 5px;
+    position: relative;
+    border: none;
+    top: 207px;
+    right: 25px;
+}
+
+.row {
+    width: auto;
+    transform:rotate(0deg);
+}
+
+.thirty-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.twenty-nine {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.twenty-eight {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.twenty-seven {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.twenty-six {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 210px;
+}
+
+.twenty-five {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 210px;
+    right: 10px;
+}
+.twenty-four {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 200px;
+    right: 10px;
+}
+.twenty-three {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 190px;
+    right: 10px;
+}
+.twenty-two {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 180px;
+    right: 10px;
+}
+.twenty-one {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 170px;
+    right: 10px;
+}
+.twenty {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 160px;
+    right: 10px;
+}
+.nineteen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 150px;
+    right: 10px;
+}
+.eighteen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 140px;
+    right: 10px;
+}
+.seventeen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 130px;
+    right: 10px;
+}
+.sixteen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 120px;
+    right: 10px;
+}
+.fifteen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 110px;
+    right: 10px;
+}
+.fourteen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 100px;
+    right: 10px;
+}
+.thirteen {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 70px;
+    right: 10px;
+}
+.twelve {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 60px;
+    right: 10px;
+}
+.eleven {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 50px;
+    right: 10px;
+}
+.ten {
+    transform-origin: bottom right;
+    transform: rotate(35deg);
+    top: 40px;
+    right: 10px;
+}
+.nine {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.eight {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.seven {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.six {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+
+.three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 300px;
+}
+
+.thirty-three {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty-four {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty-five {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty-six {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty-seven {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+}
+.thirty-eight {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.thirty-nine {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+
+.forty {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-one {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-two {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-three {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-four {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-five {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-six {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-seven {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 210px;
+    right: 13px;
+}
+.forty-eight {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 210px;
+    right: 5px;
+}
+.forty-nine {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 200px;
+    right: 5px;
+}
+.fifty {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 190px;
+    right: 5px;
+}
+.fifty-one {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 180px;
+    right: 5px;
+}
+.fifty-two {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 170px;
+    right: 5px;
+}
+.fifty-three {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 160px;
+    right: 5px;
+}
+.fifty-four {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 150px;
+    right: 5px;
+}
+.fifty-five {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 140px;
+    right: 5px;
+}
+.fifty-six {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 130px;
+    right: 5px;
+}
+.fifty-seven {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 120px;
+    right: 5px;
+}
+.fifty-eight {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 110px;
+    right: 5px;
+}
+.fifty-nine {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 100px;
+    right: 5px;
+}
+.sixty {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 90px;
+    right: 5px;
+}
+.sixty-one {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 80px;
+    right: 5px;
+}
+
+.sixty-two {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 70px;
+    right: 5px;
+}
+.sixty-three {
+    transform-origin: bottom left;
+    transform: rotate(-35deg);
+    top: 60px;
+    right: 5px;
+}
+
+.sixty-four {
+    transform-origin: bottom left;
+    transform: rotate(0deg);
+    top: 300px;
+}
+.rowar-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 100px;
+    right: 380px;
+}
+.rowar-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 80px;
+    right: 400px;
+}
+.rowal-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 100px;
+    left: 295px;
+}
+.rowal-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 80px;
+    left: 315px;
+}
+.rowbl-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 49px;
+    left: 270px;
+}
+.rowbl-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 69px;
+    left: 250px;
+}
+.rowbl-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 89px;
+    left: 230px;
+}
+.rowcl-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 18px;
+    left: 185px;
+}
+.rowcl-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 38px;
+    left: 165px;
+}
+.rowcl-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 58px;
+    left: 145px;
+}
+.rowcl-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 78px;
+    left: 125px;
+}
+.rowdl-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -14px;
+    left: 230px;
+}
+.rowdl-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 6px;
+    left: 210px;
+}
+.rowdl-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 26px;
+    left: 190px;
+}
+.rowdl-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 46px;
+    left: 170px;
+}
+.rowel-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -45px;
+    left: 140px;
+}
+.rowel-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -25px;
+    left: 120px;
+}
+.rowel-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -5px;
+    left: 100px;
+}
+.rowel-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 15px;
+    left: 80px;
+}
+.rowel-five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 35px;
+    left: 60px;
+}
+.rowfl-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -77px;
+    left: 110px;
+}
+.rowfl-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -57px;
+    left: 90px;
+}
+.rowfl-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -37px;
+    left: 70px;
+}
+.rowfl-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -17px;
+    left: 50px;
+}
+.rowfl-five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 3px;
+    left: 30px;
+}
+.rowfl-six {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 23px;
+    left: 10px;
+}
+.rowgl-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -108px;
+    left: 85px;
+}
+.rowgl-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -88px;
+    left: 65px;
+}
+.rowgl-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -68px;
+    left: 45px;
+}
+.rowgl-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -48px;
+    left: 25px;
+}
+.rowgl-five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -28px;
+    left: 5px;
+}
+.rowgl-six {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -8px;
+    left: -15px;
+}
+.rowbr-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 49px;
+    right: 280px;
+}
+.rowbr-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 69px;
+    right: 300px;
+}
+.rowbr-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 89px;
+    right: 320px;
+}
+.rowcr-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 17px;
+    right: 223px;
+}
+.rowcr-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 37px;
+    right: 243px;
+}
+.rowcr-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 57px;
+    right: 263px;
+}
+.rowcr-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 77px;
+    right: 283px;
+}
+.rowdr-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -15px;
+    right: 178px;
+}
+.rowdr-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 5px;
+    right: 198px;
+}
+.rowdr-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 25px;
+    right: 218px;
+}
+.rowdr-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 45px;
+    right: 237px;
+}
+.rower-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -47px;
+    right: 113px;
+}
+.rower-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -27px;
+    right: 133px;
+}
+.rower-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -7px;
+    right: 153px;
+}
+.rower-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 13px;
+    right: 173px;
+}
+.rower-five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 33px;
+    right: 193px;
+}
+.rowfr-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -78px;
+    right: 45px;
+}
+.rowfr-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -58px;
+    right: 65px;
+}
+.rowfr-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -38px;
+    right: 85px;
+}
+.rowfr-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -18px;
+    right: 105px;
+}
+.rowfr-five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 2px;
+    right: 125px;
+}
+.rowfr-six {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: 22px;
+    right: 145px;
+}
+.rowgr-one {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -110px;
+    right: 40px;
+}
+.rowgr-two {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -90px;
+    right: 60px;
+}
+.rowgr-three {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -70px;
+    right: 80px;
+}
+.rowgr-four {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -50px;
+    right: 100px;
+}
+.rowgr-five {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -30px;
+    right: 120px;
+}
+.rowgr-six {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+    top: -10px;
+    right: 139px;
+}
+.row-left {
+    transform-origin: top right;
+    transform: rotate(10deg);
+    display: inline-block;
+}
+
+.row-right {
+    transform-origin: top left;
+    transform: rotate(-10deg);
+    display: inline-block;
+}

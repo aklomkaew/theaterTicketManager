@@ -301,6 +301,41 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
             # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
             return render(request, 'webapp/concertHall.html', context)
 
+def playhouse(request, show, theater, year, month, day, hour, minute):
+    # SHAWN, year, month, day, hour, minute are currently ints
+    # str(year) is all you have to do to get them back to strings
+    context = {}
+    return render(request, 'webapp/playhouse.html', context)
+
+    """Find all of the sold seats. Use every seat that is sold as a key to a dictionary. """
+
+    # Create the initial set of seats and mark them all available.
+    context = populatePlayhouseSeats()
+
+    # Assume we are using the Concert Hall theater
+    theater = models.Theater.objects.get(name="Playhouse Theater")
+
+    # build a datetime object to use for comparison
+    date = datetime.date(year, month, day)
+
+    # Iterate through every Performance in that theater
+    for performance in theater.performance_set.all():
+
+        # Check for one that matches the specified date and time
+        # There should only be ONE performance that meets these criteria
+        if performance.time.date() == date and performance.time.hour == hour and performance.time.minute == minute:
+
+            # Get the set of tickets that refer to this performance
+            tickets = performance.ticket_set.all()
+
+            # Iterate through the tickets for this performance
+            for ticket in tickets:
+                # Mark the ticket as sold.
+                context[str(ticket.row.all()[0]) + str(ticket.seat.all()[0])] = 'sold'
+
+            # Go ahead and return, since we have dealt with the ONE performance at the specific date and time.
+            return render(request, 'webapp/playhouse.html', context)
+
 
 # path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
 def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, address, phoneNumber, email, door_reservation, printed, payment_method):
