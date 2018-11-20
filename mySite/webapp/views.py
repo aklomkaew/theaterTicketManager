@@ -248,7 +248,7 @@ def seasonPayment(request, theater, season, day, hour, minute, seats) :
     if theater == "concertHall":
         theater_str = "Concert Hall"
     if theater == "playhouse":
-        theater_str == "Playhouse Theater"
+        theater_str = "Playhouse Theater"
     context['theater_str'] = theater_str
     context['day'] = day
     context['day_str'] = day.capitalize()
@@ -314,10 +314,11 @@ def payment(request, show, theater, year, month, day, hour, minute, seats) :
     context = {}
     context['show'] = show
     context['theater'] = theater
+    theater_str = ''
     if theater == "concertHall":
         theater_str = "Concert Hall"
     if theater == "playhouse":
-        theater_str == "Playhouse Theater"
+        theater_str = "Playhouse Theater"
     context['theater_str'] = theater_str
     context['year'] = year
     context['month'] = month
@@ -925,7 +926,7 @@ def populatePlayhouseSeats():
         key = 'L4A' + str(i)
         context[key] = 'available'
     # Row L5A
-    for i in range(1,6):
+    for i in range(1,9):
         key = 'L5A' + str(i)
         context[key] = 'available'
     # Row R1B
@@ -1056,6 +1057,7 @@ def populatePlayhouseSeats():
     for i in range(1,7):
         key = 'L4C' + str(i)
         context[key] = 'available'
+    # context['L5A6'] = 'availa'
     return context
 
 def populateConcertHallSeats():
