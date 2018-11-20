@@ -273,8 +273,29 @@ def seasonPayment(request, theater, season, day, hour, minute, seats) :
         row, number = getRowNumber(seat)
         seats_dict['number'] = number
         seats_dict['row'] = row
-        # price_groups = getPriceGroups(seat)
-        seats_dict['price_groups'] = [{'name':'Regular','price': 2000.00}, {'name':'Lockheed Martin','price': 1750.00}]
+
+        #Get the price groups for this section
+
+        sectionObject = models.Section()
+
+        # Filter through the sections containing this row to find the one that is in the specified theater
+        # Find the section that this row is in that is itself in the theater
+        for section in models.Row.objects.filter(name=row)[0].section_set.all():
+
+            matchingTheaters = section.theater_set.filter(name=theater_str)
+
+            if len(matchingTheaters) == 1:
+                sectionObject = section
+                break
+
+        pricegroups = sectionObject.pricegroups.all()
+        pricegroupsDicts = []
+        for group in pricegroups:
+            pricegroupsDicts.append({'name': group.name,'price': group.price * 15})
+
+
+        #seats_dict['price_groups'] = [{'name':'Regular','price': 2000.00}, {'name':'Lockheed Martin','price': 1750.00}]
+        seats_dict['price_groups'] = pricegroupsDicts
         seat_dict_list.append(seats_dict)
     context['seat_dict_list'] = seat_dict_list
     return render(request, 'webapp/seasonPayment.html', context)
@@ -344,8 +365,29 @@ def payment(request, show, theater, year, month, day, hour, minute, seats) :
         row, number = getRowNumber(seat)
         seats_dict['number'] = number
         seats_dict['row'] = row
-        # price_groups = getPriceGroups(seat)
-        seats_dict['price_groups'] = [{'name':'Regular','price': 10.95}, {'name':'Lockheed Martin','price': 5.00}]
+        # Get the price groups for this section
+
+        sectionObject = models.Section()
+
+        # Filter through the sections containing this row to find the one that is in the specified theater
+        # Find the section that this row is in that is itself in the theater
+        for section in models.Row.objects.filter(name=row)[0].section_set.all():
+
+            matchingTheaters = section.theater_set.filter(name=theater_str)
+
+            if len(matchingTheaters) == 1:
+                sectionObject = section
+                break
+
+        pricegroups = sectionObject.pricegroups.all()
+        pricegroupsDicts = []
+        for group in pricegroups:
+            pricegroupsDicts.append({'name': group.name, 'price': group.price})
+
+        # seats_dict['price_groups'] = [{'name':'Regular','price': 2000.00}, {'name':'Lockheed Martin','price': 1750.00}]
+        seats_dict['price_groups'] = pricegroupsDicts
+
+        #seats_dict['price_groups'] = [{'name':'Regular','price': 10.95}, {'name':'Lockheed Martin','price': 5.00}]
         seat_dict_list.append(seats_dict)
     context['seat_dict_list'] = seat_dict_list
     return render(request, 'webapp/payment.html', context)
