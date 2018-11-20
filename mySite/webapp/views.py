@@ -629,11 +629,9 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
         # First, do the logic for saving the single ticket
 
 
-        ticket = models.Ticket.objects.create(paid=bool(paid))
+        ticket = models.Ticket.objects.create(paid=bool(paid), datePurchased=datetime.datetime.now(), door=bool(door_reservation))
         if bool(paid) == True:
             ticket.cash = bool(payment_method)
-        ticket.datePurchased = datetime.datetime.now()
-        ticket.door = bool(door_reservation)
         ticket.printed = bool(printed)
         ticket.customer.add(customer)
         ticket.seat.add(seat)
