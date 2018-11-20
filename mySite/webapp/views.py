@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
 # from django import Template
 from . import models
 from . import utility
+from . import auth_checks
 import datetime
 
 
+#Allows for the @staff_member_required decorator, which specifies that the user must be staff
+from django.contrib.admin.views.decorators import staff_member_required
+
+#Allows for decorators that check for predefined authentication checks
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+#@login_required
+#@permission_required('tickets.can_change')
+#@user_passes_test(can_create_tickets)
 
 
 def index(request) :
@@ -15,6 +25,7 @@ def index(request) :
 """Called when the user clicks 'View Shows' on the Performances page.
     Gets the set of shows and performances subject to the filters provided by the user.
     Returns them in a format that can be used to generate cards."""
+@login_required
 def getPerformances(request, theater, month, day, year):
 
     #Build a list of dictionaries containing details of each show
@@ -29,61 +40,71 @@ def getPerformances(request, theater, month, day, year):
     # Filter for shows that have performances that are on the specified day
     for show in shows:
 
-        # A sentinal value for keeping track of whether this show is relevant to our filters at all
-        relevant = False
+        # Boolean to determine whether or not the user may see performances in this show
+        permitted = False
 
-        theaterName = "Concert Hall"
-        # Build a list of showtimes
-        showtimes = []
+        for group in show.group.all():
+            if group in request.user.groups.all():
+                permitted = True
 
-        # Iterate through the performances in this show
-        for performance in show.performances.all():
+        #Check that the user did have membership in the right group(s)
+        if permitted == True:
 
-            # Check if the current performance is on the right day of the year
-            #Also, check that it is in the selected theater
-            if performance.time.date() == date and str(performance.theater.all()[0]) == theater:
+            # A sentinal value for keeping track of whether this show is relevant to our filters at all
+            relevant = False
 
-                relevant = True
+            theaterName = "Concert Hall"
+            # Build a list of showtimes
+            showtimes = []
 
-                # Get the name of the theater for this performance
-                # Assume that all performances are in the same theater
-                theaterName = str(performance.theater.all()[0].name)
+            # Iterate through the performances in this show
+            for performance in show.performances.all():
 
-                # Use hardcoded values to interpret which part of the website to call
-                if theaterName == "Concert Hall":
-                    theaterName = 'concertHall'
-                elif theaterName == "Playhouse Theater":
-                    theaterName = 'playhouse'
+                # Check if the current performance is on the right day of the year
+                #Also, check that it is in the selected theater
+                if performance.time.date() == date and str(performance.theater.all()[0]) == theater:
 
-                showtime = {}
-                showtime['hour'] = int(performance.time.hour)
-                showtime['minute'] = int(performance.time.minute)
-                showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
-                showtimes.append(showtime)
+                    relevant = True
 
-        # We now have list of the relevant performances
+                    # Get the name of the theater for this performance
+                    # Assume that all performances are in the same theater
+                    theaterName = str(performance.theater.all()[0].name)
 
-        # Ensure that we only reply with details of this show if it is relevant
-        if relevant == True:
+                    # Use hardcoded values to interpret which part of the website to call
+                    if theaterName == "Concert Hall":
+                        theaterName = 'concertHall'
+                    elif theaterName == "Playhouse Theater":
+                        theaterName = 'playhouse'
 
-            # showtimes is only the showtimes that are on this day
+                    showtime = {}
+                    showtime['hour'] = int(performance.time.hour)
+                    showtime['minute'] = int(performance.time.minute)
+                    showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
+                    showtimes.append(showtime)
 
-            # Build a response dictionary to send back
-            dict = {'name': str(show.name),
-                    'img': str(show.img),
-                    'runtime': str(show.runtime),
-                    'genre': str(show.genre),
-                    'summary': str(show.summary),
-                    'season': str(show.get_season()),
-                    'showtimes': showtimes,
-                    'theater': theaterName,
-                    'month': str(month),
-                    'day': str(day),
-                    'year': str(year),
-                    }
+            # We now have list of the relevant performances
 
-            # Add this response dictionary to the list of responses
-            showDetails.append(dict)
+            # Ensure that we only reply with details of this show if it is relevant
+            if relevant == True:
+
+                # showtimes is only the showtimes that are on this day
+
+                # Build a response dictionary to send back
+                dict = {'name': str(show.name),
+                        'img': str(show.img),
+                        'runtime': str(show.runtime),
+                        'genre': str(show.genre),
+                        'summary': str(show.summary),
+                        'season': str(show.get_season()),
+                        'showtimes': showtimes,
+                        'theater': theaterName,
+                        'month': str(month),
+                        'day': str(day),
+                        'year': str(year),
+                        }
+
+                # Add this response dictionary to the list of responses
+                showDetails.append(dict)
 
     # Build the context
     context = {
@@ -93,8 +114,14 @@ def getPerformances(request, theater, month, day, year):
 
     return render(request, 'webapp/performanceCards.html', context)
 
+
 """Called when the the Performances page is visited."""
-def performance(request) :
+@login_required
+def performance(request):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     # Input values for the default set of cards
     # Default is to display showings for Concert Hall today
     theater = "Concert Hall"
@@ -186,7 +213,12 @@ def contact(request) :
 def admin(request) :
     return render(request, 'webapp/admin.html')
 
+@login_required
 def seasonPayment(request, theater, season, day, hour, minute, seats) :
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     seats_list = seats.split(',')
     sorted_seats_list = seats_list.sort()
     context = {}
@@ -199,7 +231,12 @@ def seasonPayment(request, theater, season, day, hour, minute, seats) :
     context['seat_str'] = seats
     return render(request, 'webapp/seasonPayment.html', context)
 
+@login_required
 def payment(request, show, theater, year, month, day, hour, minute, seats) :
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     seats_list = seats.split(',')
     sorted_seats_list = seats_list.sort()
     context = {}
@@ -216,7 +253,12 @@ def payment(request, show, theater, year, month, day, hour, minute, seats) :
 
 # <str:theater>/<str:year>/<str:day>/<str:hour>/<str:minute>/
 
+@login_required
 def seatSelection(request, show, theater, year=None, month=None, day=None, hour=None, minute=None):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     context = {}
     context['show'] = show
     context['theater'] = theater
@@ -243,7 +285,12 @@ def seatSelection(request, show, theater, year=None, month=None, day=None, hour=
     context['minute'] = minute
     return render(request, 'webapp/seatSelection.html', context)
 
+@login_required
 def seasonConcertHall(request, blank, theater, season, day, hour, minute):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     #Operates generally the same way as concertHall, but seats are marked as sold if a ticket exists for that seat in ANY performance (within criteria) in the season
 
     # Create the initial set of seats and mark them all available.
@@ -267,7 +314,12 @@ def seasonConcertHall(request, blank, theater, season, day, hour, minute):
 
     return render(request, 'webapp/concertHall.html', context)
 
+@login_required
 def concertHall(request, show, theater, year, month, day, hour, minute):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     # SHAWN, year, month, day, hour, minute are currently ints
     # str(year) is all you have to do to get them back to strings
 
@@ -335,8 +387,13 @@ def playhouse(request, show, theater, year, month, day, hour, minute):
             return render(request, 'webapp/playhouse.html', context)
 
 
+
+@login_required
 # path('seasonConfirmationPage/<str:theater>/<str:season>/<str:day>/<int:hour>/<int:minute>/<str:seats>/<str:paid>/<str:name>/<str:phoneNumber>/<str:email>/<str:door_reservation>/<str:printed>/<str:payment_method>/', views.season_confirmationPage, name='seasonConfirmationPage'),
 def season_confirmationPage(request, theater, season, day, hour, minute, seats, paid, name, address, phoneNumber, email, door_reservation, printed, payment_method):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
 
     # Check if the Customer exists
     nameParts = name.split()
@@ -486,8 +543,13 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
 
     return HttpResponse(test_str)
 
-
+@login_required
 def confirmationPage(request, show, theater, year, month, day, hour, minute, seats, paid, name, door_reservation, printed, payment_method):
+
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
 # Check if the Customer exists
     nameParts = name.split()
 
@@ -601,7 +663,12 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
         paid) + "---" + name + "---" + "---" + door_reservation + "---" + printed + "---" + payment_method
     return HttpResponse(test_str)
 
+@login_required
 def buySeasonTicket(request):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     my_seasons = models.Season.objects.all
     my_theater = models.Theater.objects.all
     context = {
@@ -611,7 +678,12 @@ def buySeasonTicket(request):
 
     return render(request, 'webapp/buySeasonTicket.html', context)
 
+@login_required
 def seasonSeatSelection(request, blank, theater, season, day, hour, minute):
+
+    if not auth_checks.can_create_tickets(request.user):
+        return redirect('/authFail')
+
     my_str =  theater + "--" + season + "--" +  day + "--" + str(hour) + "--" + str(minute)
     context = {}
     context['theater'] = theater
@@ -627,8 +699,12 @@ def seatSelect(request):
 def seasonSeatSelect(request):
     return render(request, 'webapp/seasonSeatSelection.html')
 
+@login_required
 def confirmation(request):
     return render(request, 'webapp/confirmation.html')
+
+def authFail(request) :
+    return render(request, 'webapp/authFail.html')
 
 def help(request):
     return render(request, 'webapp/help.html')
