@@ -120,7 +120,7 @@ def getPerformanceOnDateAndTime(year, month, day, hour, minute, theater):
     # Iterate through every performance
     for performance in performances:
 
-        
+
         # Compare the current performance's date to our criteria
         if performance.time.date() == date_for_comparison and performance.time.hour == hour and performance.time.minute == minute and performance.theater.all()[0].name == theater:
             # If their dates match, add it to the list of results
