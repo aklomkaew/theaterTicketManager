@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/playhouse.css">
+</head>
+<body>
+<div id="seat-map">
+
+    <!-- Handicap Seats -->
+    <div>
+        <span class="no-seat thirty-three"></span>
+        <span><img class="handicap-seat handicap-thirty-three" src="/static/img/handicap_logo.png" alt="handicap seat"></img></span>
+        <span class="no-seat forty"></span>
+        <span><img class="handicap-seat handicap-forty" src="/static/img/handicap_logo.png" alt="handicap seat"></img></span>
+    </div>
+
+    <!-- Risers Row A -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4A2" class="seat {{ R4A2 }} rowal-two" title="R4A2"></span>
+        <span id="R4A1" class="seat {{ R4A1 }} rowal-one" title="R4A1"></span>
+        <span class="no-seat sixteen"></span>
+        <span class="no-seat seventeen"></span>
+        <span class="no-seat eighteen"></span>
+        <span class="no-seat nineteen"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span class="no-seat twenty-two"></span>
+        <span class="no-seat twenty-three"></span>
+        <span class="no-seat twenty-four"></span>
+        <span class="no-seat twenty-five"></span>
+        <span class="no-seat twenty-six"></span>
+        <span class="no-seat twenty-seven"></span>
+        <span class="no-seat twenty-eight"></span>
+        <span class="no-seat twenty-nine"></span>
+        <span class="no-seat thirty"></span>
+        <span id="R3A5" class="seat {{ R3A5 }} twenty-four" title="R3A5"></span>
+        <span id="R3A4" class="seat {{ R3A4 }} twenty-five" title="R3A4"></span>
+        <span id="R3A3" class="seat {{ R3A3 }} thirty-three" title="R3A3"></span>
+        <span id="R3A2" class="seat {{ R3A2 }} thirty-four" title="R3A2"></span>
+        <span id="R3A1" class="seat {{ R3A1 }} thirty-five" title="R3A1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MA" class="seat {{ MA }} middleLetter">A</span>
+        <span id="R2A5" class="seat {{ R2A5 }} thirty-eight" title="R2A5"></span>
+        <span id="R2A4" class="seat {{ R2A4 }} thirty-nine" title="R2A4"></span>
+        <span id="R2A3" class="seat {{ R2A3 }} forty" title="R2A3"></span>
+        <span id="R2A2" class="seat {{ R2A2 }} forty-eight" title="R2A2"></span>
+        <span id="R2A1" class="seat {{ R2A1 }} forty-nine" title="R2A1"></span>
+        <span class="no-seat forty-three"></span>
+        <span class="no-seat forty-four"></span>
+        <span class="no-seat forty-five"></span>
+        <span class="no-seat forty-six"></span>
+        <span class="no-seat forty-seven"></span>
+        <span class="no-seat forty-eight"></span>
+        <span class="no-seat forty-nine"></span>
+        <span class="no-seat fifty"></span>
+        <span class="no-seat fifty-one" title="L2C1"></span>
+        <span class="no-seat fifty-two"></span>
+        <span class="no-seat fifty-three"></span>
+        <span class="no-seat fifty-four"></span>
+        <span class="no-seat fifty-five"></span>
+        <span class="no-seat fifty-six"></span>
+        <span class="no-seat fifty-seven"></span>
+        <span class="no-seat fifty-eight"></span>
+        <span class="no-seat fifty-nine"></span>
+        <span class="no-seat sixty"></span>
+        <span class="no-seat sixty-one"></span>
+        <span id="R1A1" class="seat {{ R1A1 }} rowar-one" title="R1A1"></span>
+        <span id="R1A1" class="seat {{ R1A2 }} rowar-two" title="R1A1"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Risers Row B -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4B3" class="seat {{ R4B3 }} rowbl-one" title="R4B3"></span>
+        <span id="R4B2" class="seat {{ R4B2 }} rowbl-two" title="R4B2"></span>
+        <span id="R4B1" class="seat {{ R4B1 }} rowbl-three" title="R4B1"></span>
+        <span class="no-seat seventeen"></span>
+        <span class="no-seat eighteen"></span>
+        <span class="no-seat nineteen"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span class="no-seat twenty-two"></span>
+        <span class="no-seat twenty-three"></span>
+        <span class="no-seat twenty-four"></span>
+        <span class="no-seat twenty-five"></span>
+        <span class="no-seat twenty-six"></span>
+        <span class="no-seat twenty-seven"></span>
+        <span id="R3B8" class="seat {{ R3B8 }} twenty-two" title="R3B8"></span>
+        <span id="R3B7" class="seat {{ R3B7 }} twenty-three" title="R3B7"></span>
+        <span id="R3B6" class="seat {{ R3B6 }} twenty-four" title="R3B6"></span>
+        <span id="R3B5" class="seat {{ R3B5 }} twenty-five" title="R3B5"></span>
+        <span id="R3B4" class="seat {{ R3B4 }} thirty-two" title="R3B4"></span>
+        <span id="R3B3" class="seat {{ R3B3 }} thirty-three" title="R3B3"></span>
+        <span id="R3B2" class="seat {{ R3B2 }} thirty-four" title="R3B2"></span>
+        <span id="R3B1" class="seat {{ R3B1 }} thirty-five" title="R3B1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MB" class="seat {{ MB }} middleLetter">B</span>
+        <span id="R2B8" class="seat {{ R2B8 }} thirty-eight" title="R2B8"></span>
+        <span id="R2B7" class="seat {{ R2B7 }} thirty-nine" title="R2B7"></span>
+        <span id="R2B6" class="seat {{ R2B6 }} forty" title="R2B6"></span>
+        <span id="R2B5" class="seat {{ R2B5 }} forty-one" title="R2B5"></span>
+        <span id="R2B4" class="seat {{ R2B4 }} forty-eight" title="R2B4"></span>
+        <span id="R2B3" class="seat {{ R2B3 }} forty-nine" title="R2B3"></span>
+        <span id="R2B2" class="seat {{ R2B2 }} fifty" title="R2B2"></span>
+        <span id="R2B1" class="seat {{ R2B1 }} fifty-one" title="R2B1"></span>
+        <span class="no-seat forty-six"></span>
+        <span class="no-seat forty-seven"></span>
+        <span class="no-seat forty-eight"></span>
+        <span class="no-seat forty-nine"></span>
+        <span class="no-seat fifty"></span>
+        <span class="no-seat fifty-one"></span>
+        <span class="no-seat fifty-two"></span>
+        <span class="no-seat fifty-three"></span>
+        <span class="no-seat fifty-four"></span>
+        <span class="no-seat fifty-five"></span>
+        <span class="no-seat fifty-six"></span>
+        <span class="no-seat fifty-seven"></span>
+        <span class="no-seat fifty-eight"></span>
+        <span id="R1B3" class="seat {{ R1B3 }} rowbr-one" title="R1B3"></span>
+        <span id="R1B2" class="seat {{ R1B2 }} rowbr-two" title="R1B2"></span>
+        <span id="R1B1" class="seat {{ R1B1 }} rowbr-three" title="R1B1"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Risers Row C -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4C4" class="seat {{ R4C4 }} rowcl-one" title="R4C4"></span>
+        <span id="R4C3" class="seat {{ R4C3 }} rowcl-two" title="R4C3"></span>
+        <span id="R4C2" class="seat {{ R4C2 }} rowcl-three" title="R4C2"></span>
+        <span id="R4C1" class="seat {{ R4C1 }} rowcl-four" title="R4C1"></span>
+        <span class="no-seat eighteen"></span>
+        <span class="no-seat nineteen"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span class="no-seat twenty-two"></span>
+        <span class="no-seat twenty-three"></span>
+        <span class="no-seat twenty-four"></span>
+        <span class="no-seat twenty-five"></span>
+        <span class="no-seat twenty-six"></span>
+        <span id="L3C9" class="seat {{ L3C9 }} twenty-one" title="L3C9"></span>
+        <span id="L3C8" class="seat {{ L3C8 }} twenty-two" title="L3C8"></span>
+        <span id="L3C7" class="seat {{ L3C7 }} twenty-three" title="L3C7"></span>
+        <span id="L3C6" class="seat {{ L3C6 }} twenty-four" title="L3C6"></span>
+        <span id="L3C5" class="seat {{ L3C5 }} twenty-five" title="L3C5"></span>
+        <span id="L3C4" class="seat {{ L3C4 }} thirty-two" title="L3C4"></span>
+        <span id="L3C3" class="seat {{ L3C3 }} thirty-three" title="L3C3"></span>
+        <span id="L3C2" class="seat {{ L3C2 }} thirty-four" title="L3C2"></span>
+        <span id="L3C1" class="seat {{ L3C1 }} thirty-five" title="L3C1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MC" class="seat {{ MC }} middleLetter">C</span>
+        <span id="L2C9" class="seat {{ L2C9 }} thirty-eight" title="L2C9"></span>
+        <span id="L2C8" class="seat {{ L2C8 }} thirty-nine" title="L2C8"></span>
+        <span id="L2C7" class="seat {{ L2C7 }} forty" title="L2C7"></span>
+        <span id="L2C6" class="seat {{ L2C6 }} forty-one" title="L2C6"></span>
+        <span id="L2C5" class="seat {{ L2C5 }} forty-eight" title="L2C5"></span>
+        <span id="L2C4" class="seat {{ L2C4 }} forty-nine" title="L2C4"></span>
+        <span id="L2C3" class="seat {{ L2C3 }} fifty" title="L2C3"></span>
+        <span id="L2C2" class="seat {{ L2C2 }} fifty-one" title="L2C2"></span>
+        <span id="L2C1" class="seat {{ L2C1 }} fifty-two" title="L2C1"></span>
+        <span class="no-seat forty-seven"></span>
+        <span class="no-seat forty-eight"></span>
+        <span class="no-seat forty-nine"></span>
+        <span class="no-seat fifty"></span>
+        <span class="no-seat fifty-one"></span>
+        <span class="no-seat fifty-two"></span>
+        <span class="no-seat fifty-three"></span>
+        <span class="no-seat fifty-four"></span>
+        <span class="no-seat fifty-five"></span>
+        <span class="no-seat fifty-six"></span>
+        <span class="no-seat fifty-seven"></span>
+        <span id="Span444" class="seat {{ L1C4 }} rowcr-one" title="L1C1"></span>
+        <span id="Span445" class="seat {{ L1C3 }} rowcr-two" title="L1C2"></span>
+        <span id="Span446" class="seat {{ L1C2 }} rowcr-three" title="L1C3"></span>
+        <span id="Span447" class="seat {{ L1C1 }} rowcr-four" title="L1C4"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Risers Row D -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4D4" class="seat {{ R4D4 }} rowdl-one" title="R4D4"></span>
+        <span id="R4D3" class="seat {{ R4D3 }} rowdl-two" title="R4D3"></span>
+        <span id="R4D2" class="seat {{ R4D2 }} rowdl-three" title="R4D2"></span>
+        <span id="R4D1" class="seat {{ R4D1 }} rowdl-four" title="R4D1"></span>
+        <span class="no-seat eighteen"></span>
+        <span class="no-seat nineteen"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span class="no-seat twenty-two"></span>
+        <span class="no-seat twenty-three"></span>
+        <span id="R3D12" class="seat {{ R3D12 }} nineteen" title="R3D12"></span>
+        <span id="R3D11" class="seat {{ R3D11 }} twenty" title="R3D11"></span>
+        <span id="R3D10" class="seat {{ R3D10 }} twenty-one" title="R3D10"></span>
+        <span id="R3D9" class="seat {{ R3D9 }} twenty-two" title="R3D9"></span>
+        <span id="R3D8" class="seat {{ R3D8 }} twenty-three" title="R3D8"></span>
+        <span id="R3D7" class="seat {{ R3D7 }} twenty-four" title="R3D7"></span>
+        <span id="R3D6" class="seat {{ R3D6 }} twenty-five" title="R3D6"></span>
+        <span id="R3D5" class="seat {{ R3D5 }} thirty-one" title="R3D5"></span>
+        <span id="R3D4" class="seat {{ R3D4 }} thirty-two" title="R3D4"></span>
+        <span id="R3D3" class="seat {{ R3D3 }} thirty-three" title="R3D3"></span>
+        <span id="R3D2" class="seat {{ R3D2 }} thirty-four" title="R3D2"></span>
+        <span id="R3D1" class="seat {{ R3D1 }} thirty-five" title="R3D1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MD" class="seat {{ MD }} middleLetter">D</span>
+        <span id="R2D12" class="seat {{ R2D12 }} thirty-eight" title="R2D12"></span>
+        <span id="R2D11" class="seat {{ R2D11 }} thirty-nine" title="R2D11"></span>
+        <span id="R2D10" class="seat {{ R2D10 }} forty" title="R2D10"></span>
+        <span id="R2D9" class="seat {{ R2D9 }} forty-one" title="R2D9"></span>
+        <span id="R2D8" class="seat {{ R2D8 }} forty-two" title="R2D8"></span>
+        <span id="R2D7" class="seat {{ R2D7 }} forty-eight" title="R2D7"></span>
+        <span id="R2D6" class="seat {{ R2D6 }} forty-nine" title="R2D6"></span>
+        <span id="R2D5" class="seat {{ R2D5 }} fifty" title="R2D5"></span>
+        <span id="R2D4" class="seat {{ R2D4 }} fifty-one" title="R2D4"></span>
+        <span id="R2D3" class="seat {{ R2D3 }} fifty-two" title="R2D3"></span>
+        <span id="R2D2" class="seat {{ R2D2 }} fifty-three" title="R2D2"></span>
+        <span id="R2D1" class="seat {{ R2D1 }} fifty-four" title="R2D1"></span>
+        <span class="no-seat fifty"></span>
+        <span class="no-seat fifty-one"></span>
+        <span class="no-seat fifty-two"></span>
+        <span class="no-seat fifty-three"></span>
+        <span class="no-seat fifty-four"></span>
+        <span class="no-seat fifty-five"></span>
+        <span class="no-seat fifty-six"></span>
+        <span class="no-seat fifty-seven"></span>
+        <span id="R1D1" class="seat {{ R1D1 }} rowdr-one" title="R1D1"></span>
+        <span id="R1D2" class="seat {{ R1D2 }} rowdr-two" title="R1D2"></span>
+        <span id="R1D3" class="seat {{ R1D3 }} rowdr-three" title="R1D3"></span>
+        <span id="R1D4" class="seat {{ R1D4 }} rowdr-four" title="R1D4"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Risers Row E -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4E5" class="seat {{ R4E5 }} rowel-one" title="R4E5"></span>
+        <span id="R4E4" class="seat {{ R4E4 }} rowel-two" title="R4E4"></span>
+        <span id="R4E3" class="seat {{ R4E3 }} rowel-three" title="R4E3"></span>
+        <span id="R4E2" class="seat {{ R4E2 }} rowel-four" title="R4E2"></span>
+        <span id="R4E1" class="seat {{ R4E1 }} rowel-five" title="R4E1"></span>
+        <span class="no-seat nineteen"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span id="R3E14" class="seat {{ R3E14 }} eighteen" title="R3E14"></span>
+        <span id="R3E13" class="seat {{ R3E13 }} nineteen" title="R3E13"></span>
+        <span id="R3E12" class="seat {{ R3E12 }} twenty" title="R3E12"></span>
+        <span id="R3E11" class="seat {{ R3E11 }} twenty-one" title="R3E11"></span>
+        <span id="R3E10" class="seat {{ R3E10 }} twenty-two" title="R3E10"></span>
+        <span id="R3E9" class="seat {{ R3E9 }} twenty-three" title="R3E9"></span>
+        <span id="R3E8" class="seat {{ R3E8 }} twenty-four" title="R3E8"></span>
+        <span id="R3E7" class="seat {{ R3E7 }} twenty-five" title="R3E7"></span>
+        <span id="R3E6" class="seat {{ R3E6 }} thirty" title="R3E6"></span>
+        <span id="R3E5" class="seat {{ R3E5 }} thirty-one" title="R3E5"></span>
+        <span id="R3E4" class="seat {{ R3E4 }} thirty-two" title="R3E4"></span>
+        <span id="R3E3" class="seat {{ R3E3 }} thirty-three" title="R3E3"></span>
+        <span id="R3E2" class="seat {{ R3E2 }} thirty-four" title="R3E2"></span>
+        <span id="R3E1" class="seat {{ R3E1 }} thirty-five" title="R3E1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="ME" class="seat {{ ME }} middleLetter">E</span>
+        <span id="R2E14" class="seat {{ R2E14 }} thirty-eight" title="R2E14"></span>
+        <span id="R2E13" class="seat {{ R2E13 }} thirty-nine" title="R2E13"></span>
+        <span id="R2E12" class="seat {{ R2E12 }} forty" title="R2E12"></span>
+        <span id="R2E11" class="seat {{ R2E11 }} forty-one" title="R2E11"></span>
+        <span id="R2E10" class="seat {{ R2E10 }} forty-two" title="R2E10"></span>
+        <span id="R2E9" class="seat {{ R2E9 }} forty-three" title="R2E9"></span>
+        <span id="R2E8" class="seat {{ R2E8 }} forty-eight" title="R2E8"></span>
+        <span id="R2E7" class="seat {{ R2E7 }} forty-nine" title="R2E7"></span>
+        <span id="R2E6" class="seat {{ R2E6 }} fifty" title="R2E6"></span>
+        <span id="R2E5" class="seat {{ R2E5 }} fifty-one" title="R2E5"></span>
+        <span id="R2E4" class="seat {{ R2E4 }} fifty-two" title="R2E4"></span>
+        <span id="R2E3" class="seat {{ R2E3 }} fifty-three" title="R2E3"></span>
+        <span id="R2E2" class="seat {{ R2E2 }} fifty-four" title="R2E2"></span>
+        <span id="R2E1" class="seat {{ R2E1 }} fifty-five" title="R2E1"></span>
+        <span class="no-seat fifty-two"></span>
+        <span class="no-seat fifty-three"></span>
+        <span class="no-seat fifty-four"></span>
+        <span class="no-seat fifty-five"></span>
+        <span class="no-seat fifty-six"></span>
+        <span id="R1E1" class="seat {{ R1E1 }} rower-one" title="R1E1"></span>
+        <span id="R1E2" class="seat {{ R1E2 }} rower-two" title="R1E2"></span>
+        <span id="R1E3" class="seat {{ R1E3 }} rower-three" title="R1E3"></span>
+        <span id="R1E4" class="seat {{ R1E4 }} rower-four" title="R1E4"></span>
+        <span id="R1E5" class="seat {{ R1E5 }} rower-five" title="R1E5"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Risers Row F -->
+    <div class="row">
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4F6" class="seat {{ R4F6 }} rowfl-one" title="R4F6"></span>
+        <span id="R4F5" class="seat {{ R4F5 }} rowfl-two" title="R4F5"></span>
+        <span id="R4F4" class="seat {{ R4F4 }} rowfl-three" title="R4F4"></span>
+        <span id="R4F3" class="seat {{ R4F3 }} rowfl-four" title="R4F3"></span>
+        <span id="R4F2" class="seat {{ R4F2 }} rowfl-five" title="R4F2"></span>
+        <span id="R4F1" class="seat {{ R4F1 }} rowfl-six" title="R4F1"></span>
+        <span id="R3F17" class="seat {{ R3F17 }} sixteen" title="R3F17"></span>
+        <span id="R3F16" class="seat {{ R3F16 }} seventeen" title="R3F16"></span>
+        <span id="R3F15" class="seat {{ R3F15 }} eighteen" title="R3F15"></span>
+        <span id="R3F14" class="seat {{ R3F14 }} nineteen" title="R3F14"></span>
+        <span id="R3F13" class="seat {{ R3F13 }} twenty" title="R3F13"></span>
+        <span id="R3F12" class="seat {{ R3F12 }} twenty-one" title="R3F12"></span>
+        <span id="R3F11" class="seat {{ R3F11 }} twenty-two" title="R3F11"></span>
+        <span id="R3F10" class="seat {{ R3F10 }} twenty-three" title="R3F10"></span>
+        <span id="R3F9" class="seat {{ R3F9 }} twenty-four" title="R3F9"></span>
+        <span id="R3F8" class="seat {{ R3F8 }} twenty-five" title="R3F8"></span>
+        <span id="R3F7" class="seat {{ R3F7 }} twenty-nine" title="R3F7"></span>
+        <span id="R3F6" class="seat {{ R3F6 }} thirty" title="R3F6"></span>
+        <span id="R3F5" class="seat {{ R3F5 }} thirty-one" title="R3F5"></span>
+        <span id="R3F4" class="seat {{ R3F4 }} thirty-two" title="R3F4"></span>
+        <span id="R3F3" class="seat {{ R3F3 }} thirty-three" title="R3F3"></span>
+        <span id="R3F2" class="seat {{ R3F2 }} thirty-four" title="R3F2"></span>
+        <span id="R3F1" class="seat {{ R3F1 }} thirty-five" title="R3F1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MF" class="seat {{ MF }} middleLetter">F</span>
+        <span id="R2F17" class="seat {{ R2F17 }} thirty-eight" title="R2F17"></span>
+        <span id="R2F16" class="seat {{ R2F16 }} thirty-nine" title="R2F16"></span>
+        <span id="R2F15" class="seat {{ R2F15 }} forty" title="R2F15"></span>
+        <span id="R2F14" class="seat {{ R2F14 }} forty-one" title="R2F14"></span>
+        <span id="R2F13" class="seat {{ R2F13 }} forty-two" title="R2F13"></span>
+        <span id="R2F12" class="seat {{ R2F12 }} forty-three" title="R2F12"></span>
+        <span id="R2F11" class="seat {{ R2F11 }} forty-four" title="R2F11"></span>
+        <span id="R2F10" class="seat {{ R2F10 }} forty-eight" title="R2F10"></span>
+        <span id="R2F9" class="seat {{ R2F9 }} forty-nine" title="R2F9"></span>
+        <span id="R2F8" class="seat {{ R2F8 }} fifty" title="R2F8"></span>
+        <span id="R2F7" class="seat {{ R2F7 }} fifty-one" title="R2F7"></span>
+        <span id="R2F6" class="seat {{ R2F6 }} fifty-two" title="R2F6"></span>
+        <span id="R2F5" class="seat {{ R2F5 }} fifty-three" title="R2F5"></span>
+        <span id="R2F4" class="seat {{ R2F4 }} fifty-four" title="R2F4"></span>
+        <span id="R2F3" class="seat {{ R2F3 }} fifty-five" title="R2F3"></span>
+        <span id="R2F2" class="seat {{ R2F2 }} fifty-six" title="R2F2"></span>
+        <span id="R2F1" class="seat {{ R2F1 }} fifty-seven" title="R2F1"></span>
+        <span class="no-seat fifty-five"></span>
+        <span id="R1F1" class="seat {{ R1F1 }} rowfr-one" title="R1F1"></span>
+        <span id="R1F2" class="seat {{ R1F2 }} rowfr-two" title="R1F2"></span>
+        <span id="R1F3" class="seat {{ R1F3 }} rowfr-three" title="R1F3"></span>
+        <span id="R1F4" class="seat {{ R1F4 }} rowfr-four" title="R1F4"></span>
+        <span id="R1F5" class="seat {{ R1F5 }} rowfr-five" title="R1F5"></span>
+        <span id="R1F6" class="seat {{ R1F6 }} rowfr-six" title="R1F6"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Risers Row G -->
+    <div class="row">
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="R4G6" class="seat {{ R4G6 }} rowgl-one" title="R4G6"></span>
+        <span id="R4G5" class="seat {{ R4G5 }} rowgl-two" title="R4G5"></span>
+        <span id="R4G4" class="seat {{ R4G4 }} rowgl-three" title="R4G4"></span>
+        <span id="R4G3" class="seat {{ R4G3 }} rowgl-four" title="R4G3"></span>
+        <span id="R4G2" class="seat {{ R4G2 }} rowgl-five" title="R4G2"></span>
+        <span id="R4G1" class="seat {{ R4G1 }} rowgl-six" title="R4G1"></span>
+        <span id="R3G18" class="seat {{ R3G18 }} fifteen" title="R3G18"></span>
+        <span id="R3G17" class="seat {{ R3G17 }} sixteen" title="R3G17"></span>
+        <span id="R3G16" class="seat {{ R3G16 }} seventeen" title="R3G16"></span>
+        <span id="R3G15" class="seat {{ R3G15 }} eighteen" title="R3G15"></span>
+        <span id="R3G14" class="seat {{ R3G14 }} nineteen" title="R3G14"></span>
+        <span id="R3G13" class="seat {{ R3G13 }} twenty" title="R3G13"></span>
+        <span id="R3G12" class="seat {{ R3G12 }} twenty-one" title="R3G12"></span>
+        <span id="R3G11" class="seat {{ R3G11 }} twenty-two" title="R3G11"></span>
+        <span id="R3G10" class="seat {{ R3G10 }} twenty-three" title="R3G10"></span>
+        <span id="R3G9" class="seat {{ R3G9 }} twenty-four" title="R3G9"></span>
+        <span id="R3G8" class="seat {{ R3G8 }} twenty-five" title="R3G8"></span>
+        <span id="R3G7" class="seat {{ R3G7 }} twenty-nine" title="R3G7"></span>
+        <span id="R3G6" class="seat {{ R3G6 }} thirty" title="R3G6"></span>
+        <span id="R3G5" class="seat {{ R3G5 }} thirty-one" title="R3G5"></span>
+        <span id="R3G4" class="seat {{ R3G4 }} thirty-two" title="R3G4"></span>
+        <span id="R3G3" class="seat {{ R3G3 }} thirty-three" title="R3G3"></span>
+        <span id="R3G2" class="seat {{ R3G2 }} thirty-four" title="R3G2"></span>
+        <span id="R3G1" class="seat {{ R3G1 }} thirty-five" title="R3G1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MG" class="seat {{ MG }} middleLetter">G</span>
+        <span id="R2G18" class="seat {{ R2G18 }} thirty-eight" title="R2G18"></span>
+        <span id="R2G17" class="seat {{ R2G17 }} thirty-nine" title="R2G17"></span>
+        <span id="R2G16" class="seat {{ R2G16 }} forty" title="R2G16"></span>
+        <span id="R2G15" class="seat {{ R2G15 }} forty-one" title="R2G15"></span>
+        <span id="R2G14" class="seat {{ R2G14 }} forty-two" title="R2G14"></span>
+        <span id="R2G13" class="seat {{ R2G13 }} forty-three" title="R2G13"></span>
+        <span id="R2G12" class="seat {{ R2G12 }} forty-four" title="R2G12"></span>
+        <span id="R2G11" class="seat {{ R2G11 }} forty-eight" title="R2G11"></span>
+        <span id="R2G10" class="seat {{ R2G10 }} forty-nine" title="R2G10"></span>
+        <span id="R2G9" class="seat {{ R2G9 }} fifty" title="R2G9"></span>
+        <span id="R2G8" class="seat {{ R2G8 }} fifty-one" title="R2G8"></span>
+        <span id="R2G7" class="seat {{ R2G7 }} fifty-two" title="R2G7"></span>
+        <span id="R2G6" class="seat {{ R2G6 }} fifty-three" title="R2G6"></span>
+        <span id="R2G5" class="seat {{ R2G5 }} fifty-four" title="R2G5"></span>
+        <span id="R2G4" class="seat {{ R2G4 }} fifty-five" title="R2G4"></span>
+        <span id="R2G3" class="seat {{ R2G3 }} fifty-six" title="R2G3"></span>
+        <span id="R2G2" class="seat {{ R2G2 }} fifty-seven" title="R2G2"></span>
+        <span id="R2G1" class="seat {{ R2G1 }} fifty-eight" title="R2G1"></span>
+        <span class="no-seat fifty-six"></span>
+        <span class="no-seat fifty-seven"></span>
+        <span id="R1G1" class="seat {{ R1G1 }} rowgr-one" title="R1G1"></span>
+        <span id="R1G2" class="seat {{ R1G2 }} rowgr-two" title="R1G2"></span>
+        <span id="R1G3" class="seat {{ R1G3 }} rowgr-three" title="R1G3"></span>
+        <span id="R1G4" class="seat {{ R1G4 }} rowgr-four" title="R1G4"></span>
+        <span id="R1G5" class="seat {{ R1G5 }} rowgr-five" title="R1G5"></span>
+        <span id="R1G6" class="seat {{ R1G6 }} rowgr-six" title="R1G6"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Loge Row A -->
+    <div class="row">
+        <span class="no-seat seven"></span>
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span id="L5A8" class="seat {{ L5A8 }} ten" title="L5A8"></span>
+        <span id="L5A7" class="seat {{ L5A5 }} eleven" title="L5A7"></span>
+        <span id="L5A6" class="seat {{ L5A6 }} twelve" title="L5A6"></span>
+        <span id="L5A5" class="seat {{ L5A5 }} thirteen" title="L5A5"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span id="L4A7" class="seat {{ L4A7 }} fourteen" title="L4A7"></span>
+        <span id="L4A6" class="seat {{ L4A6 }} fifteen" title="L4A6"></span>
+        <span id="L4A5" class="seat {{ L4A5 }} sixteen" title="L4A5"></span>
+        <span id="L4A4" class="seat {{ L4A4 }} seventeen" title="L4A4"></span>
+        <span id="L4A3" class="seat {{ L4A3 }} eighteen" title="L4A3"></span>
+        <span id="L4A2" class="seat {{ L4A2 }} nineteen" title="L4A2"></span>
+        <span id="L4A1" class="seat {{ L4A1 }} twenty" title="L4A1"></span>
+        <span class="no-seat twenty-four"></span>
+        <span class="no-seat twenty-five"></span>
+        <span id="L3A10" class="seat {{ L3A10 }} twenty-four" title="L3A10"></span>
+        <span id="L3A9" class="seat {{ L3A9 }} twenty-five" title="L3A9"></span>
+        <span id="L3A8" class="seat {{ L3A8 }} twenty-eight" title="L3A8"></span>
+        <span id="L3A7" class="seat {{ L3A7 }} twenty-nine" title="L3A7"></span>
+        <span id="L3A6" class="seat {{ L3A6 }} thirty" title="L3A6"></span>
+        <span id="L3A5" class="seat {{ L3A5 }} thirty-one" title="L3A5"></span>
+        <span id="L3A4" class="seat {{ L3A4 }} thirty-two" title="L3A4"></span>
+        <span id="L3A3" class="seat {{ L3A3 }} thirty-three" title="L3A3"></span>
+        <span id="L3A2" class="seat {{ L3A2 }} thirty-four" title="L3A2"></span>
+        <span id="L3A1" class="seat {{ L3A1 }} thirty-five" title="L3A1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MLA" class="seat {{ MLA }} middleLetter">LA</span>
+        <span id="L2A10" class="seat {{ L2A10 }} thirty-eight" title="L2A10"></span>
+        <span id="L2A9" class="seat {{ L2A9 }} thirty-nine" title="L2A9"></span>
+        <span id="L2A8" class="seat {{ L2A8 }} forty" title="L2A8"></span>
+        <span id="L2A7" class="seat {{ L2A7 }} forty-one" title="L2A7"></span>
+        <span id="L2A6" class="seat {{ L2A6 }} forty-two" title="L2A6"></span>
+        <span id="L2A5" class="seat {{ L2A5 }} forty-three" title="L2A5"></span>
+        <span id="L2A4" class="seat {{ L2A4 }} forty-four" title="L2A4"></span>
+        <span id="L2A3" class="seat {{ L2A3 }} forty-five" title="L2A3"></span>
+        <span id="L2A2" class="seat {{ L2A2 }} forty-eight" title="L2A2"></span>
+        <span id="L2A1" class="seat {{ L2A1 }} forty-nine" title="L2A1"></span>
+        <span class="no-seat forty-eight"></span>
+        <span class="no-seat forty-nine"></span>
+        <span id="L1A6" class="seat {{ L1A6 }} fifty-two" title="L1A6"></span>
+        <span id="L1A5" class="seat {{ L1A6 }} fifty-three" title="L1A5"></span>
+        <span id="L1A4" class="seat {{ L1A5 }} fifty-four" title="L1A4"></span>
+        <span id="L1A3" class="seat {{ L1A3 }} fifty-five" title="L1A3"></span>
+        <span id="L1A2" class="seat {{ L1A2 }} fifty-six" title="L1A2"></span>
+        <span id="L1A1" class="seat {{ L1A1 }} fifty-seven" title="L1A1"></span>
+        <span class="no-seat fifty-six"></span>
+        <span class="no-seat sixty"></span>
+        <span id="L0A4" class="seat {{ L0A4 }} sixty" title="L0A4"></span>
+        <span id="L0A3" class="seat {{ L0A3 }} sixty-one" title="L0A3"></span>
+        <span id="L0A2" class="seat {{ L0A2 }} sixty-two" title="L0A2"></span>
+        <span id="L0A1" class="seat {{ L0A1 }} sixty-three" title="L0A1"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Loge Row B -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span class="no-seat fourteen"></span>
+        <span class="no-seat fifteen""></span>
+        <span id="L4B6" class="seat {{ L4B6 }} fourteen" title="L4B6"></span>
+        <span id="L4B5" class="seat {{ L4B5 }} fifteen" title="L4B5"></span>
+        <span id="L4B4" class="seat {{ L4B4 }} sixteen" title="L4B4"></span>
+        <span id="L4B3" class="seat {{ L4B3 }} seventeen" title="L4B3"></span>
+        <span id="L4B2" class="seat {{ L4B2 }} eighteen" title="L4B2"></span>
+        <span id="L4B1" class="seat {{ L4B1 }} nineteen" title="L4B1"></span>
+        <span class="no-seat twenty-two"></span>
+        <span class="no-seat twenty-three"></span>
+        <span id="L3B12" class="seat {{ L3B12 }} twenty-three" title="L3B12"></span>
+        <span id="L3B11" class="seat {{ L3B11 }} twenty-four" title="L3B11"></span>
+        <span id="L3B10" class="seat {{ L3B10 }} twenty-five" title="L3B10"></span>
+        <span id="L3B9" class="seat {{ L3B9 }} twenty-seven" title="L3B9"></span>
+        <span id="L3B8" class="seat {{ L3B8 }} twenty-eight" title="L3B8"></span>
+        <span id="L3B7" class="seat {{ L3B7 }} twenty-nine" title="L3B7"></span>
+        <span id="L3B6" class="seat {{ L3B6 }} thirty" title="L3B6"></span>
+        <span id="L3B5" class="seat {{ L3B5 }} thirty-one" title="L3B5"></span>
+        <span id="L3B4" class="seat {{ L3B4 }} thirty-two" title="L3B4"></span>
+        <span id="L3B3" class="seat {{ L3B3 }} thirty-three" title="L3B3"></span>
+        <span id="L3B2" class="seat {{ L3B2 }} thirty-four" title="L3B2"></span>
+        <span id="L3B1" class="seat {{ L3B1 }} thirty-five" title="L3B1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MLB" class="seat {{ MLB }} middleLetter">LB</span>
+        <span id="L2B12" class="seat {{ L2B12 }} thirty-eight" title="L2B12"></span>
+        <span id="L2B11" class="seat {{ L2B11 }} thirty-nine" title="L2B11"></span>
+        <span id="L2B10" class="seat {{ L2B10 }} forty" title="L2B10"></span>
+        <span id="L2B9" class="seat {{ L2B9 }} forty-one" title="L2B9"></span>
+        <span id="L2B8" class="seat {{ L2B8 }} forty-two" title="L2B8"></span>
+        <span id="L2B7" class="seat {{ L2B7 }} forty-three" title="L2B7"></span>
+        <span id="L2B6" class="seat {{ L2B6 }} forty-four" title="L2B6"></span>
+        <span id="L2B5" class="seat {{ L2B5 }} forty-five" title="L2B5"></span>
+        <span id="L2B4" class="seat {{ L2B4 }} forty-six" title="L2B4"></span>
+        <span id="L2B3" class="seat {{ L2B3 }} forty-eight" title="L2B3"></span>
+        <span id="L2B2" class="seat {{ L2B2 }} forty-nine" title="L2B2"></span>
+        <span id="L2B1" class="seat {{ L2B31 }} fifty" title="L2B1"></span>
+        <span class="no-seat fifty-one"></span>
+        <span class="no-seat fifty-three"></span>
+        <span class="no-seat fifty-two"></span>
+        <span id="L1B5" class="seat {{ L1B5 }} fifty-four" title="L1B5"></span>
+        <span id="L1B4" class="seat {{ L1B4 }} fifty-five" title="L1B4"></span>
+        <span id="L1B3" class="seat {{ L1B3 }} fifty-six" title="L1B3"></span>
+        <span id="L1B2" class="seat {{ L1B2 }} fifty-seven" title="L1B2"></span>
+        <span id="L1B1" class="seat {{ L1B1 }} fifty-eight" title="L1B1"></span>
+        <span class="no-seat fifty-eight"></span>
+        <span class="no-seat fifty-nine"></span>
+        <span class="no-seat sixty"></span>
+        <span class="no-seat sixty-one"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+    <!-- Loge Row C -->
+    <div class="row">
+        <span class="no-seat eight"></span>
+        <span class="no-seat nine"></span>
+        <span class="no-seat ten"></span>
+        <span class="no-seat eleven"></span>
+        <span class="no-seat twelve"></span>
+        <span class="no-seat thirteen"></span>
+        <span id="L4C6" class="seat {{ L4C6 }} fourteen" title="L4C6"></span>
+        <span id="L4C5" class="seat {{ L4C5 }} fifteen" title="L4C5"></span>
+        <span id="L4C4" class="seat {{ L4C4 }} sixteen" title="L4C4"></span>
+        <span id="L4C3" class="seat {{ L4C3 }} seventeen" title="L4C3"></span>
+        <span id="L4C2" class="seat {{ L4C2 }} eighteen" title="L4C2"></span>
+        <span id="L4C1" class="seat {{ L4C1 }} nineteen" title="L4C1"></span>
+        <span class="no-seat twenty"></span>
+        <span class="no-seat twenty-one"></span>
+        <span id="L3C14" class="seat {{ L3C14 }} twenty-two" title="L3C14"></span>
+        <span id="L3C13" class="seat {{ L3C13 }} twenty-three" title="L3C13"></span>
+        <span id="L3C12" class="seat {{ L3C12 }} twenty-four" title="L3C12"></span>
+        <span id="L3C11" class="seat {{ L3C11 }} twenty-five" title="L3C11"></span>
+        <span id="L3C10" class="seat {{ L3C10 }} twenty-six" title="L3C10"></span>
+        <span id="L3C9" class="seat {{ L3C9 }} twenty-seven" title="L3C9"></span>
+        <span id="L3C8" class="seat {{ L3C8 }} twenty-eight" title="L3C8"></span>
+        <span id="L3C7" class="seat {{ L3C7 }} twenty-nine" title="L3C7"></span>
+        <span id="L3C6" class="seat {{ L3C6 }} thirty" title="L3C6"></span>
+        <span id="L3C5" class="seat {{ L3C5 }} thirty-one" title="L3C5"></span>
+        <span id="L3C4" class="seat {{ L3C4 }} thirty-two" title="L3C4"></span>
+        <span id="L3C3" class="seat {{ L3C3 }} thirty-three" title="L3C3"></span>
+        <span id="L3C2" class="seat {{ L3C2 }} thirty-four" title="L3C2"></span>
+        <span id="L3C1" class="seat {{ L3C1 }} thirty-five" title="L3C1"></span>
+        <span class="no-seat thirty-six"></span>
+        <span class="no-seat thirty-seven"></span>
+        <span id="MLC" class="seat {{ MLC }} middleLetter">LC</span>
+        <span id="L2C14" class="seat {{ L2C14 }} thirty-eight" title="L2C14"></span>
+        <span id="L2C13" class="seat {{ L2C13 }} thirty-nine" title="L2C13"></span>
+        <span id="L2C12" class="seat {{ L2C12 }} forty" title="L2C12"></span>
+        <span id="L2C11" class="seat {{ L2C11 }} forty-one" title="L2C11"></span>
+        <span id="L2C10" class="seat {{ L2C10 }} forty-two" title="L2C10"></span>
+        <span id="L2C9" class="seat {{ L2C9 }} forty-three" title="L2C9"></span>
+        <span id="L2C8" class="seat {{ L2C8 }} forty-four" title="L2C8"></span>
+        <span id="L2C7" class="seat {{ L2C7 }} forty-five" title="L2C7"></span>
+        <span id="L2C6" class="seat {{ L2C6 }} forty-six" title="L2C6"></span>
+        <span id="L2C5" class="seat {{ L2C5 }} forty-seven" title="L2C5"></span>
+        <span id="L2C4" class="seat {{ L2C4 }} forty-eight" title="L2C4"></span>
+        <span id="L2C3" class="seat {{ L2C3 }} forty-nine" title="L2C3"></span>
+        <span id="L2C2" class="seat {{ L2C2 }} fifty" title="L2C2"></span>
+        <span id="L2C1" class="seat {{ L2C1 }} fifty-one" title="L2C1"></span>
+        <span class="no-seat fifty-two"></span>
+        <span class="no-seat fifty-three"></span>
+        <span id="L1C4" class="seat {{ L1C4 }} fifty-four" title="L1C4"></span>
+        <span id="L1C3" class="seat {{ L1C3 }} fifty-five" title="L1C3"></span>
+        <span id="L1C2" class="seat {{ L1C2 }} fifty-six" title="L1C2"></span>
+        <span id="L1C1" class="seat {{ L1C1 }} fifty-seven" title="L1C1"></span>
+        <span class="no-seat fifty-eight"></span>
+        <span class="no-seat fifty-nine"></span>
+        <span class="no-seat sixty"></span>
+        <span class="no-seat sixty-one"></span>
+        <span class="no-seat sixty-two"></span>
+        <span class="no-seat sixty-three"></span>
+        <span class="no-seat sixty-four"></span>
+    </div>
+
+</div>
+<!-- <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+
+</script> -->
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/js/seat-selector.js"></script>
+</body>
+</html>
