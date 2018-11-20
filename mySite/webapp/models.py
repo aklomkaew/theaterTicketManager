@@ -63,7 +63,7 @@ class Row(models.Model):
 
 class PriceGroup(models.Model):
     name = models.CharField(max_length=50)
-    price = models.DecimalField(decimal_places=2, max_digits=6)
+    price = models.DecimalField(decimal_places=2, max_digits=8)
 
     def get_sections(self):
         sections = self.section_set.all()
@@ -299,6 +299,7 @@ class Ticket(models.Model):
     door = models.BooleanField()#Whether or not the ticket was purchased at the door
     printed = models.BooleanField(default=False)#Whether or not the ticket has been printed.
     cash = models.BooleanField(default=False)
+    price = models.DecimalField(decimal_places=2, max_digits=8)
 
     def __str__(self):
         return '(' + str(self.performance.all()[0].time)+ ', ' + str(self.show.all()[0].name) + ', ' + str(self.season.all()[0].name) + ', '\

@@ -623,6 +623,16 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     rows = []
     sections = []
 
+    seat_price_list = seats_prices.split(',')
+    seat_dict_list = []
+    for seat in seat_price_list:
+        seats_dict = {}
+        row, number, price = getRowNumberSeatsPrices(seat)
+        seats_dict['number'] = number
+        seats_dict['row'] = row
+        seats_dict['price'] = price
+        seat_dict_list.append(seats_dict)
+
     individualSeatParts = seats.split(',')
     for i, part in enumerate(individualSeatParts):
 
@@ -659,10 +669,15 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
 
         if performance.theater.all()[0].name == theaterName:
 
+
+
             #Create a ticket for eacb seat in this performace
             for i, seat in enumerate(seatObjects):
 
-                ticket = models.Ticket.objects.create(datePurchased=datetime.datetime.now(), door=bool(door_reservation))
+                price = int(seat_dict_list[i]['price'])
+                print("PRICE: " + str(price))
+
+                ticket = models.Ticket.objects.create(datePurchased=datetime.datetime.now(), door=bool(door_reservation), price=price)
                 ticket.paid = bool(paid)
 
                 if bool(paid) == True:
@@ -687,6 +702,8 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
                 ticket.season.add(models.Season.objects.get(name=season))
                 ticket.show.add(show)
                 ticket.performance.add(performance)
+
+
                 ticket.save()
 
     #Create a SeasonTicketHolder record for this customer or update an existing one
@@ -729,15 +746,7 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     context['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
     context['seats'] = seats
     seats_list = seats.split(',')
-    seat_price_list = seats_prices.split(',')
-    seat_dict_list = []
-    for seat in seat_price_list:
-        seats_dict = {}
-        row, number, price = getRowNumberSeatsPrices(seat)
-        seats_dict['number'] = number
-        seats_dict['row'] = row
-        seats_dict['price'] = price
-        seat_dict_list.append(seats_dict)
+
     context['seat_dict_list'] = seat_dict_list
     context['paid'] = paid
     context['name'] = name
@@ -810,6 +819,16 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
     rows = []
     sections = []
 
+    seat_price_list = seats_prices.split(',')
+    seat_dict_list = []
+    for seat in seat_price_list:
+        seats_dict = {}
+        row, number, price = getRowNumberSeatsPrices(seat)
+        seats_dict['number'] = number
+        seats_dict['row'] = row
+        seats_dict['price'] = price
+        seat_dict_list.append(seats_dict)
+
     individualSeatParts = seats.split(',')
     for i, part in enumerate(individualSeatParts):
 
@@ -841,10 +860,14 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
 
     # For each seat, create a new ticket.
     for i, seat in enumerate(seatObjects):
+
+
         # First, do the logic for saving the single ticket
 
+        price = int(seat_dict_list[i]['price'])
+        print("PRICE: " + str(price))
 
-        ticket = models.Ticket.objects.create(paid=bool(paid), datePurchased=datetime.datetime.now(), door=bool(door_reservation))
+        ticket = models.Ticket.objects.create(paid=bool(paid), datePurchased=datetime.datetime.now(), door=bool(door_reservation), price=price)
         if bool(paid) == True:
             ticket.cash = bool(payment_method)
         ticket.printed = bool(printed)
@@ -878,15 +901,7 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
     context['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
     context['seats'] = seats
     seats_list = seats.split(',')
-    seat_price_list = seats_prices.split(',')
-    seat_dict_list = []
-    for seat in seat_price_list:
-        seats_dict = {}
-        row, number, price = getRowNumberSeatsPrices(seat)
-        seats_dict['number'] = number
-        seats_dict['row'] = row
-        seats_dict['price'] = price
-        seat_dict_list.append(seats_dict)
+
     context['seat_dict_list'] = seat_dict_list
     context['paid'] = paid
     context['name'] = name
