@@ -638,12 +638,12 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
 
         #Support for rows where the name is three characters long. Typically a riser
         if len(part) >= 4:
-            rows.append(models.Row.objects.get(name=part[:4]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[4:])))
-        #Support for rows where the name is two characters long. Typcially a handicap seat
-        elif len(part) >= 3:
             rows.append(models.Row.objects.get(name=part[:3]))
             seatObjects.append(models.Seat.objects.get(number=int(part[3:])))
+        #Support for rows where the name is two characters long. Typcially a handicap seat
+        elif len(part) >= 3:
+            rows.append(models.Row.objects.get(name=part[:2]))
+            seatObjects.append(models.Seat.objects.get(number=int(part[2:])))
         #The row name has one character
         else:
             rows.append(models.Row.objects.get(name=part[0]))
@@ -834,12 +834,12 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
 
         # Support for rows where the name is three characters long. Typically a riser
         if len(part) >= 4:
-            rows.append(models.Row.objects.get(name=part[:4]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[4:])))
-        # Support for rows where the name is two characters long. Typcially a handicap seat
-        elif len(part) >= 3:
             rows.append(models.Row.objects.get(name=part[:3]))
             seatObjects.append(models.Seat.objects.get(number=int(part[3:])))
+        # Support for rows where the name is two characters long. Typcially a handicap seat
+        elif len(part) >= 3:
+            rows.append(models.Row.objects.get(name=part[:2]))
+            seatObjects.append(models.Seat.objects.get(number=int(part[2:])))
         # The row name has one character
         else:
             rows.append(models.Row.objects.get(name=part[0]))
