@@ -11,7 +11,7 @@ body {
 
     margin: auto;
     min-width: 1500px;
-    /* min-height: 200px; */
+    /* min-height: 1500px; */
 }
 
 .box {
@@ -30,6 +30,7 @@ body {
     border-radius: 5px;
     position: relative;
     border: 1px solid darkblue;
+    pointer-events:all;
 }
 
 .sold {
@@ -53,6 +54,7 @@ body {
     height: 16px;
     width: 16px;
     border-radius: 5px;
+    pointer-events:none;
 }
 
 .handicap-seat {
@@ -61,6 +63,7 @@ body {
     width: 26px;
     border-radius: 5px;
     border: 1px solid grey;
+    pointer-events:all;
 }
 .handicap-sold {
   opacity: 0.2;
@@ -106,26 +109,26 @@ body {
 .handicap-twenty-six3G {
     transform-origin: bottom right;
     transform: rotate(0deg);
-    bottom: 10px;
-    left: 565px;
+    bottom: 5px;
+    left: 590px;
 }
 .handicap-thirty-one3G {
     transform-origin: bottom right;
     transform: rotate(0deg);
-    bottom: 10px;
-    left: 640px;
+    bottom: 0px;
+    left: 670px;
 }
 .handicap-thirty-four3G {
     transform-origin: bottom right;
     transform: rotate(0deg);
-    bottom: 10px;
-    left: 700px;
+    bottom: 0px;
+    left: 730px;
 }
 .handicap-thirty-seven3G {
     transform-origin: bottom right;
     transform: rotate(0deg);
-    bottom: 10px;
-    left: 760px;
+    bottom: 5px;
+    left: 790px;
 }
 .handicap-thirty-three3G {
     transform-origin: bottom right;
@@ -136,19 +139,19 @@ body {
 .handicap-fifty-four5G {
     transform-origin: bottom right;
     transform: rotate(-23deg);
-    bottom: 80px;
+    bottom: 60px;
     left: 1140px;
 }
 .handicap-fifty-six5G {
     transform-origin: bottom right;
     transform: rotate(-23deg);
-    bottom: 110px;
+    bottom: 85px;
     left: 1205px;
 }
 .handicap-sixty5G {
     transform-origin: bottom right;
     transform: rotate(-23deg);
-    bottom: 135px;
+    bottom: 105px;
     left: 1260px;
 }
 .handicap-fifty-three {
@@ -178,6 +181,7 @@ body {
 .row {
     width: auto;
     transform:rotate(0deg);
+    pointer-events:none;
 }
 
 .thirty-two {
@@ -517,4 +521,116 @@ body {
     transform-origin: top left;
     transform: rotate(-10deg);
     display: inline-block;
+}
+
+.b-thirty-nine {
+    transform-origin: bottom left;
+    transform: rotate(-6deg);
+    bottom: 1px;
+}
+
+.b-forty {
+    transform-origin: bottom left;
+    transform: rotate(-7deg);
+    bottom: 3px;
+}
+.b-forty-one {
+    transform-origin: bottom left;
+    transform: rotate(-8deg);
+    bottom: 5px;
+}
+.b-forty-two {
+    transform-origin: bottom left;
+    transform: rotate(-9deg);
+    bottom: 8px;
+}
+.b-forty-three {
+    transform-origin: bottom left;
+    transform: rotate(-10deg);
+    bottom: 11px;
+}
+.b-forty-four {
+    transform-origin: bottom left;
+    transform: rotate(-11deg);
+    bottom: 14px;
+}
+.b-forty-five {
+    transform-origin: bottom left;
+    transform: rotate(-12deg);
+    bottom: 18px;
+}
+.b-forty-six {
+    transform-origin: bottom left;
+    transform: rotate(-13deg);
+    bottom: 21px;
+}
+.b-forty-seven {
+    transform-origin: bottom left;
+    transform: rotate(-14deg);
+    bottom: 25px;
+}
+.b-forty-eight {
+    transform-origin: bottom left;
+    transform: rotate(-15deg);
+    bottom: 30px;
+}
+.b-forty-nine {
+    transform-origin: bottom left;
+    transform: rotate(-16deg);
+    bottom: 35px;
+}
+.b-fifty {
+    transform-origin: bottom left;
+    transform: rotate(-17deg);
+    bottom: 41px;
+}
+.b-fifty-one {
+    transform-origin: bottom left;
+    transform: rotate(-18deg);
+    bottom: 48px;
+}
+.b-fifty-two {
+    transform-origin: bottom left;
+    transform: rotate(-19deg);
+    bottom: 55px;
+}
+.b-fifty-three {
+    transform-origin: bottom left;
+    transform: rotate(-20deg);
+    bottom: 63px;
+}
+.b-fifty-four {
+    transform-origin: bottom left;
+    transform: rotate(-21deg);
+    bottom: 71px;
+}
+.b-fifty-five {
+    transform-origin: bottom left;
+    transform: rotate(-22deg);
+    bottom: 80px;
+}
+.b-fifty-six {
+    transform-origin: bottom left;
+    transform: rotate(-23deg);
+    bottom: 89px;
+}
+.b-fifty-seven {
+    transform-origin: bottom left;
+    transform: rotate(-24deg);
+    bottom: 98px;
+}
+.b-fifty-eight {
+    transform-origin: bottom left;
+    transform: rotate(-25deg);
+    bottom: 107px;
+}
+.b-fifty-nine {
+    transform-origin: bottom left;
+    transform: rotate(-26deg);
+    bottom: 117px;
+}
+.b-sixty {
+    transform-origin: bottom left;
+    transform: rotate(-27deg);
+    bottom: 128px;
 }
