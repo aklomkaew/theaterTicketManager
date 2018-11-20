@@ -304,8 +304,6 @@ def concertHall(request, show, theater, year, month, day, hour, minute):
 def playhouse(request, show, theater, year, month, day, hour, minute):
     # SHAWN, year, month, day, hour, minute are currently ints
     # str(year) is all you have to do to get them back to strings
-    context = {}
-    return render(request, 'webapp/playhouse.html', context)
 
     """Find all of the sold seats. Use every seat that is sold as a key to a dictionary. """
 
