@@ -88,7 +88,7 @@ def getPerformances(request, theater, month, day, year):
                     showtime['minute'] = int(performance.time.minute)
                     minute_str = str(performance.time.minute)
                     if int(performance.time.minute) < 10:
-                        minute_str = '0' + minute_str
+                        minute_str = '0' + str(minute_str)
                     showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
                     showtimes.append(showtime)
 
@@ -196,7 +196,7 @@ def performance(request):
                 showtime['minute'] = int(performance.time.minute)
                 minute_str = performance.time.minute
                 if int(performance.time.minute) < 10:
-                    minute_str = '0' + minute_str
+                    minute_str = '0' + str(minute_str)
                 # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
                 showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
                 showtimes.append(showtime)
