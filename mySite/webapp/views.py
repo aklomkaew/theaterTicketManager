@@ -88,7 +88,7 @@ def getPerformances(request, theater, month, day, year):
                     showtime['minute'] = int(performance.time.minute)
                     minute_str = str(performance.time.minute)
                     if int(performance.time.minute) < 10:
-                        minute_str = '0' + minute_str
+                        minute_str = '0' + str(minute_str)
                     showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
                     showtimes.append(showtime)
 
@@ -196,7 +196,7 @@ def performance(request):
                 showtime['minute'] = int(performance.time.minute)
                 minute_str = performance.time.minute
                 if int(performance.time.minute) < 10:
-                    minute_str = '0' + minute_str
+                    minute_str = '0' + str(minute_str)
                 # showtime['str'] = str(performance.time.hour) + ':' + str(performance.time.minute)
                 showtime['str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
                 showtimes.append(showtime)
@@ -631,18 +631,11 @@ def season_confirmationPage(request, theater, season, day, hour, minute, seats, 
     individualSeatParts = seats.split(',')
     for i, part in enumerate(individualSeatParts):
 
-        #Support for rows where the name is three characters long. Typically a riser
-        if len(part) >= 4:
-            rows.append(models.Row.objects.get(name=part[:3]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[3:])))
-        #Support for rows where the name is two characters long. Typcially a handicap seat
-        elif len(part) >= 3:
-            rows.append(models.Row.objects.get(name=part[:2]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[2:])))
-        #The row name has one character
-        else:
-            rows.append(models.Row.objects.get(name=part[0]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[1])))
+        # Filter out the row name and seat number
+        row, number = getRowNumber(part)
+
+        rows.append(models.Row.objects.get(name=row))
+        seatObjects.append(models.Seat.objects.get(number=int(number)))
 
         # Filter through the sections containing this row to find the one that is in the specified theater
         # Find the section that this row is in that is itself in the theater
@@ -827,18 +820,11 @@ def confirmationPage(request, show, theater, year, month, day, hour, minute, sea
     individualSeatParts = seats.split(',')
     for i, part in enumerate(individualSeatParts):
 
-        # Support for rows where the name is three characters long. Typically a riser
-        if len(part) >= 4:
-            rows.append(models.Row.objects.get(name=part[:3]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[3:])))
-        # Support for rows where the name is two characters long. Typcially a handicap seat
-        elif len(part) >= 3:
-            rows.append(models.Row.objects.get(name=part[:2]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[2:])))
-        # The row name has one character
-        else:
-            rows.append(models.Row.objects.get(name=part[0]))
-            seatObjects.append(models.Seat.objects.get(number=int(part[1])))
+        #Filter out the row name and seat number
+        row, number = getRowNumber(part)
+
+        rows.append(models.Row.objects.get(name=row))
+        seatObjects.append(models.Seat.objects.get(number=int(number)))
 
         # Filter through the sections containing this row to find the one that is in the specified theater
         # Find the section that this row is in that is itself in the theater
