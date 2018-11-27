@@ -145,7 +145,7 @@
     <div class="container" style="margin-top: -5px">
       {% for performance in performances %}
         <div class="movie-card">
-            <div id="{{ performance.name }}" class="movie-header img-box" style="background: url('/static/img/{{ performance.img }}'); background-size: cover;">
+            <div id="{{ performance.name }}" class="movie-header img-box" style="background: url('/static/{{ performance.img }}'); background-size: cover;">
                 <p>
                     <strong>{{ performance.name }}</strong><br>
                     <strong>{{ performance.runtime }}</strong><br>
