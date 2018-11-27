@@ -29,10 +29,72 @@ def index(request) :
             'summary': 'Get Thee to a Nunnery!',
             'season': 'Winter',
             'theater': 'Concert Hall',
-            'first_day': 'December 1',
-            'last_day': 'December 31'
+            'first_day': 'January 1',
+            'last_day': 'January 31'
             }
     performances.append(performanceA)
+    performanceB = {
+            'name': 'Cats',
+            'img': 'cats.jpg',
+            'runtime': '2 hours 5 min',
+            'genre': 'Comedy',
+            'summary': 'Get Thee to a Nunnery!',
+            'season': 'Winter',
+            'theater': 'Concert Hall',
+            'first_day': 'Feburary 1',
+            'last_day': 'Feburary 28'
+            }
+    performances.append(performanceB)
+    performanceC = {
+            'name': 'A Midsummer Night\'s Dream',
+            'img': 'aMidsummerNightsDream.jpg',
+            'runtime': '2 hours 5 min',
+            'genre': 'Comedy',
+            'summary': 'Get Thee to a Nunnery!',
+            'season': 'Winter',
+            'theater': 'Playhouse',
+            'first_day': 'March 1',
+            'last_day': 'March 31'
+            }
+    performances.append(performanceC)
+    performanceD = {
+            'name': 'Death of A Salesman',
+            'img': 'deathOfASalesman.jpg',
+            'runtime': '2 hours 5 min',
+            'genre': 'Comedy',
+            'summary': 'Get Thee to a Nunnery!',
+            'season': 'Winter',
+            'theater': 'Concert Hall',
+            'first_day': 'April 1',
+            'last_day': 'April 30'
+            }
+    performances.append(performanceD)
+    performanceE = {
+            'name': 'Macbeth',
+            'img': 'macbeth.jpg',
+            'runtime': '2 hours 5 min',
+            'genre': 'Comedy',
+            'summary': 'Get Thee to a Nunnery!',
+            'season': 'Winter',
+            'theater': 'Playhouse',
+            'first_day': 'March 1',
+            'last_day': 'March 30'
+            }
+    performances.append(performanceE)
+    performanceF = {
+            'name': 'West Side Story',
+            'img': 'westSideStory.jpg',
+            'runtime': '2 hours 5 min',
+            'genre': 'Comedy',
+            'summary': 'Get Thee to a Nunnery!',
+            'season': 'Winter',
+            'theater': 'Playhouse',
+            'first_day': 'March 1',
+            'last_day': 'March 30'
+            }
+    performances.append(performanceF)
+
+
     context = {'performances':performances}
     return render(request, 'webapp/home.html', context)
 
