@@ -20,7 +20,78 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 
 
 def index(request) :
-    return render(request, 'webapp/home.html')
+    performances = []
+    performanceA = {
+            'name': 'Hamlet',
+            'img': 'hamlet.jpg',
+            'runtime': '3 hours 5 min',
+            'genre': 'Tragedy',
+            'summary': 'Get Thee to a Nunnery!',
+            'season': 'Winter',
+            'theater': 'Concert Hall',
+            'first_day': 'December 1',
+            'last_day': 'December 31'
+            }
+    performances.append(performanceA)
+    context = {'performances':performances}
+    return render(request, 'webapp/home.html', context)
+
+
+def getMonthStr(month_num):
+    if month_num == 1:
+        return "January"
+    elif month_num == 2:
+        return "February"
+    elif month_num == 3:
+        return "March"
+    elif month_num == 4:
+        return "April"
+    elif month_num == 5:
+        return "May"
+    elif month_num == 6:
+        return "June"
+    elif month_num == 7:
+        return "July"
+    elif month_num == 8:
+        return "August"
+    elif month_num == 9:
+        return "September"
+    elif month_num == 10:
+        return "October"
+    elif month_num == 11:
+        return "November"
+    elif month_num == 12:
+        return "December"
+
+def getShowtimes(request, show):
+    context = {}
+    context['show'] = show
+    showtimes = []
+    hour = 19
+    minute = 0
+    showtimeA = {
+    'theater': 'Concert Hall',
+    'year': 2015,
+    'day': 15,
+    'month': 2,
+    'month_str' : getMonthStr(2),
+    'hour': hour,
+    'minute': minute,
+    }
+    hour
+    if hour <= 12:
+        hour_str = str(hour)
+        am_pm_string = "AM"
+    else:
+        hour_str = str(hour - 12)
+        am_pm_string = "PM"
+    minute_str = str(minute)
+    if int(minute) < 10:
+        minute_str = '0' + minute_str
+    showtimeA['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+    showtimes.append(showtimeA)
+    context['showtimes'] = showtimes
+    return render(request, 'webapp/showtimes.html', context)
 
 """Called when the user clicks 'View Shows' on the Performances page.
     Gets the set of shows and performances subject to the filters provided by the user.
