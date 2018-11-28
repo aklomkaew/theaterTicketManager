@@ -144,17 +144,16 @@
 
     <div id="shows-container" class="container" style="margin-top: -5px">
       {% for performance in performances %}
-        <div class="movie-card">
-            <div id="{{ performance.name }}" class="movie-header img-box" style="background: url('/static/{{ performance.img }}'); background-size: cover;">
-                <p>
-                    <strong>Click to View Showtimes!</strong><br>
-                    <strong>{{ performance.name }}</strong><br>
-                    <strong>{{ performance.runtime }}</strong><br>
-                    <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
-                    <em class="bio">
-                        {{ performance.summary }}
-                    </em>
-                </p>
+        <div class="movie-card" id="{{ performance.name }}">
+            <div class="movie-header img-box" style="background: url('/static/{{ performance.img }}'); background-size: cover;">
+              <p>
+                  <strong>{{ performance.name }}</strong><br>
+                  <strong>{{ performance.runtime }}</strong><br>
+                  <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
+                  <em class="bio">
+                      {{ performance.summary }}
+                  </em>
+              </p>
             </div><!--movie-header-->
             <div class="movie-content">
                 <div class="movie-content-header">
@@ -171,14 +170,15 @@
 <!-- <hr> -->
 <!-- Showtimes Section -->
 <div id="showtimes-list">
-  <h2 id="showtimes-h2">Showtimes</h2>
+  <h2 id="showtimes-h2">Select a Show to View Showtimes</h2>
 </div>
-<hr>
+
+<hr id="about-us">
     <!-- Main Layout -->
     <main class="mt-5">
       <div class="container">
         <!-- Section: About Us -->
-        <section id="about-us" class="text-center">
+        <section class="text-center">
 
           <!-- Heading -->
           <h2 class="mb-4 display-4">Von Braun Center</h2>
@@ -464,10 +464,10 @@
       </div>
     </main>
     <br>
-    <script src="{% static  "js/jquery-3.2.1.min.js"%}"></script>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script>
     $(document).ready(() => {
-        $(".movie-header").on('click', function (e) {
+        $(".movie-card").on('click', function (e) {
           var this_id = $(this).attr('id');
           $(document).scrollTop( $("#showtimes-h2").offset().top - (3 * $("#showtimes-h2").height()) );
           var url_str = "/getShowtimes/" + this_id + "/"
