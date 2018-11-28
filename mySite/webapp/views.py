@@ -20,82 +20,71 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 
 
 def index(request) :
-    performances = []
-    performanceA = {
-            'name': 'Hamlet',
-            'img': 'hamlet.jpg',
-            'runtime': '3 hours 5 min',
-            'genre': 'Tragedy',
-            'summary': 'Get Thee to a Nunnery!',
-            'season': 'Winter',
-            'theater': 'Concert Hall',
-            'first_day': 'January 1',
-            'last_day': 'January 31'
-            }
-    performances.append(performanceA)
-    performanceB = {
-            'name': 'Cats',
-            'img': 'cats.jpg',
-            'runtime': '2 hours 5 min',
-            'genre': 'Comedy',
-            'summary': 'Get Thee to a Nunnery!',
-            'season': 'Winter',
-            'theater': 'Concert Hall',
-            'first_day': 'Feburary 1',
-            'last_day': 'Feburary 28'
-            }
-    performances.append(performanceB)
-    performanceC = {
-            'name': 'A Midsummer Night\'s Dream',
-            'img': 'aMidsummerNightsDream.jpg',
-            'runtime': '2 hours 5 min',
-            'genre': 'Comedy',
-            'summary': 'Get Thee to a Nunnery!',
-            'season': 'Winter',
-            'theater': 'Playhouse',
-            'first_day': 'March 1',
-            'last_day': 'March 31'
-            }
-    performances.append(performanceC)
-    performanceD = {
-            'name': 'Death of A Salesman',
-            'img': 'deathOfASalesman.jpg',
-            'runtime': '2 hours 5 min',
-            'genre': 'Comedy',
-            'summary': 'Get Thee to a Nunnery!',
-            'season': 'Winter',
-            'theater': 'Concert Hall',
-            'first_day': 'April 1',
-            'last_day': 'April 30'
-            }
-    performances.append(performanceD)
-    performanceE = {
-            'name': 'Macbeth',
-            'img': 'macbeth.jpg',
-            'runtime': '2 hours 5 min',
-            'genre': 'Comedy',
-            'summary': 'Get Thee to a Nunnery!',
-            'season': 'Winter',
-            'theater': 'Playhouse',
-            'first_day': 'March 1',
-            'last_day': 'March 30'
-            }
-    performances.append(performanceE)
-    performanceF = {
-            'name': 'West Side Story',
-            'img': 'westSideStory.jpg',
-            'runtime': '2 hours 5 min',
-            'genre': 'Comedy',
-            'summary': 'Get Thee to a Nunnery!',
-            'season': 'Winter',
-            'theater': 'Playhouse',
-            'first_day': 'March 1',
-            'last_day': 'March 30'
-            }
-    performances.append(performanceF)
+
+    # TODO: Bascially the same as performance page
+
+    # Build a list of the Theaters from the database
+    theaters = []
+
+    for each in models.Theater.objects.all():
+        theaters.append(str(each))
+
+    # Build a list of dictionaries containing details of each show
+    showDetails = []
+
+    # Get the set of shows
+    shows = models.Show.objects.all()
+
+    # Filter for shows that have performances that are on the specified day
+    for show in shows:
 
 
-    context = {'performances':performances}
+        times = []
+        theaterName = ""
+
+        for performance in show.performances.all():
+            times.append(performance.time)
+
+            #It should be the same for all performances
+            theaterName = str(performance.theater.all()[0].name)
+
+        #Build a sorted list of showtimes
+        times.sort()
+
+        showtimes = []
+
+        # Iterate through the performances in this show
+        for time in times:
+
+            #Determine the month
+            month = getMonthStr(time.month)
+
+            #Determine the day in the month
+            day = time.day
+
+            #Create the date string
+            showtime = month + ", " + str(day)
+
+            showtimes.append(showtime)
+
+        # showtimes is all of the showtimes for the show
+
+        # Build a response dictionary to send back
+        dict = {'name': str(show.name),
+                'img': str(show.img),
+                'runtime': str(show.runtime),
+                'genre': str(show.genre),
+                'summary': str(show.summary),
+                'season': str(show.get_season()),
+                'theater': theaterName,
+                'first_day': showtimes[0],
+                'last_day': showtimes[(len(showtimes) - 1)],
+                }
+
+        # Add this response dictionary to the list of responses
+        showDetails.append(dict)
+
+    context = {'performances':showDetails}
     return render(request, 'webapp/home.html', context)
 
 
@@ -125,33 +114,59 @@ def getMonthStr(month_num):
     elif month_num == 12:
         return "December"
 
-def getShowtimes(request, show):
+
+"""Called when the user selects a Show on the Home page. Constructs a list."""
+def getShowtimes(request, showName):
+
+    show = models.Show.objects.get(name=showName)
+
     context = {}
-    context['show'] = show
+    context['show'] = showName
     showtimes = []
-    hour = 19
-    minute = 0
-    showtimeA = {
-    'theater': 'Concert Hall',
-    'year': 2015,
-    'day': 15,
-    'month': 2,
-    'month_str' : getMonthStr(2),
-    'hour': hour,
-    'minute': minute,
-    }
-    hour
-    if hour <= 12:
-        hour_str = str(hour)
-        am_pm_string = "AM"
-    else:
-        hour_str = str(hour - 12)
-        am_pm_string = "PM"
-    minute_str = str(minute)
-    if int(minute) < 10:
-        minute_str = '0' + minute_str
-    showtimeA['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
-    showtimes.append(showtimeA)
+
+    for performance in show.performances.all():
+
+
+
+        hour = performance.time.hour
+        minute = performance.time.minute
+
+        theaterName = performance.theater.all()[0].name
+
+        # Use hardcoded values to interpret which part of the website to call
+        if theaterName == "Concert Hall":
+            theaterName = 'concertHall'
+        elif theaterName == "Playhouse Theater":
+            theaterName = 'playhouse'
+
+
+        showtime = {
+        'theater': theaterName,
+        'year': performance.time.year,
+        'day': performance.time.day,
+        'month': performance.time.month,
+        'month_str' : getMonthStr(performance.time.month),
+        'hour': hour,
+        'minute': minute,
+        }
+
+        if hour <= 12:
+            hour_str = str(hour)
+            am_pm_string = "AM"
+        else:
+            hour_str = str(hour - 12)
+            am_pm_string = "PM"
+
+        minute_str = str(minute)
+
+        if int(minute) < 10:
+            minute_str = '0' + minute_str
+
+        showtime['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+
+        showtimes.append(showtime)
+
+
     context['showtimes'] = showtimes
     return render(request, 'webapp/showtimes.html', context)
 
