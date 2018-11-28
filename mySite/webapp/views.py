@@ -185,43 +185,45 @@ def getShowtimes(request, showName):
 
     for i, performance in enumerate(performances):
 
-        hour = performance.time.hour
-        minute = performance.time.minute
+        if show in performance.show_set.all():
 
-        theaterName = performance.theater.all()[0].name
+            hour = performance.time.hour
+            minute = performance.time.minute
 
-        # Use hardcoded values to interpret which part of the website to call
-        if theaterName == "Concert Hall":
-            theaterName = 'concertHall'
-        elif theaterName == "Playhouse Theater":
-            theaterName = 'playhouse'
+            theaterName = performance.theater.all()[0].name
+
+            # Use hardcoded values to interpret which part of the website to call
+            if theaterName == "Concert Hall":
+                theaterName = 'concertHall'
+            elif theaterName == "Playhouse Theater":
+                theaterName = 'playhouse'
 
 
-        showtime = {
-        'theater': theaterName,
-        'year': performance.time.year,
-        'day': performance.time.day,
-        'month': performance.time.month,
-        'month_str' : getMonthStr(performance.time.month),
-        'hour': hour,
-        'minute': minute,
-        }
+            showtime = {
+            'theater': theaterName,
+            'year': performance.time.year,
+            'day': performance.time.day,
+            'month': performance.time.month,
+            'month_str' : getMonthStr(performance.time.month),
+            'hour': hour,
+            'minute': minute,
+            }
 
-        if hour <= 12:
-            hour_str = str(hour)
-            am_pm_string = "AM"
-        else:
-            hour_str = str(hour - 12)
-            am_pm_string = "PM"
+            if hour <= 12:
+                hour_str = str(hour)
+                am_pm_string = "AM"
+            else:
+                hour_str = str(hour - 12)
+                am_pm_string = "PM"
 
-        minute_str = str(minute)
+            minute_str = str(minute)
 
-        if int(minute) < 10:
-            minute_str = '0' + minute_str
+            if int(minute) < 10:
+                minute_str = '0' + minute_str
 
-        showtime['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+            showtime['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
 
-        showtimes.append(showtime)
+            showtimes.append(showtime)
 
 
     context['showtimes'] = showtimes
