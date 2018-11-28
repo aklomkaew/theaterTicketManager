@@ -146,15 +146,14 @@
       {% for performance in performances %}
         <div class="movie-card" id="{{ performance.name }}">
             <div class="movie-header img-box" style="background: url('/static/{{ performance.img }}'); background-size: cover;">
-                <p>
-                    <strong>Click to View Showtimes!</strong><br>
-                    <strong>{{ performance.name }}</strong><br>
-                    <strong>{{ performance.runtime }}</strong><br>
-                    <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
-                    <em class="bio">
-                        {{ performance.summary }}
-                    </em>
-                </p>
+              <p>
+                  <strong>{{ performance.name }}</strong><br>
+                  <strong>{{ performance.runtime }}</strong><br>
+                  <strong>Genre:</strong> <em>{{ performance.genre }}</em><br>
+                  <em class="bio">
+                      {{ performance.summary }}
+                  </em>
+              </p>
             </div><!--movie-header-->
             <div class="movie-content">
                 <div class="movie-content-header">
