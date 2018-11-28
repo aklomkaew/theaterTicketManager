@@ -52,10 +52,11 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarResponsive1">
                 <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'performance' %}">Performances</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}#about-us">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'performance' %}">Performances</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'buySeasonTickets' %}">Buy Season Tickets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'admin' %}">Admin</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'help' %}"><i class="fas fa-question"></i></a></li>
                 </ul>
