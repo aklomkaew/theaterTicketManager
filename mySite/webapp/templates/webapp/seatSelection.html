@@ -18,7 +18,7 @@
       var year = "{{ year }}";
       var am_pm_string = "{{ am_pm_string }}";
       var minute = "{{ minute_str }}";
-      var nextTicket = 1;
+      // var nextTicket = 1;
       var nextSelectedSpaceToCreate = 3;
     </script>
 
@@ -236,14 +236,8 @@
             if (index > -1) {
               selectedSeats.splice(index, 1);
             }
-            // iFrameDOM.find("#" + lastSeatSelected).addClass('available');
             numSelected -= 1;
-            // remove nextTicket from list
-            var list_removeID = nextTicket - 1;
-            // console.log('this: ' + list_removeID);
-            $("#ticket-" + list_removeID).remove();
-            // decement nextTicket
-            nextTicket -= 1;
+            $("#ticket-" + lastSeatSelected).remove();
         }
         else
         {
