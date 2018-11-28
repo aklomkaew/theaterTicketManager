@@ -18,9 +18,214 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 #@permission_required('tickets.can_change')
 #@user_passes_test(can_create_tickets)
 
-
+"""Called to populate the card display on the Home Page for every Show"""
 def index(request) :
-    return render(request, 'webapp/home.html')
+
+    # Build a list of the Theaters from the database
+    theaters = []
+
+    for each in models.Theater.objects.all():
+        theaters.append(str(each))
+
+
+
+    # Build a list of dictionaries containing details of each show
+    showDetails = []
+
+    #Used to sort shows by their start dates
+    startDates = []
+
+    # Get the set of shows
+    shows = models.Show.objects.all()
+
+    # Filter for shows that have performances that are on the specified day
+    for show in shows:
+
+
+        times = []
+        theaterName = ""
+
+        for performance in show.performances.all():
+            times.append(performance.time)
+
+            #It should be the same for all performances
+            theaterName = str(performance.theater.all()[0].name)
+
+        #Build a sorted list of showtimes
+        times.sort()
+
+        #Keep track of this show's start date as a datetime object for sorting later
+        startDates.append(times[0])
+
+        showtimes = []
+
+        # Iterate through the performances in this show
+        for time in times:
+
+            #Determine the month
+            month = getMonthStr(time.month)
+
+            #Determine the day in the month
+            day = time.day
+
+            #Create the date string
+            showtime = month + ", " + str(day)
+
+            showtimes.append(showtime)
+
+        # showtimes is all of the showtimes for the show
+
+
+        # Build a response dictionary to send back
+        dict = {'name': str(show.name),
+                'img': str(show.img),
+                'runtime': str(show.runtime),
+                'genre': str(show.genre),
+                'summary': str(show.summary),
+                'season': str(show.get_season()),
+                'theater': theaterName,
+                'first_day': showtimes[0],
+                'last_day': showtimes[(len(showtimes) - 1)],
+                }
+
+
+        # Add this response dictionary to the list of responses
+        showDetails.append(dict)
+
+    #Sort startDates
+    startDates.sort()
+
+    #Use to store the sorted dicts
+    sortedShowDetails = []
+
+    #Go through the dates in the sorted order and get the corresponding dict
+    for date in startDates:
+
+        # Determine the month
+        month = getMonthStr(date.month)
+
+        # Determine the day in the month
+        day = date.day
+
+        # Create the date string
+        showtime = month + ", " + str(day)
+
+        #Look for the correct dict
+        for dict in showDetails:
+
+            #Check that the current show is not already in our sorted list
+            #This compensates for the possibilities that multiple shows could have the same start date
+            if dict not in sortedShowDetails and dict['first_day'] == showtime:
+                sortedShowDetails.append(dict)
+
+    context = {'performances':sortedShowDetails}
+    return render(request, 'webapp/home.html', context)
+
+
+def getMonthStr(month_num):
+    if month_num == 1:
+        return "January"
+    elif month_num == 2:
+        return "February"
+    elif month_num == 3:
+        return "March"
+    elif month_num == 4:
+        return "April"
+    elif month_num == 5:
+        return "May"
+    elif month_num == 6:
+        return "June"
+    elif month_num == 7:
+        return "July"
+    elif month_num == 8:
+        return "August"
+    elif month_num == 9:
+        return "September"
+    elif month_num == 10:
+        return "October"
+    elif month_num == 11:
+        return "November"
+    elif month_num == 12:
+        return "December"
+
+
+"""Called when the user selects a Show on the Home page. Constructs a list."""
+def getShowtimes(request, showName):
+
+    show = models.Show.objects.get(name=showName)
+
+    context = {}
+    context['show'] = showName
+    showtimes = []
+
+    times = []
+
+    #Build a list of times
+    for performance in show.performances.all():
+        times.append(performance.time)
+
+    # Build a sorted list of showtimes
+    times.sort()
+
+    performances = []
+
+    # Build a sorted list of performances for this show
+    for time in times:
+
+        #Get the related performances
+        related = models.Performance.objects.filter(time=time)
+
+        #It is (theoretically) possible to get multiple performances, so handle that
+        if len(related) > 1:
+            for performance in related:
+                performances.append(performance)
+        elif len(related) == 1:
+            performances.append(related[0])
+
+
+    for i, performance in enumerate(performances):
+
+        hour = performance.time.hour
+        minute = performance.time.minute
+
+        theaterName = performance.theater.all()[0].name
+
+        # Use hardcoded values to interpret which part of the website to call
+        if theaterName == "Concert Hall":
+            theaterName = 'concertHall'
+        elif theaterName == "Playhouse Theater":
+            theaterName = 'playhouse'
+
+
+        showtime = {
+        'theater': theaterName,
+        'year': performance.time.year,
+        'day': performance.time.day,
+        'month': performance.time.month,
+        'month_str' : getMonthStr(performance.time.month),
+        'hour': hour,
+        'minute': minute,
+        }
+
+        if hour <= 12:
+            hour_str = str(hour)
+            am_pm_string = "AM"
+        else:
+            hour_str = str(hour - 12)
+            am_pm_string = "PM"
+
+        minute_str = str(minute)
+
+        if int(minute) < 10:
+            minute_str = '0' + minute_str
+
+        showtime['time_str'] = hour_str + ':' + minute_str + ' ' + am_pm_string
+
+        showtimes.append(showtime)
+
+
+    context['showtimes'] = showtimes
+    return render(request, 'webapp/showtimes.html', context)
 
 """Called when the user clicks 'View Shows' on the Performances page.
     Gets the set of shows and performances subject to the filters provided by the user.

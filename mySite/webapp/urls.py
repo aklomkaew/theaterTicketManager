@@ -7,6 +7,7 @@ urlpatterns = [
     path('performance/', views.performance, name='performance'),
     path('getPerformances/', views.getPerformances, name='getPerformances'),
     path('getPerformances/<str:theater>/<str:month>/<str:day>/<str:year>', views.getPerformances, name='getPerformancesARGS'),
+    path('getShowtimes/<str:showName>/', views.getShowtimes, name='getShowtimes'),
     path('contact/', views.contact, name='contact'),
     path('buySeasonTickets/', views.buySeasonTicket, name='buySeasonTickets'),
     path('admin/', views.admin, name='admin'),

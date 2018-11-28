@@ -67,6 +67,23 @@ def getPerformancesByLocationAndDate(season, theater, year, month, day):
         'performances': showDetails
     }
 
+def getSortedPerformancesInShow(show):
+
+    show = models.Show.objects.get(name=show)
+
+    times = []
+
+    for performance in show.performances.all():
+
+        times.append(performance.time)
+
+    times.sort()
+
+    print("MAGIC:")
+
+    print(times)
+
+    return times
 
 """Returns a list of performances in a specific season"""
 def getPerformancesInSeason(season):

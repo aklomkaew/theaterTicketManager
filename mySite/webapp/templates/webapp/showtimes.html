@@ -1,0 +1,4 @@
+<h2 id="showtimes-h2">{{ show }} Showtimes</h2>
+{% for showtime in showtimes %}
+  <a href="/seatSelection/{{ show }}/{{ showtime.theater }}/{{ showtime.year }}/{{ showtime.month }}/{{ showtime.day }}/{{ showtime.hour }}/{{ showtime.minute }}/" class="list-group-item">{{ showtime.month_str }} {{ showtime.day }} - {{ showtime.time_str }}</a>
+{% endfor %}
