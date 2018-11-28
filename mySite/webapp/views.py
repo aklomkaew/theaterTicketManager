@@ -18,10 +18,8 @@ from django.contrib.auth.decorators import login_required, permission_required, 
 #@permission_required('tickets.can_change')
 #@user_passes_test(can_create_tickets)
 
-
+"""Called to populate the card display on the Home Page for every Show"""
 def index(request) :
-
-    # TODO: Bascially the same as performance page
 
     # Build a list of the Theaters from the database
     theaters = []
@@ -29,8 +27,13 @@ def index(request) :
     for each in models.Theater.objects.all():
         theaters.append(str(each))
 
+
+
     # Build a list of dictionaries containing details of each show
     showDetails = []
+
+    #Used to sort shows by their start dates
+    startDates = []
 
     # Get the set of shows
     shows = models.Show.objects.all()
@@ -51,6 +54,9 @@ def index(request) :
         #Build a sorted list of showtimes
         times.sort()
 
+        #Keep track of this show's start date as a datetime object for sorting later
+        startDates.append(times[0])
+
         showtimes = []
 
         # Iterate through the performances in this show
@@ -69,6 +75,7 @@ def index(request) :
 
         # showtimes is all of the showtimes for the show
 
+
         # Build a response dictionary to send back
         dict = {'name': str(show.name),
                 'img': str(show.img),
@@ -81,10 +88,37 @@ def index(request) :
                 'last_day': showtimes[(len(showtimes) - 1)],
                 }
 
+
         # Add this response dictionary to the list of responses
         showDetails.append(dict)
 
-    context = {'performances':showDetails}
+    #Sort startDates
+    startDates.sort()
+
+    #Use to store the sorted dicts
+    sortedShowDetails = []
+
+    #Go through the dates in the sorted order and get the corresponding dict
+    for date in startDates:
+
+        # Determine the month
+        month = getMonthStr(date.month)
+
+        # Determine the day in the month
+        day = date.day
+
+        # Create the date string
+        showtime = month + ", " + str(day)
+
+        #Look for the correct dict
+        for dict in showDetails:
+
+            #Check that the current show is not already in our sorted list
+            #This compensates for the possibilities that multiple shows could have the same start date
+            if dict not in sortedShowDetails and dict['first_day'] == showtime:
+                sortedShowDetails.append(dict)
+
+    context = {'performances':sortedShowDetails}
     return render(request, 'webapp/home.html', context)
 
 
@@ -124,9 +158,32 @@ def getShowtimes(request, showName):
     context['show'] = showName
     showtimes = []
 
+    times = []
+
+    #Build a list of times
     for performance in show.performances.all():
+        times.append(performance.time)
+
+    # Build a sorted list of showtimes
+    times.sort()
+
+    performances = []
+
+    # Build a sorted list of performances for this show
+    for time in times:
+
+        #Get the related performances
+        related = models.Performance.objects.filter(time=time)
+
+        #It is (theoretically) possible to get multiple performances, so handle that
+        if len(related) > 1:
+            for performance in related:
+                performances.append(performance)
+        elif len(related) == 1:
+            performances.append(related[0])
 
 
+    for i, performance in enumerate(performances):
 
         hour = performance.time.hour
         minute = performance.time.minute
